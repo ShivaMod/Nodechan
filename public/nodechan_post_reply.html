@@ -1,0 +1,38 @@
+<div class="post reply">
+	<!-- op post should be different, as per convention, with class "post op" -->
+	<p class="intro">
+		<a id="{{post._id}}" class="post_anchor"></a>
+		<input type="checkbox" class="delete" name="delete_{{post._id}}" id="delete_{{post._id}}">
+		<label for="delete_{{post._id}}">
+			<a class="email" href="mailto:{{post.email}}">
+				<span class="name">{{post.name}}</span>
+			</a>
+			&nbsp;
+			<time datetime="{{post.date}}" data-local="true">{{post.date}}</time>
+		</label>
+		&nbsp;
+		<a class="post_no" id="post_no_{{post._id}}" href="/{{board._id}}/res/{{thread._id}}.html#{{post._id}}">
+		<!--
+		add to the above
+		onclick="highlightReply({{post._id}})"
+		-->
+			No.
+		</a>
+		<a class="post_no" href="/{{board._id}}/res/{{thread._id}}.html#q{{post._id}}">{{post._id}}</a>
+		<!-- 
+		later, can add
+		onclick="citeReply({{post._id}})" 
+		to the above
+
+		<span class="mentioned unimportant"><a class="mentioned-50397" onclick="highlightReply('50397');" href="#50397">&gt;&gt;50397</a><a class="mentioned-50424" onclick="highlightReply('50424');" href="#50424">&gt;&gt;50424</a></span>
+		-->
+	</p>
+	<!--
+	-->
+	<div class="files" ng-if="post.files != []">
+		<nodechan-file ng-repeat="file in post.files"></nodechan-file>
+	</div>
+	<p class="body">{{post.body}}</p>
+	<div class="post_modified"></div>
+</div>
+<br>

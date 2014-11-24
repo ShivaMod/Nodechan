@@ -1,0 +1,90 @@
+{
+	"mythread":{
+		"op":{
+			"author": "95.95.95.95",
+			"date": "2014-10-12T13:25:43.511Z",
+			"name": "Jimmy",
+			"email": "sage",
+			"files": [{"link":"https://derpicdn.net/img/2014/11/21/768703/large.jpeg","nodehidden":false}],
+			"_id": 3,
+			"subject":"I'm still first!",
+			"body": "First!"
+		},
+		"posts":{
+			"a2":{
+				"author": "95.95.95.96",
+				"date": "2014-10-12T16:25:43.511Z",
+				"name": "Slimmy",
+				"email": "sage",
+				"files": [{"link":"https://derpicdn.net/img/2014/11/22/769184/large.png","nodehidden":false}],
+				"_id": 4,
+				"subject":"There's always one...",
+				"body": "Whoever you are, I hate you"
+			},
+			"a3":{
+				"author": "95.95.95.95",
+				"date": "2014-10-12T18:25:43.511Z",
+				"name:": "Jimmy",
+				"email": "sage",
+				"files": [],
+				"_id": 5,
+				"subject":"",
+				"body": "You're taking all the fun out of here :["
+			},
+			"a4":{
+				"author": "95.95.95.96",
+				"date": "2014-10-12T16:25:43.511Z",
+				"name": "huey",
+				"email": "sage",
+				"files": [],
+				"_id": 6,
+				"subject":"",
+				"body": "Man you guys are nuts"
+			},
+			"a5":{
+				"author": "95.95.95.95",
+				"date": "2014-10-12T18:25:43.511Z",
+				"name": "Jimmy",
+				"email": "sage",
+				"files": [{"link":"http://upload.wikimedia.org/wikipedia/commons/b/bb/Pickle.jpg","nodehidden":false}],
+				"_id": 7,
+				"subject":"",
+				"body": "No we're pickles"
+			}
+		}
+	},
+	"yourthread":{
+		"op":{
+			"author": "95.95.95.95",
+			"date": "2014-10-12T13:25:43.511Z",
+			"name": "Jimmy",
+			"email": "sage",
+			"files": [{"link":"https://derpicdn.net/img/2014/11/21/768703/large.jpeg","nodehidden":false}],
+			"_id": 0,
+			"subject":"I am the first!",
+			"body": "First!"
+		},
+		"posts":{
+			"a2":{
+				"author": "95.95.95.96",
+				"date": "2014-10-12T16:25:43.511Z",
+				"name": "Slimmy",
+				"email": "sage",
+				"files": [{"link":"https://derpicdn.net/img/2014/11/22/769184/large.png","nodehidden":false}],
+				"_id": 1,
+				"subject":"",
+				"body": "Whoever you are, I hate you"
+			},
+			"a3":{
+				"author": "95.95.95.95",
+				"date": "2014-10-12T18:25:43.511Z",
+				"name": "Jimmy",
+				"email": "sage",
+				"files": [{"link":"https://derpicdn.net/img/2014/11/21/769100/large.jpeg","nodehidden":false}],
+				"_id": 2,
+				"subject":"",
+				"body": "Aw come on, don't be like that, you're just jealous"
+			}
+		}
+	}
+}

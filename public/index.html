@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html ng-app="ng_nodechan">
+	<head>
+		<meta charset="UTF-8">
+		<link rel="stylesheet" href="/style.css"></link>
+		<script type="text/javascript" src="/angular.min.js"></script>
+		<script type="text/javascript" src="/ng_nodechan.js"></script>
+	</head>
+	<!-- -->
+	<body ng-controller="ChanController as channel" ngclass="desktop-style" ng-init="$scope.archived=(channel.live_host != channel.page_host)">
+		
+		<div ng-controller="BoardController as board" ng-init="$scope.viewmode= (channel.page_jquery == {} ? 'board' : (channel.page_jquery.t=='catalog' ? 'catalog' : 'board'))">
+			<nodechan-header></nodechan-header>
+
+			<form name="postcontrols" action="/post" method="post">
+				<input type="hidden" name="board" value="{{board._id}}">
+
+				<full-thread ng-repeat="thread in board.threads"></full-thread>
+
+				<mod-footer></mod-footer>
+			</form>
+		</div>
+	</body>
+</html>

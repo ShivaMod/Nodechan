@@ -1,0 +1,30 @@
+
+<div class="files" ng-if="thread.op.files.length >= 0">
+	<nodechan-file ng-repeat="file in thread.op.files"></nodechan-file>
+</div>
+
+<div class="post op" id="op_{{thread.op._id}}">
+	<p class="intro">
+		<input type="checkbox" class="delete" name="delete_{{thread.op._id}}" id="delete_{{thread.op._id}}">
+		<label for="delete_{{thread.op._id}}">
+		<span class="subject">{{thread.op.subject}}</span>
+		<span class="name">{{thread.op.name}}</span>
+		&nbsp;
+		<time datetime="{{thread.op.date}}" data-local="true">{{thread.op.date}}</time>
+		</label>
+		&nbsp;
+		<a class="post_no" id="post_no_{{thread.op._id}}" href="#{{thread.op._id}}">No.</a>
+		<!-- add to the above tag: onclick="highlightReply({{thread.op._id}})" -->
+		<a class="post_no" href="#q{{thread.op._id}}">{{thread.op._id}}</a>
+		<!--
+		add to the above tag: onclick="citeReply({{thread.op._id}})"
+		-->
+	</p>
+
+
+	<div class="body">
+		{{thread.op.body}}
+	</div>
+	<div class="post_modified">
+	</div>
+</div>

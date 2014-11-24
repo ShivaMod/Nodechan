@@ -1,0 +1,25 @@
+
+<div class="file">
+	<p class="fileinfo">
+	<span>File <small>(
+		<a class="hide-link" ng-click="file.nodehidden = !file.nodehidden">{{file.nodehidden ? "show" : "hide"}}</a>)</small>:
+		<a ng-href="{{file.link}}">todo: filenname</a>
+		</span>
+	</span>
+	<!-- 
+		TODO:dtad: when I allow uploading images directly to the channel, probably never
+
+		<a ng-href="{{file.link}}">todo: filenname</a>
+		<span class="unimportant">(TODO: filesize, todo: dimensions, 20:11, <a download="the_jews_did_this.gif" ng-href="{{file.link}}" title="Save as original filename">todo: original filename</a>)
+
+		<a ng-href="{{file.link}}">1416603908353.gif</a>
+		<span class="unimportant">(609.17 KB, 500x275, 20:11, <a download="the_jews_did_this.gif" href="https://media.8chan.co/{{board._id}}/src/1416603908353.gif" title="Save as original filename">the_jews_did_this.gif</a>)
+	-->
+	</p>
+	<a href="{{file.link}}" target="_blank">
+		<img ng-src="{{file.link}}" class="post-image" ng-hide="file.nodehidden"></img>
+		<!--
+		
+		-->
+	</a>
+</div>

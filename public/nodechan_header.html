@@ -1,0 +1,37 @@
+
+<!--  Chan Header  -->
+<header>
+	<h1 class="text-center">Thus begins Danchan</h1>	
+	<h1 ng-click="channel.set_hash('jquer')">Hello!</h1>
+	<button ng-click="channel.set_hash('favorite-star')" ng-init="count=0">
+	hash test
+	</button>
+	<p>{{channel.page_location}}</p>
+	<p>{{channel.live_host}}</p>
+	<p>{{channel.page_host}}</p>
+	<p id="jquer">{{channel.page_jquery}}</p>
+	<p>{{channel.page_hash}}</p>
+	<p>{{$scope.viewmode}}</p>
+</header>
+
+<!-- -->
+<header>
+	<h1>/{{board._id}}/ - {{board.name}}
+		<a id="favorite-star" href="#" data-active="false" ng-hide="$scope.archived">★</a>
+	</h1>
+	<div class="subtitle">
+		<p><a href="/catalog" ng-hide="$scope.archived">Catalog</a></p>
+	</div>
+</header>
+<!-- -->
+
+<iframe width="100%" height="100" scrolling="yes" frameborder="no" src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/171574021&amp;auto_play=false&amp;hide_related=false&amp;show_comments=false&amp;show_user=true&amp;show_reposts=false&amp;visual=true"></iframe>
+
+<div id="expand-all-images" style="text-align:right"><a class="unimportant" href="javascript:void(0)">Expand all images</a></div>
+<div id="treeview" style="text-align:right">
+	<a class="unimportant" href="javascript:void(0)">Tree view</a>
+</div>
+
+<hr>
+	<div class="blotter">This is a special server announcement... or would be, if there were an announcement to make.</div>
+<hr>

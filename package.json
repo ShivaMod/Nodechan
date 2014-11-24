@@ -1,0 +1,29 @@
+
+{
+  "name": "nodechan",
+  "version": "0.1.0",
+  "description": "An imageboard channel that DOESN'T use php or ruby!",
+  "license": "GPL3+",
+  "main": "nodechan.js",
+  "scripts": {
+    "prestart": "npm install",
+    "start": "node nodechan.js"
+  },
+  "dependencies": {
+    "express": "~4.9.x",
+    "mongoose": "~3.8.19",
+    "express-session": "~1.9.1"
+  },
+  "engines": {
+    "node": "0.10.x"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git@heroku.com:danchan.git"
+  },
+  "keywords": [
+    "node",
+    "heroku",
+    "express"
+  ]
+}
