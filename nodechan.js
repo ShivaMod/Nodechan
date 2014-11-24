@@ -1,3 +1,4 @@
+//var request = require('request');
 var express = require('express');
 //var socket = require('socket.io');
 var mongoose = require('mongoose');
@@ -8,17 +9,30 @@ var db = mongoose.connection;
 app.set('port', (process.env.PORT || 5000))
 app.use(express.static(__dirname + '/public'))
 
+
+
+// board stuff
 var boards=["v","pone", "boatdev"]
+var board_handler = require('./routes/api.js');
 
-
-// Controllers
-//var people = require('./routes/boards');
-/*
 for (var i = boards.length - 1; i >= 0; i--) {
-	app.get(boards[i]+'.localhost:5000/', function (req, res) {
-		res.send('Hello World!');
-	})
+	//app.get(boards[i]+'./', board_handler.index)
+	console.log(boards[i])
 };
+
+var bodyParser = require('body-parser')
+app.use( bodyParser.json() );       // to support JSON-encoded bodies
+app.use(bodyParser.urlencoded({     // to support URL-encoded bodies
+  extended: true
+}));
+
+app.get('/json/threadlist.json', board_handler.threadlist)
+app.get('/json/thread.:id?', board_handler.thread)
+app.get('/json/posts.:id?', board_handler.posts)
+
+app.post('/json/post_op', board_handler.post_op)
+app.post('/json/post_reply', board_handler.post_reply)
+/*
 */
 
 //app.get('/people.:format?', tokenAuth, people.index);
@@ -65,20 +79,7 @@ mongoose.connect(mongo_path, function (err, res) {
 	}
 });
 
-var schema_thread_post = new mongoose.Schema({
-	author: String,					// Poster IP
-	date: { type: Date, default: Date.now },	// Post Date
-	files: Array,					// Post Image
-	id: Number,					// Post ID
-	body: String					// Post body
-});
-var model_thread_post = mongoose.model('Post', schema_thread_post);
 
-var schema_thread_op = new mongoose.Schema({
-	author: String,					// Poster IP
-	date: { type: Date, default: Date.now },	// Post Date
-	img: String,					// Post Image
-	id: Number,					// Post ID
-	body: String					// Post body
-});
-var model_thread_op = mongoose.model('ThreadOP', schema_thread_post);
+var Model_post = require('./models/thread_reply.js');
+
+var Model_thread_op = require('./models/thread_op.js');

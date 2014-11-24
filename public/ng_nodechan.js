@@ -3,33 +3,60 @@
 
 
 
-	app.controller('ChanController', ["$location", function($location){
+	app.controller('ChanController', ["$location", "$scope", function($location, $scope){
 
-		this.live_host="chan.tadeuszow.com";
-		this.page_location=$location.absUrl();
-		this.page_host = $location.host();
-		this.page_jquery = $location.search();
-		this.page_hash = $location.hash();
-		this.threads = [];
-		this.test="Billy!";
-
-		this.set_hash = function(new_hash){
-			$location.hash(new_hash);
-		}
+		$scope.live_host="chan.tadeuszow.com";
+		$scope.page_location=$location.absUrl();
+		$scope.page_host = $location.host();
+		$scope.page_jquery = $location.search();
+		$scope.page_hash = $location.hash();
+		$scope.archived=($scope.live_host != $scope.page_host);
 	}]);
-	app.controller('BoardController', ["$http", function($http){
+	app.controller('BoardController', ["$http", "$scope", function($http, $scope){
 
 		this.threads = [];
-		myboard=this;
+		var myboard=this;
+		//$http.get('/json/threadlist.json').
 		$http.get('/xboard.json').
 		success(function(data){
 			//console.log(data);
 			myboard.threads=data;
+			console.log("data received");
+			//console.log(data);
 		});
-		/*
-		*/
-		this._id="pone";
-		this.name="My Diminutive Equine";
+		this._id="tech";
+		this.name="The Technology Board";
+
+		//$scope.	=$scope.archived ? "" : (this._id+'.'+$scope.live_host+'/#/');
+		$scope.curpath=$scope.archived ? $scope.page_host : (this._id+'.'+$scope.live_host+'/#/');
+		//$scope.viewmode='board';
+		$scope.viewmode= (($scope.page_jquery.t == undefined) ? 'board' : ($scope.page_jquery.t=='catalog' ? 'catalog' : 'thread'));
+		$scope.sub_result={};
+
+		$scope.set_hash = function(new_hash){
+			$location.hash(new_hash);
+		}
+		$scope.submitData = function (op_form, resultVarName)
+		{
+			var config = {
+				params: {
+					name: op_form.name,
+					subject: op_form.subject,
+					person: op_form.name,
+					person: op_form.name,
+				}
+			};
+
+			$http.post("/json/post_op", null, config)
+			.success(function (data, status, headers, config)
+			{
+				$scope[resultVarName] = data;
+			})
+			.error(function (data, status, headers, config)
+			{
+				$scope[resultVarName] = "SUBMIT ERROR";
+			});
+		};
 	}]);
 	app.directive("nodechanHeader", function() {
 		return {
@@ -41,7 +68,7 @@
 		};
 
 	});
-	app.directive('fullThread', function(){
+	app.directive('fullThread', ["$http", function(){
 		return_object={
 			restrict: 'E',
 			templateUrl: "nodechan_thread.html",
@@ -55,7 +82,7 @@
 		};
 		return return_object;
 		//Need a function for getting newer posts, posts in the thread since the last post, then appended to this.posts
-	});
+	}]);
 	/*
 		$http.get('http://localhost:5000/examplethread.json').then(function(res){
 			this.posts = res.data.posts;
@@ -95,7 +122,7 @@
 	app.directive("replyForm", function() {
 		return {
 			restrict: 'E',
-			templateUrl: "reply_form.html",
+			templateUrl: "nodechan_reply_form.html",
 			controller:function(){
 
 			}
@@ -104,7 +131,7 @@
 	app.directive("modFooter", function() {
 		return {
 			restrict: 'E',
-			templateUrl: "mod_footer.html",
+			templateUrl: "nodechan_footer.html",
 			controller:function(){
 
 			}

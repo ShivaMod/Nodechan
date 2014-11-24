@@ -7,17 +7,34 @@
 		<script type="text/javascript" src="/ng_nodechan.js"></script>
 	</head>
 	<!-- -->
-	<body ng-controller="ChanController as channel" ngclass="desktop-style" ng-init="$scope.archived=(channel.live_host != channel.page_host)">
+	<body ng-controller="ChanController as channel" ngclass="desktop-style">
 		
-		<div ng-controller="BoardController as board" ng-init="$scope.viewmode= (channel.page_jquery == {} ? 'board' : (channel.page_jquery.t=='catalog' ? 'catalog' : 'board'))">
+		<div ng-controller="BoardController as board">
+			<!--
+			ng-init="viewmode= (channel.page_jquery == {} ? 'board' : (channel.page_jquery.t=='catalog' ? 'catalog' : 'board'))"
+			-->
 			<nodechan-header></nodechan-header>
+
+			<reply-form ng-hide="viewmode=='thread'"></reply-form>
+
+			<p>archived is {{archived}}, viewmode is {{viewmode}}, curpath is {{curpath}}</p>
+			<div ng-hide="page_jquery.d!='true'">
+				<p>{{page_location}}</p>
+				<p>{{live_host}}</p>
+				<p>{{page_host}}</p>
+				<p id="jquer">{{page_jquery}}</p>
+				<p>{{page_hash}}</p>
+				<p>{{viewmode}}</p>
+			</div>
 
 			<form name="postcontrols" action="/post" method="post">
 				<input type="hidden" name="board" value="{{board._id}}">
 
 				<full-thread ng-repeat="thread in board.threads"></full-thread>
 
+			<!--
 				<mod-footer></mod-footer>
+			-->
 			</form>
 		</div>
 	</body>

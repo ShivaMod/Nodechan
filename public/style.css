@@ -12,9 +12,13 @@ body {
   display:none;
 }
 
+a{
+  color: #8484aC;
+}
+
 a,a:visited {
   text-decoration: underline;
-  color: #8484aC;
+  color: #CC9933;
 }
 
 a:hover,p.intro a.post_no:hover {

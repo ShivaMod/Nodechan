@@ -1,4 +1,3 @@
-
 {
   "name": "nodechan",
   "version": "0.1.0",
@@ -10,9 +9,12 @@
     "start": "node nodechan.js"
   },
   "dependencies": {
+    "body-parser": "^1.9.3",
     "express": "~4.9.x",
+    "express-session": "~1.9.1",
+    "json-middleware": "^1.0.2",
     "mongoose": "~3.8.19",
-    "express-session": "~1.9.1"
+    "urlencode": "^0.2.0"
   },
   "engines": {
     "node": "0.10.x"

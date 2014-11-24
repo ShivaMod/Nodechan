@@ -1,6 +1,6 @@
 
 <!-- Viewmode if we're browsing a single thread -->
-<div class="thread" ng-if="$scope.viewmode=='thread'">
+<div class="thread" ng-if="viewmode=='thread'">
 	<!-- TODO::^Riskyyyyyy -->
 	<a id="{{thread._id}}" class="post_anchor"></a>
 	<post-op></post-op>
@@ -12,7 +12,7 @@
 
 
 <!-- Viewmode if we're browsing the whole board regularly -->
-<div class="thread" ng-if="$scope.viewmode=='board'" id="thread_{{thread.id}}" data-board="{{board.id}}">
+<div class="thread" ng-if="viewmode=='board'" id="thread_{{thread.id}}" data-board="{{board.id}}">
 	<!-- TODO::^Riskyyyyyy -->
 	<a class="hide-link" ng-click="thread.nodehidden = !thread.nodehidden">[{{thread.nodehidden ? "+" : "-"}}]</a>
 	<div ng-hide="thread.nodehidden">
@@ -22,11 +22,11 @@
 		<post-reply ng-repeat="post in thread.posts"></post-reply>
 	</div>
 </div>
-<hr ng-if="$scope.viewmode=='board'">
+<hr ng-if="viewmode=='board'">
 
 
 <!-- Viewmode if we're browsing the board catalog -->
-<div class="mix theme-catalog" ng-if="$scope.viewmode=='catalog'" data-reply="{{thread.op.replies}}" data-bump="1416788920" data-time="1414297858">
+<div class="mix theme-catalog" ng-if="viewmode=='catalog'" data-reply="{{thread.op.replies}}" data-bump="1416788920" data-time="1414297858">
 	<div class="thread grid-li grid-size-small">
 		<a href="thread.html?t={{thread.op._id}}">
 			<img src="{{thread.op.files[0].link}}" data-subject="{{thread.subject}}" data-name="{{thread.op.name}}" data-muhdifference="" data-last-reply="" data-last-subject="" data-last-name="" data-last-difference="" class="{{board._id}} thread-image" title="{{thread.op.date}}">
