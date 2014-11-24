@@ -27,8 +27,8 @@
 		this._id="tech";
 		this.name="The Technology Board";
 
-		//$scope.	=$scope.archived ? "" : (this._id+'.'+$scope.live_host+'/#/');
-		$scope.curpath=$scope.archived ? $scope.page_host : (this._id+'.'+$scope.live_host+'/#/');
+		//$scope.curpath=$scope.archived ? $scope.page_host : (this._id+'.'+$scope.live_host+'/#/');
+		$scope.curpath=$scope.archived ? $scope.page_host : ($scope.live_host+'/#/');
 		//$scope.viewmode='board';
 		$scope.viewmode= (($scope.page_jquery.t == undefined) ? 'board' : ($scope.page_jquery.t=='catalog' ? 'catalog' : 'thread'));
 		$scope.sub_result={};
