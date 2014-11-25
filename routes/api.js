@@ -98,7 +98,7 @@ exports.thread = function(req, res, next) {
 			console.log(db_thread);
 			var new_board=[]
 			
-			var query = Model_post.find({ thread_id: curthread_id }).sort({date: 'desc'}).exec(function(err_inner, db_posts){
+			var query = Model_post.find({ thread_id: curthread_id }).sort({date: 'ascending'}).exec(function(err_inner, db_posts){
 				if (err) {
 					console.error(err);
 					done(req, res, err_inner);
@@ -125,7 +125,7 @@ exports.preview = function(req, res, next) {
 	console.log("request is:", req.params.thread_id);
 	var curthread_id=req.params.thread_id;
 
-	var query = Model_post.find({ thread_id: curthread_id }).populate({ path:'_id thread_id date author name files subject body', options: { limit: 5 } }).sort({date: 'desc'}).exec(function(err_inner, db_posts){
+	var query = Model_post.find({ thread_id: curthread_id }).populate({ path:'_id thread_id date author name files subject body', options: { limit: 5 } }).sort({date: 'ascending'}).exec(function(err_inner, db_posts){
 		if (err_inner) {
 			console.error(err_inner);
 			done(req, res, err_inner);
@@ -216,13 +216,15 @@ exports.post_reply = function(req, res, next) {
 
 	//return;
 
+	var new_files = (req.query.files == [""]) ? [] : req.query.files;
+	//TODO: fix multifile upload
 	var instance_post = new Model_post({
 		thread_id: req.query.thread_id,			// Board posted on
 		date: new Date(),				// Post Date
 
 		author: req.ip,					// Author's IP TODO::consider checking against proxies
 		name: req.query.name,				// Poster Name
-		files: req.query.files,				// Post Media
+		files: new_files,				// Post Media
 
 		subject: req.query.subject,			// Poster IP
 		body: req.query.body				// Post body

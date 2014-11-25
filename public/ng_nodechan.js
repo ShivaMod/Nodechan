@@ -74,7 +74,7 @@
 					myboard.threads=data;
 					console.log("data received");
 					console.log(data);
-					
+
 					for(var i=0; i<myboard.threads.length; i++){
 
 						var url='/json/posts.'+myboard.threads[i].op._id+'.preview';

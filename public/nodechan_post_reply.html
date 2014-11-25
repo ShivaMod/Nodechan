@@ -11,7 +11,7 @@
 			<time datetime="{{post.date}}" data-local="true">{{post.date}}</time>
 		</label>
 		&nbsp;
-		<a class="post_no" id="post_no_{{post._id}}" ng-href="/#{{post._id}}/index.html?t={{thread._id}}" ng-click="activate_new_path('/# + post._id + '/index.html?t=' + thread._id)">
+		<a class="post_no" id="post_no_{{post._id}}" ng-href="'/#'+{{post._id}}+'/index.html?t='+{{thread._id}}" ng-click="activate_new_path('/#' + post._id + '/index.html?t=' + thread._id)">
 		<!--
 		add to the above
 		onclick="highlightReply({{post._id}})"
@@ -30,7 +30,7 @@
 	</p>
 	<!--
 	-->
-	<div class="files" ng-if="post.files != []">
+	<div class="files" ng-if="post.files.length > 0">
 		<nodechan-file ng-repeat="file in post.files"></nodechan-file>
 	</div>
 	<p class="body">{{post.body}}</p>

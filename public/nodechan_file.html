@@ -1,5 +1,9 @@
 
-<div class="file" ng-class="((thread.op.files.length>1) ? 'multifile' : '')">
+<div class="file" ng-if="file != ''">
+	<!--
+	Someday, add multifile support:
+	ng-class="(op_post ? ((thread.op.files.length>1) ? 'multifile' : '') : ((files.length>1) ? 'multifile' : '') )"
+	-->
 	<p class="fileinfo">
 	<span ng-init="thisfile={'nodehidden':false, 'class':'post-image'}">File <small>(
 		<a class="hide-link" ng-click="thisfile.nodehidden = !thisfile.nodehidden">{{thisfile.nodehidden ? "show" : "hide"}}</a>)</small>:
