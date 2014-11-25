@@ -72,12 +72,12 @@ exports.threadlist = function(req, res, next) {
 						done(req, res, err_inner);
 					}
 					if (db_posts[0]== undefined) db_posts=[];
-					var temp_thread = {"op":db_threads[i],"posts": []};
+					var temp_thread = {"op":db_threads[i],"posts": db_posts};
 					new_board.push(temp_thread);
 					console.log(new_board);
-					done(req, res, new_board);
 				});
 			}
+			done(req, res, new_board);
 		}
 	});
 }
