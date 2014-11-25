@@ -27,8 +27,9 @@ app.use(bodyParser.urlencoded({     // to support URL-encoded bodies
 }));
 
 app.get('/json/threadlist.json', board_handler.threadlist)
-app.get('/json/thread.:id?', board_handler.thread)
-app.get('/json/posts.:id?', board_handler.posts)
+app.get('/json/thread.:thread_id?', board_handler.thread)
+app.get('/json/posts.:thread_id?.preview', board_handler.preview)
+app.get('/json/posts.:thread_id?.posts', board_handler.posts)
 
 app.post('/json/post_op', board_handler.post_op)
 app.post('/json/post_reply', board_handler.post_reply)

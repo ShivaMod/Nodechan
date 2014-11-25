@@ -9,6 +9,7 @@
     "start": "node nodechan.js"
   },
   "dependencies": {
+    "asynch": "^0.5.2",
     "body-parser": "^1.9.3",
     "express": "~4.9.x",
     "express-session": "~1.9.1",

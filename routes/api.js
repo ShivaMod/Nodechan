@@ -1,4 +1,5 @@
 
+//var asynch = require('asynch');
 var mongoose = require('mongoose');
 var autoIncrement = require('mongoose-auto-increment');
 
@@ -13,7 +14,6 @@ db.on('error', console.error);
 db.once('open', function() {
 });
 
-
 /*
 mongoose.connect(mongo_path, function (err, res) {
 	if (err) {
@@ -24,7 +24,6 @@ mongoose.connect(mongo_path, function (err, res) {
 });
 */
 
-
 var connection = mongoose.createConnection(mongo_path);
 autoIncrement.initialize(connection);
 
@@ -34,8 +33,22 @@ Schema_post.plugin(autoIncrement.plugin, 'Post');
 var Model_post = connection.model('Post', Schema_post);
 
 var Schema_thread_op = require('../models/thread_op.js');
-Schema_thread_op.plugin(autoIncrement.plugin, 'Book');
+Schema_thread_op.plugin(autoIncrement.plugin, 'ThreadOP');
 var Model_thread_op = connection.model('ThreadOP', Schema_thread_op);
+
+/*
+connection.db.dropDatabase();
+//Note: ^This didn't work
+
+
+Model_post.remove({}, function(err) { 
+   console.log('collection removed') 
+});
+Model_thread_op.remove({}, function(err) { 
+   console.log('collection removed') 
+});
+*/
+
 	
 var done = function(req, res, doc) {
 	res.format({
@@ -50,12 +63,10 @@ var done = function(req, res, doc) {
 
 
 /**
- * Create a log entry
+ * Nodechan API
  */
 
 exports.threadlist = function(req, res, next) {
-
-	//var thread_id=JSON.stringify(req.body)
 
 	Model_thread_op.find().sort({date: 'desc'}).exec(function (err, db_threads) {
 		if (err) {
@@ -65,18 +76,10 @@ exports.threadlist = function(req, res, next) {
 			//console.log(db_threads);
 			var new_board=[]
 			for (var i=0; i<db_threads.length; i++){
-				var curthread_id = db_threads[i]._id+"";
-				var query = Model_post.find({ thread_id: curthread_id }).sort({date: 'desc'}).exec(function(err_inner, db_posts){
-					if (err) {
-						console.error(err);
-						done(req, res, err_inner);
-					}
-					if (db_posts[0]== undefined) db_posts=[];
-					var temp_thread = {"op":db_threads[i],"posts": db_posts};
-					new_board.push(temp_thread);
-					console.log(new_board);
-				});
+				var temp_thread = {"op":db_threads[i],"posts": []};
+				new_board.push(temp_thread);
 			}
+			console.log(new_board);
 			done(req, res, new_board);
 		}
 	});
@@ -84,8 +87,9 @@ exports.threadlist = function(req, res, next) {
 
 exports.thread = function(req, res, next) {
 
-	console.error("request is:", req.params.id);
-	var curthread_id=req.params.id;
+	console.error("request is:", req.params.thread_id);
+	var curthread_id=req.params.thread_id;
+
 	Model_thread_op.findOne({_id:curthread_id}).exec(function (err, db_thread) {
 		if (err) {
 			console.error(err);
@@ -100,8 +104,7 @@ exports.thread = function(req, res, next) {
 					done(req, res, err_inner);
 					return undefined;
 				}
-				console.log("query result is:", db_posts)
-				if (db_posts[0]== undefined) db_posts=[];
+				console.log("query result is:", db_posts);
 				if (db_posts == undefined){
 
 					var temp_thread = {"op":db_thread,"posts": []};
@@ -109,6 +112,7 @@ exports.thread = function(req, res, next) {
 
 					var temp_thread = {"op":db_thread,"posts": db_posts};
 				}
+				//if (db_posts[0]== undefined) db_posts=[];
 				console.log("new thread is:", temp_thread);
 				done(req, res, temp_thread);
 			});
@@ -116,7 +120,48 @@ exports.thread = function(req, res, next) {
 	});
 }
 
+exports.preview = function(req, res, next) {
+
+	console.log("request is:", req.params.thread_id);
+	var curthread_id=req.params.thread_id;
+
+	var query = Model_post.find({ thread_id: curthread_id }).populate({ path:'_id thread_id date author name files subject body', options: { limit: 5 } }).sort({date: 'desc'}).exec(function(err_inner, db_posts){
+		if (err_inner) {
+			console.error(err_inner);
+			done(req, res, err_inner);
+			return;
+		}
+		if (db_posts == undefined) db_posts=[];
+		//else if (db_posts[0]== undefined) db_posts=[];
+
+		console.log(db_posts);
+		done(req, res, db_posts);
+	});
+	query.onReject(function (reason) {
+		console.log(reason);
+		//done(req, res, []);
+	});
+}
+
 exports.posts = function(req, res, next) {
+
+	console.log("request is:", req.params.thread_id);
+	var curthread_id=req.params.thread_id;
+
+	for (var i=0; i<db_threads.length; i++){
+		var curthread_id = db_threads[i]._id+"";
+		var query = Model_post.find({ thread_id: curthread_id }).sort({date: 'desc'}).exec(function(err_inner, db_posts){
+			//TODO::get posts since 'date', etc, just extend the API some more
+			if (err_inner) {
+				console.error(err_inner);
+				done(req, res, err_inner);
+			}
+			if (db_posts[0]== undefined) db_posts=[];
+			
+			console.log(db_posts);
+			done(req, res, db_posts);
+		});
+	}
 }
 
 exports.post_op = function(req, res, next) {
@@ -200,10 +245,4 @@ exports.post_reply = function(req, res, next) {
 	//TODO:: update thread's last reply date
 	//TODO:: increment thread's total replies
 	//TODO:: update thread's total media links
-	var name = req.body.name,
-		color = req.body.color;
-
-	console.log(JSON.stringify(req.body));
-
-	console.log('req.body.name', req.body['name']);
 }
