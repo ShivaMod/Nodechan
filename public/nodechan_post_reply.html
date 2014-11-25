@@ -11,18 +11,19 @@
 			<time datetime="{{post.date}}" data-local="true">{{post.date}}</time>
 		</label>
 		&nbsp;
-		<a class="post_no" id="post_no_{{post._id}}" href="/{{board._id}}/res/{{thread._id}}.html#{{post._id}}">
+		<a class="post_no" id="post_no_{{post._id}}" href="/#{{post._id}}/index.html?t={{thread._id}}" ng-click="refresh_thread_data('/#{{post._id}}/index.html?t={{thread._id}}')">
 		<!--
 		add to the above
 		onclick="highlightReply({{post._id}})"
 		-->
 			No.
 		</a>
-		<a class="post_no" href="/{{board._id}}/res/{{thread._id}}.html#q{{post._id}}">{{post._id}}</a>
+		<a class="post_no">{{post._id}}</a>
 		<!-- 
 		later, can add
 		onclick="citeReply({{post._id}})" 
-		to the above
+		to the above, also TODO:: fix the quote mechanic
+		href="/{{board._id}}/res/{{thread._id}}.html#q{{post._id}}"
 
 		<span class="mentioned unimportant"><a class="mentioned-50397" onclick="highlightReply('50397');" href="#50397">&gt;&gt;50397</a><a class="mentioned-50424" onclick="highlightReply('50424');" href="#50424">&gt;&gt;50424</a></span>
 		-->

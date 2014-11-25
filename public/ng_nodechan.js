@@ -16,14 +16,7 @@
 
 		this.threads = [];
 		var myboard=this;
-		//$http.get('/xboard.json').
-		$http.get('/json/threadlist.json').
-		success(function(data){
-			//console.log(data);
-			myboard.threads=data;
-			console.log("data received");
-			console.log(data);
-		});
+
 		this._id="tech";
 		this.name="The Technology Board";
 
@@ -32,6 +25,58 @@
 		//$scope.viewmode='board';
 		$scope.viewmode= (($scope.page_jquery.t == undefined) ? 'board' : ($scope.page_jquery.t=='catalog' ? 'catalog' : 'thread'));
 		$scope.sub_result={};
+
+		$scope.refresh_thread_data=function(){
+			
+			console.log($scope.viewmode);
+			if ($scope.viewmode == 'thread'){
+
+				console.log($scope.page_jquery.t);
+				$http.get('/json/thread.'+$scope.page_jquery.t).
+				success(function(data){
+					//console.log(data);
+					myboard.threads=[data];
+					console.log("data received");
+					console.log(data);
+				});
+
+				/*
+				var config = {
+					params: {
+						thread_id: post_form.thread_id,
+						name: post_form.name,
+						subject: post_form.subject,
+						files: post_form.files,
+						body: post_form.body,
+					}
+				};
+
+				console.log(config);
+				$http.post("/json/post_reply", null, config)
+				.success(function (data, status, headers, config)
+				{
+					$scope[resultVarName] = data;
+					$location.path('/#/?t=' + data.thread_id).replace();
+				})
+				.error(function (data, status, headers, config)
+				{
+					$scope[resultVarName] = "SUBMIT ERROR";
+				});
+				*/
+
+			} else{
+
+				$http.get('/json/threadlist.json').
+				success(function(data){
+					//console.log(data);
+					myboard.threads=data;
+					console.log("data received");
+					console.log(data);
+				});
+			}
+		}
+
+		$scope.refresh_thread_data();
 
 		$scope.set_hash = function(new_hash){
 			$location.hash(new_hash);

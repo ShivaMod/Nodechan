@@ -62,25 +62,19 @@ exports.threadlist = function(req, res, next) {
 			console.error(err);
 			done(req, res, err);
 		} else {
-			console.log(db_threads);
+			//console.log(db_threads);
 			var new_board=[]
 			for (var i=0; i<db_threads.length; i++){
 				var curthread_id = db_threads[i]._id+"";
-				console.log("curthread_id is:", curthread_id)
-				//console.log("curt dbthread_id is:", db_threads[i])
-				//var query = Model_post.find({ thread_id: curthread_id }).sort({date: 'desc'}).exec(function(err_inner, db_posts){
-				var query = Model_post.find({ thread_id: curthread_id }).populate("thread_id date author name files subject body").sort({date: 'desc'}).exec(function(err_inner, db_posts){
+				var query = Model_post.find({ thread_id: curthread_id }).sort({date: 'desc'}).exec(function(err_inner, db_posts){
 					if (err) {
 						console.error(err);
 						done(req, res, err_inner);
 					}
-					console.log("querry result is:", db_posts)
-					console.log(db_posts);
-					if (db_posts) return db_posts;
-					return '[]';
+					if (db_posts[0]!= undefined) return db_posts;
+					return [];
 				});
 				var temp_thread = {"op":db_threads[i],"posts": []};
-				//console.log("temp thread is:", temp_thread);
 				new_board.push(temp_thread);
 			}
 			console.log(new_board);
@@ -90,28 +84,39 @@ exports.threadlist = function(req, res, next) {
 }
 
 exports.thread = function(req, res, next) {
-	
-	var thread_id = req.params.id;
 
-	var thread_op={};
-	var posts=[];
-	var requested_thread = {"op":thread_op, "posts":posts};
+	console.error("request is:", req.params.id);
+	var curthread_id=req.params.id;
+	Model_thread_op.findOne({_id:curthread_id}).exec(function (err, db_thread) {
+		if (err) {
+			console.error(err);
+			done(req, res, err);
+		} else {
+			console.log(db_thread);
+			var new_board=[]
+			
+			var query = Model_post.find({ thread_id: curthread_id }).sort({date: 'desc'}).exec(function(err_inner, db_posts){
+				if (err) {
+					console.error(err);
+					done(req, res, err_inner);
+					return undefined;
+				}
+				console.log("querry result is:", db_posts)
+				console.log(db_posts);
+				if (db_posts[0]!= undefined) return db_posts;
+				return [];
+			});
+			if (query != undefined){
 
-	res.send(requested_thread);
+				var temp_thread = {"op":db_thread,"posts": []};
+				//console.log(temp_thread);
+				done(req, res, temp_thread);
+			}
+		}
+	});
 }
 
 exports.posts = function(req, res, next) {
-	
-	var done = function(doc) {
-		res.format({
-			json: function() {
-				res.jsonp(doc);
-			},
-			html: function() {
-				return res.redirect(req.body.redirect || config.signinDefaultRedirect);
-			}
-		});
-	};
 }
 
 exports.post_op = function(req, res, next) {

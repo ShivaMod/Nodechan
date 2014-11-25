@@ -13,11 +13,13 @@
 		<time datetime="{{thread.op.date}}" data-local="true">{{thread.op.date}}</time>
 		</label>
 		&nbsp;
-		<a class="post_no" id="post_no_{{thread.op._id}}" href="#{{thread.op._id}}">No.</a>
-		<!-- add to the above tag: onclick="highlightReply({{thread.op._id}})" -->
-		<a class="post_no" href="#q{{thread.op._id}}">{{thread.op._id}}</a>
+		<a class="post_no" id="post_no_{{thread.op._id}}" href="/#/index.html?t={{thread.op._id}}" ng-click="refresh_thread_data('/#/index.html?t={{thread.op._id}}'')">No.</a>
+		<!-- add to the above tag: onclick="highlightReply({{thread.op._id}})" 
+		TODO: make 'quote' work properly-->
+		<a class="post_no">{{thread.op._id}}</a>
 		<!--
 		add to the above tag: onclick="citeReply({{thread.op._id}})"
+		href="#q{{thread.op._id}}"
 		-->
 	</p>
 
