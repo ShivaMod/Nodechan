@@ -10,9 +10,7 @@
 	<body ng-controller="ChanController as channel" ngclass="desktop-style">
 		
 		<div ng-controller="BoardController as board">
-			<!--
-			ng-init="viewmode= (channel.page_jquery == {} ? 'board' : (channel.page_jquery.t=='catalog' ? 'catalog' : 'board'))"
-			-->
+			
 			<nodechan-header></nodechan-header>
 
 			<reply-form ng-hide="viewmode!='board'"></reply-form>

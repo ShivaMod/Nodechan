@@ -5,7 +5,7 @@
 
 	app.controller('ChanController', ["$location", "$scope", function($location, $scope){
 
-		$scope.live_host="chan.tadeuszow.com";
+		$scope.live_host="nodechan.herokuapp.com";
 		$scope.page_location=$location.absUrl();
 		$scope.page_host = $location.host();
 		$scope.page_jquery = $location.search();
