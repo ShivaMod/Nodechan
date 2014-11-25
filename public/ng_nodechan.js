@@ -55,11 +55,13 @@
 				.success(function (data, status, headers, config)
 				{
 					$scope[resultVarName] = data;
+					$location.path('/#/?t=' + data.thread_id).replace();
 				})
 				.error(function (data, status, headers, config)
 				{
 					$scope[resultVarName] = "SUBMIT ERROR";
 				});
+
 
 			} else if ($scope.viewmode == 'board'){
 
@@ -77,6 +79,7 @@
 				.success(function (data, status, headers, config)
 				{
 					$scope[resultVarName] = data;
+					$location.path('/#' + data._id + '/?t=' + data.thread_id).replace();
 				})
 				.error(function (data, status, headers, config)
 				{
