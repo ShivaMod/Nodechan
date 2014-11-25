@@ -1,19 +1,19 @@
 
 <div class="file" ng-class="((thread.op.files.length>1) ? 'multifile' : '')">
 	<p class="fileinfo">
-	<span ng-init="file.nodehidden=false">File <small>(
-		<a class="hide-link" ng-click="file.nodehidden = !file.nodehidden">{{file.nodehidden ? "show" : "hide"}}</a>)</small>:
-		<a ng-href="{{file.link}}">todo: filenname</a>
+	<span ng-init="thisfile={'nodehidden':false, 'class':'post-image'}">File <small>(
+		<a class="hide-link" ng-click="file.nodehidden = !thisfile.nodehidden">{{thisfile.nodehidden ? "show" : "hide"}}</a>)</small>:
+		<a ng-href="{{file}}">todo: filenname</a>
 		</span>
 	</span>
 	<!-- 
 		TODO:dtad: when I allow uploading images directly to the channel, probably never
 		TODO:dtad: multifile media doesn't render correctly
 
-		<a ng-href="{{file.link}}">todo: filenname</a>
+		<a ng-href="{{file}}">todo: filenname</a>
 		<span class="unimportant">(TODO: filesize, todo: dimensions, 20:11, <a download="the_jews_did_this.gif" ng-href="{{file.link}}" title="Save as original filename">todo: original filename</a>)
 
-		<a ng-href="{{file.link}}">1416603908353.gif</a>
+		<a ng-href="{{file}}">1416603908353.gif</a>
 		<span class="unimportant">(609.17 KB, 500x275, 20:11, <a download="the_jews_did_this.gif" href="https://media.8chan.co/{{board._id}}/src/1416603908353.gif" title="Save as original filename">the_jews_did_this.gif</a>)
 	-->
 	</p>
@@ -21,8 +21,8 @@
 	<!--
 	This break fixes things for a single posted image
 	-->
-	<a href="{{file.link}}" target="_blank" ng-hide="file.nodehidden" ng-model="file.class = (expandall ? 'full-image' : (op_post ? 'op-image' : 'post-image'))">
-		<img ng-src="{{file.link}}" ng-class="file.class"></img>
+	<a href="{{file}}" target="_blank" ng-hide="file.nodehidden" ng-model="thisfile.class = (expandall ? 'full-image' : (op_post ? 'op-image' : 'post-image'))">
+		<img ng-src="{{file}}" ng-class="thisfile.class"></img>
 		<!--
 		
 		-->

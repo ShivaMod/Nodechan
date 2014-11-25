@@ -37,7 +37,7 @@ var Schema_thread_op = require('../models/thread_op.js');
 Schema_thread_op.plugin(autoIncrement.plugin, 'Book');
 var Model_thread_op = connection.model('ThreadOP', Schema_thread_op);
 	
-var done = function(doc) {
+var done = function(req, res, doc) {
 	res.format({
 		json: function() {
 			res.jsonp(doc);
@@ -57,12 +57,33 @@ exports.threadlist = function(req, res, next) {
 
 	//var thread_id=JSON.stringify(req.body)
 
-	Model_thread_op.find(function (err, db_threads) {
-		if (err) return console.error(err);
-
-		var ret_threadlist = JSON.parse(JSON.stringify(db_threads));
-		console.log(db_threads);
-		done(db_threads);
+	Model_thread_op.find().sort({date: 'desc'}).exec(function (err, db_threads) {
+		if (err) {
+			console.error(err);
+			done(req, res, err);
+		} else {
+			console.log(db_threads);
+			var new_board=[]
+			for (var i=0; i<db_threads.length; i++){
+				var curthread_id = db_threads[i]._id+"";
+				console.log("curthread_id is:", curthread_id)
+				//console.log("curt dbthread_id is:", db_threads[i])
+				var query = Model_post.find({ 'thread_id': curthread_id }).sort({date: 'desc'}).exec(function(err_inner, db_posts){
+					if (err) {
+						console.error(err);
+						done(req, res, err_inner);
+					}
+					console.log("querry result is:", db_posts)
+					if (db_posts == []) return [];
+					return db_posts;
+				});
+				var temp_thread = {"op":db_threads[i],"posts": query};
+				//console.log("temp thread is:", temp_thread);
+				new_board.push(temp_thread);
+			}
+			//console.log(new_board);
+			done(req, res, new_board);
+		}
 	});
 }
 
@@ -90,8 +111,6 @@ exports.posts = function(req, res, next) {
 		});
 	};
 }
-
-
 
 exports.post_op = function(req, res, next) {
 
@@ -126,9 +145,9 @@ exports.post_op = function(req, res, next) {
 	instance_thread_op.save(function (err, instance_thread_op) {
 		if (err) {
 			console.error(err);
-			done(err);
+			done(req, res, err);
 		} else {
-			done(instance_thread_op);
+			done(req, res, instance_thread_op);
 		}
 	});
 
@@ -165,9 +184,9 @@ exports.post_reply = function(req, res, next) {
 	instance_post.save(function (err, instance_post) {
 		if (err) {
 			console.error(err);
-			done(err);
+			done(req, res, err);
 		} else {
-			done(instance_post);
+			done(req, res, instance_post);
 		}
 	});
 

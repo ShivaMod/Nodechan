@@ -16,13 +16,13 @@
 
 		this.threads = [];
 		var myboard=this;
-		//$http.get('/json/threadlist.json').
-		$http.get('/xboard.json').
+		//$http.get('/xboard.json').
+		$http.get('/json/threadlist.json').
 		success(function(data){
 			//console.log(data);
 			myboard.threads=data;
 			console.log("data received");
-			//console.log(data);
+			console.log(data);
 		});
 		this._id="tech";
 		this.name="The Technology Board";
