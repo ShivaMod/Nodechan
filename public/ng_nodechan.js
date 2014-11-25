@@ -121,7 +121,9 @@
 				.success(function (data, status, headers, config)
 				{
 					$scope[resultVarName] = data;
-					$location.path('/#post_no_'+data._id+'/?t=' + data.thread_id).replace();
+					myboard.threads[0].posts.push(config.params);
+					$location.path('/#post_no_'+config.params._id+'/?t=' + config.params.thread_id).replace();
+					$scope.refresh_thread_data();
 				})
 				.error(function (data, status, headers, config)
 				{
@@ -146,6 +148,8 @@
 				{
 					$scope[resultVarName] = data;
 					$location.path('/#post_no_' + data._id + '/?t=' + data._id).replace();
+
+					$scope.refresh_thread_data();
 				})
 				.error(function (data, status, headers, config)
 				{
@@ -156,8 +160,6 @@
 			post_form.files=[''];
 			post_form.body="";
 			post_form.sending=false;
-
-			$scope.refresh_thread_data();
 		};
 	}]);
 	app.directive("nodechanHeader", function() {

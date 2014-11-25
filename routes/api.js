@@ -145,6 +145,9 @@ exports.preview = function(req, res, next) {
 
 exports.posts = function(req, res, next) {
 
+	//For reference; board.threads[0].posts[board.threads[0].posts.length - 1]._id
+	//^Use this as start point, and fetch posts since that
+
 	console.log("request is:", req.params.thread_id);
 	var curthread_id=req.params.thread_id;
 
