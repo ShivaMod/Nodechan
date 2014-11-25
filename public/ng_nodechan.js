@@ -12,7 +12,7 @@
 		$scope.page_hash = $location.hash();
 		$scope.archived=($scope.live_host != $scope.page_host);
 	}]);
-	app.controller('BoardController', ["$http", "$scope", function($http, $scope){
+	app.controller('BoardController', ["$http", "$scope", "$location", function($http, $scope, $location){
 
 		this.threads = [];
 		var myboard=this;
@@ -28,6 +28,8 @@
 
 		$scope.refresh_thread_data=function(){
 			
+			$location.replace();
+
 			console.log($scope.viewmode);
 			if ($scope.viewmode == 'thread'){
 
@@ -76,6 +78,11 @@
 			}
 		}
 
+		$scope.activate_new_path = function(new_path){
+			$location.path(new_path);
+			$scope.refresh_thread_data();
+		}
+
 		$scope.refresh_thread_data();
 
 		$scope.set_hash = function(new_hash){
@@ -83,6 +90,7 @@
 		}
 		$scope.submitData = function (post_form, resultVarName)
 		{
+			post_form.sending=true;
 			if ($scope.viewmode == 'thread'){
 
 				var config = {
@@ -100,7 +108,7 @@
 				.success(function (data, status, headers, config)
 				{
 					$scope[resultVarName] = data;
-					$location.path('/#/?t=' + data.thread_id).replace();
+					$location.path('/#post_no_'+data._id+'/?t=' + data.thread_id).replace();
 				})
 				.error(function (data, status, headers, config)
 				{
@@ -124,13 +132,19 @@
 				.success(function (data, status, headers, config)
 				{
 					$scope[resultVarName] = data;
-					$location.path('/#' + data._id + '/?t=' + data.thread_id).replace();
+					$location.path('/#post_no_' + data._id + '/?t=' + data._id).replace();
 				})
 				.error(function (data, status, headers, config)
 				{
 					$scope[resultVarName] = "SUBMIT ERROR";
 				});
 			}
+			post_form.subject="";
+			post_form.files=[''];
+			post_form.body="";
+			post_form.sending=false;
+
+			$scope.refresh_thread_data();
 		};
 	}]);
 	app.directive("nodechanHeader", function() {

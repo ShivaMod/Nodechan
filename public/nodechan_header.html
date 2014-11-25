@@ -9,7 +9,7 @@
 <header ng-if="viewmode!='catalog'">
 	<h1>
 		<!-- <a href="{{(board._id + '.' + curpath) + '/#/'}}">/{{board._id}}/</a> - {{board.name}} -->
-		/{{board._id}}/ - {{board.name}}
+		<a href="http://{{live_host}}/#/">/{{board._id}}/</a> - {{board.name}}
 		<a id="favorite-star" href="" data-active="false" ng-hide="archived">★</a>
 	</h1>
 	<div class="subtitle">

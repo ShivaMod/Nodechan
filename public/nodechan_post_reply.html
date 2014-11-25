@@ -11,7 +11,7 @@
 			<time datetime="{{post.date}}" data-local="true">{{post.date}}</time>
 		</label>
 		&nbsp;
-		<a class="post_no" id="post_no_{{post._id}}" href="/#{{post._id}}/index.html?t={{thread._id}}" ng-click="refresh_thread_data('/#{{post._id}}/index.html?t={{thread._id}}')">
+		<a class="post_no" id="post_no_{{post._id}}" ng-href="/#{{post._id}}/index.html?t={{thread._id}}" ng-click="activate_new_path('/# + post._id + '/index.html?t=' + thread._id)">
 		<!--
 		add to the above
 		onclick="highlightReply({{post._id}})"

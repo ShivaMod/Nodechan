@@ -39,7 +39,7 @@
 				<input type="text" name="subject" size="25" maxlength="100" autocomplete="off" ng-model="post_form.subject" required ng-if="viewmode!='thread'">
 				<input type="text" name="subject" size="25" maxlength="100" autocomplete="off" ng-model="post_form.subject" ng-if="viewmode=='thread'">
 				<!-- TODO:: This is dirty^ clean it -->
-				<button type="submit" name="post" ng-disabled="post.$invalid">New Reply</button>
+				<button type="submit" name="post" ng-disabled="(post.$invalid || post_form.sending)">New Reply</button>
 				<!--
 				<input id="spoiler" name="spoiler" type="checkbox">
 				<label for="spoiler">Spoiler Image</label>

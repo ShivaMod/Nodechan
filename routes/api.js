@@ -71,14 +71,13 @@ exports.threadlist = function(req, res, next) {
 						console.error(err);
 						done(req, res, err_inner);
 					}
-					if (db_posts[0]!= undefined) return db_posts;
-					return [];
+					if (db_posts[0]== undefined) db_posts=[];
+					var temp_thread = {"op":db_threads[i],"posts": []};
+					new_board.push(temp_thread);
+					console.log(new_board);
+					done(req, res, new_board);
 				});
-				var temp_thread = {"op":db_threads[i],"posts": []};
-				new_board.push(temp_thread);
 			}
-			console.log(new_board);
-			done(req, res, new_board);
 		}
 	});
 }
@@ -101,17 +100,18 @@ exports.thread = function(req, res, next) {
 					done(req, res, err_inner);
 					return undefined;
 				}
-				console.log("querry result is:", db_posts)
-				console.log(db_posts);
-				if (db_posts[0]!= undefined) return db_posts;
-				return [];
-			});
-			if (query != undefined){
+				console.log("query result is:", db_posts)
+				if (db_posts[0]== undefined) db_posts=[];
+				if (db_posts == undefined){
 
-				var temp_thread = {"op":db_thread,"posts": []};
-				//console.log(temp_thread);
+					var temp_thread = {"op":db_thread,"posts": []};
+				}else{
+
+					var temp_thread = {"op":db_thread,"posts": db_posts};
+				}
+				console.log("new thread is:", temp_thread);
 				done(req, res, temp_thread);
-			}
+			});
 		}
 	});
 }
