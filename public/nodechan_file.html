@@ -21,10 +21,5 @@
 	<!--
 	This break fixes things for a single posted image
 	-->
-	<a href="{{file}}" target="_blank" ng-hide="thisfile.nodehidden" ng-model="thisfile.class = (expandall ? 'full-image' : (op_post ? 'op-image' : 'post-image'))">
-		<img ng-src="{{file}}" ng-class="thisfile.class"></img>
-		<!--
-		
-		-->
-	</a>
+	<a href="{{file}}" target="_blank" ng-hide="thisfile.nodehidden" ng-model="thisfile.class = (expandall ? 'full-image' : (op_post ? 'op-image' : 'post-image'))"><img ng-src="{{file}}" ng-class="thisfile.class"></img></a>
 </div>

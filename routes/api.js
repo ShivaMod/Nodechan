@@ -68,20 +68,22 @@ exports.threadlist = function(req, res, next) {
 				var curthread_id = db_threads[i]._id+"";
 				console.log("curthread_id is:", curthread_id)
 				//console.log("curt dbthread_id is:", db_threads[i])
-				var query = Model_post.find({ 'thread_id': curthread_id }).sort({date: 'desc'}).exec(function(err_inner, db_posts){
+				//var query = Model_post.find({ thread_id: curthread_id }).sort({date: 'desc'}).exec(function(err_inner, db_posts){
+				var query = Model_post.find({ thread_id: curthread_id }).populate("thread_id date author name files subject body").sort({date: 'desc'}).exec(function(err_inner, db_posts){
 					if (err) {
 						console.error(err);
 						done(req, res, err_inner);
 					}
 					console.log("querry result is:", db_posts)
-					if (db_posts == []) return [];
-					return db_posts;
+					console.log(db_posts);
+					if (db_posts) return db_posts;
+					return '[]';
 				});
-				var temp_thread = {"op":db_threads[i],"posts": query};
+				var temp_thread = {"op":db_threads[i],"posts": []};
 				//console.log("temp thread is:", temp_thread);
 				new_board.push(temp_thread);
 			}
-			//console.log(new_board);
+			console.log(new_board);
 			done(req, res, new_board);
 		}
 	});
