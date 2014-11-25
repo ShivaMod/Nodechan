@@ -15,9 +15,10 @@
 			-->
 			<nodechan-header></nodechan-header>
 
-			<reply-form ng-hide="viewmode=='thread'"></reply-form>
+			<reply-form ng-hide="viewmode!='board'"></reply-form>
 
 			<p>archived is {{archived}}, viewmode is {{viewmode}}, curpath is {{curpath}}</p>
+			<p>expandall is {{expandall}}</p>
 			<div ng-hide="page_jquery.d!='true'">
 				<p>{{page_location}}</p>
 				<p>{{live_host}}</p>

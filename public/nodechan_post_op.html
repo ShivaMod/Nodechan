@@ -1,6 +1,6 @@
 
-<div class="files" ng-if="thread.op.files.length >= 0">
-	<nodechan-file ng-repeat="file in thread.op.files"></nodechan-file>
+<div class="files" id="op" ng-if="thread.op.files.length >= 0">
+	<nodechan-file ng-repeat="file in thread.op.files" ng-init="op_post=true"></nodechan-file>
 </div>
 
 <div class="post op" id="op_{{thread.op._id}}">

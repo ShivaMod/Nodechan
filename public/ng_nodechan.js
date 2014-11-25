@@ -36,26 +36,53 @@
 		$scope.set_hash = function(new_hash){
 			$location.hash(new_hash);
 		}
-		$scope.submitData = function (op_form, resultVarName)
+		$scope.submitData = function (post_form, resultVarName)
 		{
-			var config = {
-				params: {
-					name: op_form.name,
-					subject: op_form.subject,
-					person: op_form.name,
-					person: op_form.name,
-				}
-			};
+			if ($scope.viewmode == 'thread'){
 
-			$http.post("/json/post_op", null, config)
-			.success(function (data, status, headers, config)
-			{
-				$scope[resultVarName] = data;
-			})
-			.error(function (data, status, headers, config)
-			{
-				$scope[resultVarName] = "SUBMIT ERROR";
-			});
+				var config = {
+					params: {
+						thread_id: post_form.thread_id,
+						name: post_form.name,
+						subject: post_form.subject,
+						files: post_form.files,
+						body: post_form.body,
+					}
+				};
+
+				console.log(config);
+				$http.post("/json/post_reply", null, config)
+				.success(function (data, status, headers, config)
+				{
+					$scope[resultVarName] = data;
+				})
+				.error(function (data, status, headers, config)
+				{
+					$scope[resultVarName] = "SUBMIT ERROR";
+				});
+
+			} else if ($scope.viewmode == 'board'){
+
+				var config = {
+					params: {
+						name: post_form.name,
+						subject: post_form.subject,
+						files: post_form.files,
+						body: post_form.body,
+					}
+				};
+
+				console.log(config);
+				$http.post("/json/post_op", null, config)
+				.success(function (data, status, headers, config)
+				{
+					$scope[resultVarName] = data;
+				})
+				.error(function (data, status, headers, config)
+				{
+					$scope[resultVarName] = "SUBMIT ERROR";
+				});
+			}
 		};
 	}]);
 	app.directive("nodechanHeader", function() {

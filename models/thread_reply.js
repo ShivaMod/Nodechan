@@ -1,7 +1,7 @@
 var mongoose = require('mongoose');
 
 var schema_post = new mongoose.Schema({
-	_id: Number,						// Post ID
+	//_id: Number,						// Post ID
 	thread_id: Number,					// Thread ID
 	date: Date,							// Post Date
 
@@ -13,4 +13,4 @@ var schema_post = new mongoose.Schema({
 	body: String						// Post body
 });
 
-module.exports = mongoose.model('Post', schema_post);
+module.exports = schema_post;

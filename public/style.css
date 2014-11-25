@@ -195,6 +195,14 @@ img.banner,img.board_image {
   margin: 12px auto 0 auto;
 }
 
+.op-image {
+  display: block;
+  float: left;
+  width:250px;
+  margin: 5px 20px 10px 20px;
+  border: none;
+}
+
 .post-image {
   display: block;
   float: left;

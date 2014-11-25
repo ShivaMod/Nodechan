@@ -7,7 +7,9 @@
 
 <!-- -->
 <header>
-	<h1><a href="{{(board._id + '.' + curpath) + '/#/'}}">/{{board._id}}/</a> - {{board.name}}
+	<h1>
+		<!-- <a href="{{(board._id + '.' + curpath) + '/#/'}}">/{{board._id}}/</a> - {{board.name}} -->
+		/{{board._id}}/ - {{board.name}}
 		<a id="favorite-star" href="#" data-active="false" ng-hide="archived">★</a>
 	</h1>
 	<div class="subtitle">
@@ -18,7 +20,7 @@
 
 <iframe width="100%" height="100" scrolling="yes" frameborder="no" src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/171574021&amp;auto_play=false&amp;hide_related=false&amp;show_comments=false&amp;show_user=true&amp;show_reposts=false&amp;visual=true"></iframe>
 
-<div id="expand-all-images" ng-hide="viewmode!='thread'"><a class="unimportant">Expand all images</a></div>
+<div id="expand-all-images" ng-init="expandall=false" ng-click="expandall=!expandall" ng-hide="viewmode!='thread'"><a class="unimportant">Expand all images</a></div>
 <!--
 <div id="treeview">
 	<a class="unimportant" href="javascript:void(0)">Tree view</a>

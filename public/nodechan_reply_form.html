@@ -1,7 +1,10 @@
 
 <br>
-<form name="post" onsubmit="return dopost(this);" enctype="multipart/form-data" action="/json/post_op" method="post" ng-submit="submitData(op_form, sub_result)" ng-init="op_form={}">
+<form name="post" ng-submit="submitData(post_form, sub_result)" ng-init="post_form={'files':[''], 'thread_id':thread.op._id}">
 	<!--
+	onsubmit="return dopost(this);"
+	enctype="multipart/form-data"
+	action="/json/post_op" method="post"
 	<input type="hidden" name="thread" value="50388">
 	<input type="hidden" value="" name="login">
 	<input type="hidden" name="board" value="tech">
@@ -12,7 +15,7 @@
 		<tr>
 			<th>Name</th>
 			<td>
-				<input type="text" name="name" size="25" maxlength="35" autocomplete="off" ng-model="op_form.name">
+				<input type="text" name="name" size="25" maxlength="35" autocomplete="off" ng-model="post_form.name">
 				<!-- TODO:dtad: remember name from last post -->
 				<!--
 				<div style="display:none">
@@ -33,8 +36,8 @@
 		<tr>
 			<th>Subject</th>
 			<td>
-				<input type="text" name="subject" size="25" maxlength="100" autocomplete="off" ng-model="op_form.subject" required ng-if="viewmode!='thread'">
-				<input type="text" name="subject" size="25" maxlength="100" autocomplete="off" ng-model="op_form.subject" ng-if="viewmode=='thread'">
+				<input type="text" name="subject" size="25" maxlength="100" autocomplete="off" ng-model="post_form.subject" required ng-if="viewmode!='thread'">
+				<input type="text" name="subject" size="25" maxlength="100" autocomplete="off" ng-model="post_form.subject" ng-if="viewmode=='thread'">
 				<!-- TODO:: This is dirty^ clean it -->
 				<button type="submit" name="post" ng-disabled="post.$invalid">New Reply</button>
 				<!--
@@ -45,12 +48,12 @@
 		</tr>
 		<tr>
 			<th>Comment</th>
-			<td><textarea name="body" id="body" rows="5" cols="35"  ng-model="op_form.body" required></textarea></td>
+			<td><textarea name="body" id="body" rows="5" cols="35"  ng-model="post_form.body" required></textarea></td>
 		</tr>
 		<tr id="file"><th>File</th>
 			<td>
-				<input type="url" name="file" ng-model="op_form.file[0]" required ng-if="viewmode!='thread'">
-				<input type="url" name="file" ng-model="op_form.file[0]" ng-if="viewmode=='thread'">
+				<input type="url" name="file" ng-model="post_form.files[0]" required ng-if="viewmode!='thread'">
+				<input type="url" name="file" ng-model="post_form.files[0]" ng-if="viewmode=='thread'">
 				<!--
 
 				<input type="url" name="input" id="upload_file" ng-model="post.file.1" required ng-if="viewmode!='thread'">
@@ -78,3 +81,4 @@
 		<p>{{ajaxSubmitResult1}}</p>
 	</div>
 </form>
+<hr ng-if="viewmode=='board'">
