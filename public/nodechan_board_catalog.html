@@ -1,5 +1,5 @@
 
-		<div ng-controller="BoardController as board">
+		<div >
 
 			<nodechan-header></nodechan-header>
 
@@ -21,10 +21,10 @@
 <input type="hidden" name="board" value="{{board._id}}">
 
 <!-- Viewmode if we're browsing the board catalog -->
-<div class="mix theme-catalog" data-reply="{{thread.op.replies}}" data-bump="1416788920" data-time="1414297858" ng-repeat="thread in channel.threads">
+<div class="mix theme-catalog" data-reply="{{thread.op.replies}}" data-bump="1416788920" data-time="1414297858" ng-repeat="thread in threads">
 	<div class="thread grid-li grid-size-small">
 		<a href="/thread/{{thread.op._id}}">
-			<img src="{{thread.op.files[0]}}" data-subject="{{thread.op.subject}}" data-name="{{thread.op.name}}" data-muhdifference="" data-last-reply="" data-last-subject="" data-last-name="" data-last-difference="" class="{{board._id}} thread-image" title="{{thread.op.date}}">
+			<img ng-src="{{thread.op.files[0]}}" data-subject="{{thread.op.subject}}" data-name="{{thread.op.name}}" data-muhdifference="" data-last-reply="" data-last-subject="" data-last-name="" data-last-difference="" class="{{board._id}} thread-image" title="{{thread.op.date}}">
 			<!--
 			<img src="https://media.8chan.co/{{board._id}}/thumb/1414297858386.png" id="img-{{thread.files[0].link}}" data-subject="Post your Chinkpad" data-name="Anonymous" data-muhdifference="" data-last-reply="" data-last-subject="" data-last-name="" data-last-difference="" class="{{board._id}} thread-image" title="Nov 24 00:28">
 			-->

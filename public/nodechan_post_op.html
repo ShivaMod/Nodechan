@@ -13,7 +13,7 @@
 		<time datetime="{{thread.op.date}}" data-local="true">{{thread.op.date}}</time>
 		</label>
 		&nbsp;
-		<a class="post_no" id="post_no_{{thread.op._id}}" href="'/thread/'+{{thread.op._id}}+'#post_no_'+{{thread.op._id}}">No.</a>
+		<a class="post_no" id="post_no_{{thread.op._id}}" ng-click="set_location('/'+thread.op._id)">No.</a>
 		<!-- add to the above tag:
 		<a class="post_no" id="post_no_{{thread.op._id}}" href="/#/?t={{thread.op._id}}">No.</a>
 

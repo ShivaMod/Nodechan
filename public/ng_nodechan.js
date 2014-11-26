@@ -22,9 +22,16 @@
 			return $rootScope.threads;
 		}
 
+		$rootScope.set_location = function(new_path){
+			console.log("setting new url:", new_path);
+			$location.url(new_path);
+			$location.url(new_path);
+		}
+
 		$rootScope.submitData = function (post_form, resultVarName)
 		{
 			post_form.sending=true;
+			console.log($rootScope.viewmode)
 			if ($rootScope.viewmode == 'thread'){
 
 				var config = {
@@ -37,13 +44,14 @@
 					}
 				};
 
+				console.log("config is:");
 				console.log(config);
 				$http.post("/json/post_reply", null, config)
 				.success(function (data, status, headers, config)
 				{
-					$scope.board.threads[0].posts.push(config.params);
+					$rootScope.threads[0].posts.push(config.params);
 					//^This adds the current post to the reply list: TODO:: fetch any posts made just before client has posted 
-					$location.path('/?t=' + config.params.thread_id + '#post_no_'+config.params._id).replace();
+					$location.path('/' + config.params.thread_id + '#post_no_'+config.params._id).replace();
 				})
 				.error(function (data, status, headers, config)
 				{
@@ -67,7 +75,7 @@
 				$http.post("/json/post_op", null, config)
 				.success(function (data, status, headers, config)
 				{
-					$location.path('/?t=' + data.params.id).replace();
+					$location.path('/' + data.params.id).replace();
 				})
 				.error(function (data, status, headers, config)
 				{
@@ -96,9 +104,11 @@
 		);
 	};
 
-	chantroll.load_thread = function($rootScope, $http, $location){
+	chantroll.load_thread = function($rootScope, $route, $http, $location){
 		console.log("a FULL THREAD is loading!");
-		return $http.get('/json/thread.'+$location.search().t)
+		console.log("but first, read params!");
+		console.log($route.current.params.thread_id);
+		return $http.get('/json/thread.'+$route.current.params.thread_id)
 			.success(function(data){
 				console.log("full thread received");
 				console.log(data);
@@ -107,7 +117,7 @@
 				//^This is done for a good reason
 				//this.op=data.op;
 				//this.posts=data.posts;
-				viewmode='thread';
+				$rootScope.viewmode='thread';
 				return "success";
 			}
 		);
@@ -117,20 +127,20 @@
 
 		//
 		$routeProvider
-		.when('/?t=:thread_id*', {
-			templateUrl: 'nodechan_thread.html',
-			controller: 'FullThreadController',
-			controllerAs: 'thread',
-			resolve: {
-				full_thread: chantroll.load_thread
-			}
-		})
-		.when('/?t=catalog*', {
+		.when('/catalog', {
 			templateUrl: 'nodechan_board_catalog.html',
 			controller: 'BoardCatalogController',
 			controllerAs: 'board',
 			resolve: {
 				board_list: chantroll.load_board
+			}
+		})
+		.when('/:thread_id*', {
+			templateUrl: 'nodechan_thread.html',
+			controller: 'FullThreadController',
+			controllerAs: 'thread',
+			resolve: {
+				full_thread: chantroll.load_thread
 			}
 		})
 		.when('/', {

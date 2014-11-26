@@ -1,5 +1,5 @@
 
-<div ng-controller="BoardController as board">
+<div>
 
 	<nodechan-header></nodechan-header>
 
@@ -20,12 +20,12 @@
 
 
 <!-- Viewmode if we're browsing a single thread -->
-<div class="thread">
+<div class="thread" ng-init="thread = threads[0]">
 	<!-- TODO::^Riskyyyyyy -->
 	<a id="{{thread.op._id}}" class="post_anchor"></a>
 	<post-op></post-op>
 	
-	<post-reply ng-if="thread.posts != []" ng-repeat="post in thread[0].posts"></post-reply>
+	<post-reply ng-if="thread.posts != []" ng-repeat="post in thread.posts"></post-reply>
 
 	<hr>
 	<reply-form></reply-form>
