@@ -129,7 +129,8 @@ exports.thread = function(req, res, next) {
 			console.error(err);
 			done(req, res, err);
 		} else {
-			//console.log(db_thread);
+			console.log("db_thread is:");
+			console.log(db_thread);
 			var new_board=[]
 			
 			var query = Model_post.find({ thread_id: curthread_id }).sort({date: 'ascending'}).exec(function(err_inner, db_posts){
@@ -146,8 +147,12 @@ exports.thread = function(req, res, next) {
 
 					var temp_thread = {"op":db_thread,"posts": db_posts};
 				}
+				console.log("db_posts are:");
+				console.log(db_posts);
+				
 				//if (db_posts[0]== undefined) db_posts=[];
 				//console.log("new thread is:", temp_thread);
+
 				done(req, res, temp_thread);
 			});
 		}

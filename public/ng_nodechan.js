@@ -25,7 +25,7 @@
 		$rootScope.set_location = function(new_path){
 			console.log("setting new url:", new_path);
 			$location.url(new_path);
-			$location.url(new_path);
+			$location.replace();
 		}
 
 		$rootScope.set_viewmode = function(new_view){
@@ -61,7 +61,7 @@
 				{
 					$rootScope.threads[0].posts.push(config.params);
 					//^This adds the current post to the reply list: TODO:: fetch any posts made just before client has posted 
-					$location.path('/' + config.params.thread_id + '#post_no_'+config.params.true_id).replace();
+					$rootScope.set_location('/'+config.params.thread_id+'#post_no_'+config.params.true_id);
 				})
 				.error(function (data, status, headers, config)
 				{
@@ -87,7 +87,7 @@
 				{
 					//console.log("new thread op's true_id is:");
 					//console.log(data.true_id);
-					$location.path('/' + data.true_id).replace();
+					$rootScope.set_location('/' + data.true_id);
 				})
 				.error(function (data, status, headers, config)
 				{
