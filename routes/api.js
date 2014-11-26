@@ -79,7 +79,7 @@ exports.threadlist = function(req, res, next) {
 				var temp_thread = {"op":db_threads[i],"posts": []};
 				new_board.push(temp_thread);
 			}
-			console.log(new_board);
+			//console.log(new_board);
 			done(req, res, new_board);
 		}
 	});
@@ -87,7 +87,7 @@ exports.threadlist = function(req, res, next) {
 
 exports.thread = function(req, res, next) {
 
-	console.error("request is:", req.params.thread_id);
+	console.log("request is for thread:", req.params.thread_id);
 	var curthread_id=req.params.thread_id;
 
 	Model_thread_op.findOne({_id:curthread_id}).exec(function (err, db_thread) {
@@ -95,7 +95,7 @@ exports.thread = function(req, res, next) {
 			console.error(err);
 			done(req, res, err);
 		} else {
-			console.log(db_thread);
+			//console.log(db_thread);
 			var new_board=[]
 			
 			var query = Model_post.find({ thread_id: curthread_id }).sort({date: 'ascending'}).exec(function(err_inner, db_posts){
@@ -104,7 +104,7 @@ exports.thread = function(req, res, next) {
 					done(req, res, err_inner);
 					return undefined;
 				}
-				console.log("query result is:", db_posts);
+				//console.log("query result is:", db_posts);
 				if (db_posts == undefined){
 
 					var temp_thread = {"op":db_thread,"posts": []};
@@ -113,7 +113,7 @@ exports.thread = function(req, res, next) {
 					var temp_thread = {"op":db_thread,"posts": db_posts};
 				}
 				//if (db_posts[0]== undefined) db_posts=[];
-				console.log("new thread is:", temp_thread);
+				//console.log("new thread is:", temp_thread);
 				done(req, res, temp_thread);
 			});
 		}
@@ -122,7 +122,7 @@ exports.thread = function(req, res, next) {
 
 exports.preview = function(req, res, next) {
 
-	console.log("request is:", req.params.thread_id);
+	console.log("request is to preview thread:", req.params.thread_id);
 	var curthread_id=req.params.thread_id;
 
 	var query = Model_post.find({ thread_id: curthread_id }).populate({ path:'_id thread_id date author name files subject body', options: { limit: 5 } }).sort({date: 'ascending'}).exec(function(err_inner, db_posts){
@@ -202,7 +202,8 @@ exports.post_op = function(req, res, next) {
 			console.error(err);
 			done(req, res, err);
 		} else {
-			done(req, res, instance_thread_op);
+			console.log(instance_thread_op);
+			done(req, res, { 'id': instance_thread_op._id });
 		}
 	});
 

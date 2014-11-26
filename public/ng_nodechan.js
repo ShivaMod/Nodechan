@@ -69,22 +69,25 @@
 			} else{
 
 				$http.get('/json/threadlist.json').
-				success(function(data){
+				success(function(root_data){
 					//console.log(data);
-					myboard.threads=data;
 					console.log("data received");
-					console.log(data);
+					console.log(root_data);
 
-					for(var i=0; i<myboard.threads.length; i++){
+					myboard.threads=root_data;
 
-						var url='/json/posts.'+myboard.threads[i].op._id+'.preview';
+					for(var i=0; i<root_data.length; i++){
+
+						var url='/json/posts.'+root_data[i].op._id+'.preview';
 						console.log(url);
 						$http.get(url).
-						success(function(data){
+						success(function(preview_data){
 							//console.log(data);
-							myboard.threads[i].posts=data;
-							console.log("data received");
-							console.log(data);
+							console.log("preview data received");
+							console.log(preview_data);
+
+							root_data[i].posts=preview_data;
+							myboard.threads=root_data;
 						});
 					}
 				});
@@ -147,7 +150,7 @@
 				.success(function (data, status, headers, config)
 				{
 					$scope[resultVarName] = data;
-					$location.path('/#post_no_' + data._id + '/?t=' + data._id).replace();
+					$location.path('/#/?t=' + data.params.id).replace();
 
 					$scope.refresh_thread_data();
 				})
