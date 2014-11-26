@@ -124,7 +124,7 @@ exports.thread = function(req, res, next) {
 	console.log("request is for thread:", req.params.thread_id);
 	var curthread_id=req.params.thread_id;
 
-	Model_thread_op.findOne({true_id_id:curthread_id}).exec(function (err, db_thread) {
+	Model_thread_op.findOne({true_id:curthread_id}).exec(function (err, db_thread) {
 		if (err) {
 			console.error(err);
 			done(req, res, err);
