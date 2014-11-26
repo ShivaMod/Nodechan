@@ -1,5 +1,5 @@
 
-<div class="file" ng-if="file != ''">
+<div class="file" ng-if="file != ''" ng-init="expandme=false">
 	<!--
 	Someday, add multifile support:
 	ng-class="(op_post ? ((thread.op.files.length>1) ? 'multifile' : '') : ((files.length>1) ? 'multifile' : '') )"
@@ -25,6 +25,9 @@
 	<!--
 	This break fixes things for a single posted image
 	-->
-	<a href="{{file}}" target="_blank" ng-hide="thisfile.nodehidden" ng-model="thisfile.class"><img ng-src="{{file}}" ng-class="thisfile.class"><span ng-hide="true">{{thisfile.class = (expandall ? 'full-image' : (op_post ? 'op-image' : 'post-image'))}}</span></img></a>
+	<a target="_blank" ng-hide="thisfile.nodehidden" ng-model="thisfile.class"><img ng-src="{{file}}" ng-class="thisfile.class" ng-click="expandme=!expandme"><span ng-hide="true">{{thisfile.class = (expandall ? 'full-image' : (expandme ? 'full-image' : (op_post ? 'op-image' : 'post-image')))}}</span></img></a>
+	<!--
+	<a href="{{file}}" target="_blank" ng-hide="thisfile.nodehidden" ng-model="thisfile.class"><img ng-src="{{file}}" ng-class="thisfile.class" ng-click="expandme=!expandme"><span ng-hide="true">{{thisfile.class = (expandall ? 'full-image' : (expandme ? 'full-image' : (op_post ? 'op-image' : 'post-image')))}}</span></img></a>
+	-->
 
 </div>
