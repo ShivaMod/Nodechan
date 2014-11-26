@@ -1,32 +1,11 @@
 
-		<div >
-
-			<nodechan-header></nodechan-header>
-
-			<reply-form ng-hide="viewmode!='board'"></reply-form>
-
-			<div ng-hide="page_jquery.d!='true'">
-				<p>archived is {{archived}}, viewmode is {{viewmode}}, curpath is {{curpath}}</p>
-				<p>expandall is {{expandall}}</p>
-				<p>{{page_location}}</p>
-				<p>{{live_host}}</p>
-				<p>{{page_host}}</p>
-				<p id="jquer">{{page_jquery}}</p>
-				<p>{{page_hash}}</p>
-				<p>{{viewmode}}</p>
-			</div>
-
-		</div>
-
-<input type="hidden" name="board" value="{{board._id}}">
-
 <!-- Viewmode if we're browsing the board catalog -->
 <div class="mix theme-catalog" data-reply="{{thread.op.replies}}" data-bump="1416788920" data-time="1414297858" ng-repeat="thread in threads">
 	<div class="thread grid-li grid-size-small">
-		<a href="/thread/{{thread.op._id}}">
-			<img ng-src="{{thread.op.files[0]}}" data-subject="{{thread.op.subject}}" data-name="{{thread.op.name}}" data-muhdifference="" data-last-reply="" data-last-subject="" data-last-name="" data-last-difference="" class="{{board._id}} thread-image" title="{{thread.op.date}}">
+		<a href="/thread/{{thread.op.true_id}}">
+			<img ng-src="{{thread.op.files[0]}}" data-subject="{{thread.op.subject}}" data-name="{{thread.op.name}}" data-muhdifference="" data-last-reply="" data-last-subject="" data-last-name="" data-last-difference="" class="{{board_id}} thread-image" title="{{thread.op.date}}">
 			<!--
-			<img src="https://media.8chan.co/{{board._id}}/thumb/1414297858386.png" id="img-{{thread.files[0].link}}" data-subject="Post your Chinkpad" data-name="Anonymous" data-muhdifference="" data-last-reply="" data-last-subject="" data-last-name="" data-last-difference="" class="{{board._id}} thread-image" title="Nov 24 00:28">
+			<img src="https://media.8chan.co/{{board.true_id}}/thumb/1414297858386.png" id="img-{{thread.files[0].link}}" data-subject="Post your Chinkpad" data-name="Anonymous" data-muhdifference="" data-last-reply="" data-last-subject="" data-last-name="" data-last-difference="" class="{{board_id}} thread-image" title="Nov 24 00:28">
 			-->
 		</a>
 		<div class="replies">

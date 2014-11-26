@@ -1,8 +1,6 @@
 
 <div>
 
-	<nodechan-header></nodechan-header>
-
 	<reply-form ng-hide="viewmode!='board'"></reply-form>
 
 	<div ng-hide="page_jquery.d!='true'">
@@ -22,7 +20,7 @@
 <!-- Viewmode if we're browsing a single thread -->
 <div class="thread" ng-init="thread = threads[0]">
 	<!-- TODO::^Riskyyyyyy -->
-	<a id="{{thread.op._id}}" class="post_anchor"></a>
+	<a id="{{thread.op.true_id}}" class="post_anchor"></a>
 	<post-op></post-op>
 	
 	<post-reply ng-if="thread.posts != []" ng-repeat="post in thread.posts"></post-reply>

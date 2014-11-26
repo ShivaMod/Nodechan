@@ -1,9 +1,9 @@
 <form class="post reply" name="postcontrols">
 	<!-- op post should be different, as per convention, with class "post op" -->
 	<p class="intro">
-		<a id="{{post._id}}" class="post_anchor"></a>
-		<input type="checkbox" class="delete" name="delete_{{post._id}}" id="delete_{{post._id}}">
-		<label for="delete_{{post._id}}">
+		<a id="{{post.true_id}}" class="post_anchor"></a>
+		<input type="checkbox" class="delete" name="delete_{{post.true_id}}" id="delete_{{post.true_id}}">
+		<label for="delete_{{post.true_id}}">
 			<a class="email" href="mailto:{{post.email}}">
 				<span class="name">{{post.name}}</span>
 			</a>
@@ -11,21 +11,21 @@
 			<time datetime="{{post.date}}" data-local="true">{{post.date}}</time>
 		</label>
 		&nbsp;
-		<a class="post_no" id="post_no_{{post._id}}" ng-href="'/thread/'+{{thread.op._id}}+'#post_no_'+{{post._id}}">
+		<a class="post_no" id="post_no_{{post.true_id}}" ng-href="'/thread/'+{{thread.op.true_id}}+'#post_no_'+{{post.true_id}}">
 		<!--
-		<a class="post_no" id="post_no_{{post._id}}" ng-href="'/#'+{{post._id}}+'/?t='+{{thread._id}}">
+		<a class="post_no" id="post_no_{{post.true_id}}" ng-href="'/#'+{{post.true_id}}+'/?t='+{{thread.true_id}}">
 
 		add to the above
-		onclick="highlightReply({{post._id}})"
+		onclick="highlightReply({{post.true_id}})"
 		-->
 			No.
 		</a>
-		<a class="post_no">{{post._id}}</a>
+		<a class="post_no">{{post.true_id}}</a>
 		<!-- 
 		later, can add
-		onclick="citeReply({{post._id}})" 
+		onclick="citeReply({{post.true_id}})" 
 		to the above, also TODO:: fix the quote mechanic
-		href="/{{board._id}}/res/{{thread._id}}.html#q{{post._id}}"
+		href="/{{board.true_id}}/res/{{thread.true_id}}.html#q{{post.true_id}}"
 
 		<span class="mentioned unimportant"><a class="mentioned-50397" onclick="highlightReply('50397');" href="#50397">&gt;&gt;50397</a><a class="mentioned-50424" onclick="highlightReply('50424');" href="#50424">&gt;&gt;50424</a></span>
 		-->

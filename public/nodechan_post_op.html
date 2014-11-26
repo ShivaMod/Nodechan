@@ -3,26 +3,26 @@
 	<nodechan-file ng-repeat="file in thread.op.files" ng-init="op_post=true"></nodechan-file>
 </div>
 
-<div class="post op" id="op_{{thread.op._id}}">
+<div class="post op" id="op_{{thread.op.true_id}}">
 	<p class="intro">
-		<input type="checkbox" class="delete" name="delete_{{thread.op._id}}" id="delete_{{thread.op._id}}">
-		<label for="delete_{{thread.op._id}}">
+		<input type="checkbox" class="delete" name="delete_{{thread.op.true_id}}" id="delete_{{thread.op.true_id}}">
+		<label for="delete_{{thread.op.true_id}}">
 		<span class="subject">{{thread.op.subject}}</span>
 		<span class="name">{{thread.op.name}}</span>
 		&nbsp;
 		<time datetime="{{thread.op.date}}" data-local="true">{{thread.op.date}}</time>
 		</label>
 		&nbsp;
-		<a class="post_no" id="post_no_{{thread.op._id}}" ng-click="set_location('/'+thread.op._id)">No.</a>
+		<a class="post_no" id="post_no_{{thread.op.true_id}}" ng-click="set_location('/'+thread.op.true_id)">No.</a>
 		<!-- add to the above tag:
-		<a class="post_no" id="post_no_{{thread.op._id}}" href="/#/?t={{thread.op._id}}">No.</a>
+		<a class="post_no" id="post_no_{{thread.op.true_id}}" href="/#/?t={{thread.op.true_id}}">No.</a>
 
-		onclick="highlightReply({{thread.op._id}})" 
+		onclick="highlightReply({{thread.op.true_id}})" 
 		TODO: make 'quote' work properly-->
-		<a class="post_no">{{thread.op._id}}</a>
+		<a class="post_no">{{thread.op.true_id}}</a>
 		<!--
-		add to the above tag: onclick="citeReply({{thread.op._id}})"
-		href="#q{{thread.op._id}}"
+		add to the above tag: onclick="citeReply({{thread.op.true_id}})"
+		href="#q{{thread.op.true_id}}"
 		-->
 	</p>
 

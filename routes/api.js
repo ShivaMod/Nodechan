@@ -31,10 +31,12 @@ autoIncrement.initialize(connection);
 
 var Schema_post = require('../models/thread_reply.js');
 Schema_post.plugin(autoIncrement.plugin, 'Post');
+Schema_post.plugin(autoIncrement.plugin, { model: 'Post', field: 'true_id' });
 var Model_post = connection.model('Post', Schema_post);
 
 var Schema_thread_op = require('../models/thread_op.js');
 Schema_thread_op.plugin(autoIncrement.plugin, 'ThreadOP');
+Schema_thread_op.plugin(autoIncrement.plugin, { model: 'ThreadOP', field: 'true_id' });
 var Model_thread_op = connection.model('ThreadOP', Schema_thread_op);
 
 /*
@@ -69,18 +71,23 @@ var done = function(req, res, doc) {
 
 exports.threadlist = function(req, res, next) {
 
+	//console.log("request is:");
+	//console.log(req.params);
 	Model_thread_op.find().sort({date: 'desc'}).exec(function (err, db_threads) {
 		if (err) {
 			console.error(err);
 			done(req, res, err);
 		} else {
-			//console.log(db_threads);
+			console.log(db_threads);
+			//console.log(db_threads[0].true_id_id);
 			var new_board=[]
 			var promise_list=[];
 
 			for (var i=0; i<db_threads.length; i++){
-				var curthread_id=db_threads[i]._id;
-				var query = Model_post.find({ thread_id: curthread_id }).populate({ path:'_id thread_id date author name files subject body', options: { limit: 5 } }).sort({date: 'ascending'}).exec(function(err_inner, db_posts){
+				var curthread_id=db_threads[i].true_id_id;
+				//console.log("curthread_id is:");
+				//console.log(curthread_id);
+				var query = Model_post.find({ thread_id: curthread_id }).populate({ path:'true_id thread_id date author name files subject body', options: { limit: 5 } }).sort({date: 'ascending'}).exec(function(err_inner, db_posts){
 					if (err_inner) {
 						console.error(err_inner);
 						return [];
@@ -105,7 +112,7 @@ exports.threadlist = function(req, res, next) {
 					var temp_thread = {"op":db_threads[i],"posts": promise_list[i]};
 					new_board.push(temp_thread);
 				}
-				console.log(new_board);
+				//console.log(new_board);
 				done(req, res, new_board);
 			})
 		}
@@ -117,7 +124,7 @@ exports.thread = function(req, res, next) {
 	console.log("request is for thread:", req.params.thread_id);
 	var curthread_id=req.params.thread_id;
 
-	Model_thread_op.findOne({_id:curthread_id}).exec(function (err, db_thread) {
+	Model_thread_op.findOne({true_id_id:curthread_id}).exec(function (err, db_thread) {
 		if (err) {
 			console.error(err);
 			done(req, res, err);
@@ -152,7 +159,7 @@ exports.preview = function(req, res, next) {
 	console.log("request is to preview thread:", req.params.thread_id);
 	var curthread_id=req.params.thread_id;
 
-	var query = Model_post.find({ thread_id: curthread_id }).populate({ path:'_id thread_id date author name files subject body', options: { limit: 5 } }).sort({date: 'ascending'}).exec(function(err_inner, db_posts){
+	var query = Model_post.find({ thread_id: curthread_id }).populate({ path:'true_id thread_id date author name files subject body', options: { limit: 5 } }).sort({date: 'ascending'}).exec(function(err_inner, db_posts){
 		if (err_inner) {
 			console.error(err_inner);
 			done(req, res, err_inner);
@@ -172,14 +179,14 @@ exports.preview = function(req, res, next) {
 
 exports.posts = function(req, res, next) {
 
-	//For reference; board.threads[0].posts[board.threads[0].posts.length - 1]._id
+	//For reference; board.threads[0].posts[board.threads[0].posts.length - 1].true_id
 	//^Use this as start point, and fetch posts since that
 
 	console.log("request is:", req.params.thread_id);
 	var curthread_id=req.params.thread_id;
 
 	for (var i=0; i<db_threads.length; i++){
-		var curthread_id = db_threads[i]._id+"";
+		var curthread_id = db_threads[i].true_id+"";
 		var query = Model_post.find({ thread_id: curthread_id }).sort({date: 'desc'}).exec(function(err_inner, db_posts){
 			//TODO::get posts since 'date', etc, just extend the API some more
 			if (err_inner) {
@@ -204,7 +211,7 @@ exports.post_op = function(req, res, next) {
 	//return;
 
 	var instance_thread_op = new Model_thread_op({
-		board: 'v',					// Board posted on
+		board: 'tech',					// Board posted on
 		date: new Date(),				// Post Date
 		last_reply: new Date(),				// Last reply Date
 
@@ -230,7 +237,7 @@ exports.post_op = function(req, res, next) {
 			done(req, res, err);
 		} else {
 			console.log(instance_thread_op);
-			done(req, res, { 'id': instance_thread_op._id });
+			done(req, res, { 'true_id': instance_thread_op.true_id });
 		}
 	});
 

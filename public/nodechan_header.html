@@ -1,20 +1,12 @@
 
 
 <!-- -->
-<header ng-if="viewmode!='catalog'">
-	<h1>
-		<!-- <a href="{{(board._id + '.' + curpath) + '/#/'}}">/{{board._id}}/</a> - {{board.name}} -->
-		<a href="/catalog">/{{board_id}}/</a> - {{board_name}}
-		<a id="favorite-star" href="" data-active="false" ng-hide="archived">★</a>
-	</h1>
-	<div class="subtitle">
-		<p><a ng-href="/catalog" ng-hide="archived">Catalog</a></p>
-	</div>
-</header>
-<header ng-if="viewmode=='catalog'">
-	<h1>Catalog (<a href="/">/{{board._id}}/</a>)<a id="favorite-star" href="" data-active="false">★</a></h1>
+<header>
+	<h1>Catalog (<a ng-href="" ng-click="set_viewmode(((viewmode == 'board') ? '/#/catalog' : '/#/'))">/{{board_id}}/</a>)<a id="favorite-star" href="" data-active="false">★</a></h1>
 	<!-- TODO -->
-	<div class="subtitle"></div>
+	<div class="subtitle">
+		<p><a ng-href="/#/catalog" ng-hide="archived" ng-if="viewmode!='catalog'">Catalog</a></p>
+	</div>
 </header>
 <!-- -->
 

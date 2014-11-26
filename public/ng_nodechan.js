@@ -28,9 +28,19 @@
 			$location.url(new_path);
 		}
 
+		$rootScope.set_viewmode = function(new_view){
+			$rootScope.viewmode=new_view;
+			$scope.viewmode=new_view;
+			console.log("viewmode set:");
+			console.log(new_view);
+			//console.log($rootScope.viewmode);
+
+		}
+
 		$rootScope.submitData = function (post_form, resultVarName)
 		{
 			post_form.sending=true;
+			console.log("current viewmode is:")
 			console.log($rootScope.viewmode)
 			if ($rootScope.viewmode == 'thread'){
 
@@ -51,7 +61,7 @@
 				{
 					$rootScope.threads[0].posts.push(config.params);
 					//^This adds the current post to the reply list: TODO:: fetch any posts made just before client has posted 
-					$location.path('/' + config.params.thread_id + '#post_no_'+config.params._id).replace();
+					$location.path('/' + config.params.thread_id + '#post_no_'+config.params.true_id).replace();
 				})
 				.error(function (data, status, headers, config)
 				{
@@ -75,7 +85,9 @@
 				$http.post("/json/post_op", null, config)
 				.success(function (data, status, headers, config)
 				{
-					$location.path('/' + data.params.id).replace();
+					//console.log("new thread op's true_id is:");
+					//console.log(data.true_id);
+					$location.path('/' + data.true_id).replace();
 				})
 				.error(function (data, status, headers, config)
 				{
@@ -98,7 +110,7 @@
 				console.log(root_data);
 
 				$rootScope.threads=root_data;
-				$rootScope.viewmode='catalog';
+				$rootScope.viewmode='board';
 				return "success";
 			}
 		);
@@ -117,7 +129,6 @@
 				//^This is done for a good reason
 				//this.op=data.op;
 				//this.posts=data.posts;
-				$rootScope.viewmode='thread';
 				return "success";
 			}
 		);
@@ -156,13 +167,16 @@
 		})
 		//
 	})
-	.controller('BoardListController', ["$http", "$scope", "$route", function($http, $scope, $location){
+	.controller('BoardListController', ["$http", "$rootScope", "$scope", "$route", function($http, $rootScope, $scope, $location){
+		$rootScope.set_viewmode('board');
 
 	}])
-	.controller('BoardCatalogController', ["$http", "$scope", "$route", function($http, $scope, $location){
+	.controller('BoardCatalogController', ["$http", "$rootScope", "$scope", "$route", function($http, $rootScope, $scope, $location){
+		$rootScope.set_viewmode('catalog');
 
 	}])
-	.controller('FullThreadController', ["$http", "$scope", "$route", function($http, $scope, $location){
+	.controller('FullThreadController', ["$http", "$rootScope", "$scope", "$route", function($http, $rootScope, $scope, $location){
+		$rootScope.set_viewmode('thread');
 
 	}])
 	.directive("nodechanHeader", function() {
@@ -181,7 +195,7 @@
 			controller:function($scope, $http, $location){
 				console.log("new thread is:");
 				console.log(this);
-				//this._id="";	//TODO
+				//this.true_id="";	//TODO
 				this.nodehidden=false;
 				this.posts=[];
 				this_thread=this;
