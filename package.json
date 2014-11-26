@@ -5,7 +5,6 @@
   "license": "GPL3+",
   "main": "nodechan.js",
   "scripts": {
-    "prestart": "npm install",
     "start": "node nodechan.js"
   },
   "dependencies": {
