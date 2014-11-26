@@ -4,15 +4,15 @@
 <header ng-if="viewmode!='catalog'">
 	<h1>
 		<!-- <a href="{{(board._id + '.' + curpath) + '/#/'}}">/{{board._id}}/</a> - {{board.name}} -->
-		<a href="{{page_host}}/catalog">/{{board_id}}/</a> - {{board_name}}
+		<a href="/catalog">/{{board_id}}/</a> - {{board_name}}
 		<a id="favorite-star" href="" data-active="false" ng-hide="archived">★</a>
 	</h1>
 	<div class="subtitle">
-		<p><a ng-href="https://{{page_host + '/#/'}}?t=catalog" ng-hide="archived">Catalog</a></p>
+		<p><a ng-href="/catalog" ng-hide="archived">Catalog</a></p>
 	</div>
 </header>
 <header ng-if="viewmode=='catalog'">
-	<h1>Catalog (<a href="{{page_host}}/">/{{board._id}}/</a>)<a id="favorite-star" href="" data-active="false">★</a></h1>
+	<h1>Catalog (<a href="/">/{{board._id}}/</a>)<a id="favorite-star" href="" data-active="false">★</a></h1>
 	<!-- TODO -->
 	<div class="subtitle"></div>
 </header>
