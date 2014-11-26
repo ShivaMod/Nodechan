@@ -11,7 +11,7 @@
 			<time datetime="{{post.date}}" data-local="true">{{post.date}}</time>
 		</label>
 		&nbsp;
-		<a class="post_no" id="post_no_{{post.true_id}}" ng-href="'/thread/'+{{thread.op.true_id}}+'#post_no_'+{{post.true_id}}">
+		<a class="post_no" id="post_no_{{post.true_id}}" ng-click="set_location('/'+thread.op.true_id+'#post_no_'+post.true_id)">
 		<!--
 		<a class="post_no" id="post_no_{{post.true_id}}" ng-href="'/#'+{{post.true_id}}+'/?t='+{{thread.true_id}}">
 
