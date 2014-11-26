@@ -79,15 +79,16 @@ exports.threadlist = function(req, res, next) {
 			done(req, res, err);
 		} else {
 			console.log(db_threads);
-			//console.log(db_threads[0].true_id_id);
+			//console.log(db_threads[0].true_id);
 			var new_board=[]
 			var promise_list=[];
 
 			for (var i=0; i<db_threads.length; i++){
-				var curthread_id=db_threads[i].true_id_id;
+				var curthread_id=db_threads[i].true_id;
 				//console.log("curthread_id is:");
 				//console.log(curthread_id);
-				var query = Model_post.find({ thread_id: curthread_id }).populate({ path:'true_id thread_id date author name files subject body', options: { limit: 5 } }).sort({date: 'ascending'}).exec(function(err_inner, db_posts){
+				var query = Model_post.find({ thread_id: curthread_id }).limit(5).sort({date: 'ascending'}).exec(function(err_inner, db_posts){
+					console.log(curthread_id);
 					if (err_inner) {
 						console.error(err_inner);
 						return [];
@@ -95,7 +96,7 @@ exports.threadlist = function(req, res, next) {
 					if (db_posts == undefined) db_posts=[];
 					//else if (db_posts[0]== undefined) db_posts=[];
 
-					//console.log(db_posts);
+					console.log(db_posts);
 					return db_posts;
 				});
 				query.onReject(function (reason) {

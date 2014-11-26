@@ -13,6 +13,8 @@
 			<a id="{{thread.op.true_id}}" class="post_anchor"></a>
 			<post-op></post-op>
 
+			<a href="" ng-click="set_location('/'+thread.op.true_id)">[Reply]</a>
+
 			<post-reply ng-if="thread.posts != []" ng-repeat="post in thread.posts"></post-reply>
 		</div>
 	</div>
