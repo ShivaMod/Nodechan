@@ -8,7 +8,7 @@
 		<!-- TODO::^Riskyyyyyy 
 		ng-init="load_thread_preview(thread.op.true_id)"
 		-->
-		<a class="hide-link" ng-click="thread.nodehidden = !thread.nodehidden">[{{thread.nodehidden ? "+" : "-"}}]</a>
+		<a class="hide-link" ng-click="thread.nodehidden = !thread.nodehidden">[{{thread.nodehidden ? "+" : "-"}}] thread</a>
 		<div ng-hide="thread.nodehidden">
 			<a id="{{thread.op.true_id}}" class="post_anchor"></a>
 			<post-op></post-op>

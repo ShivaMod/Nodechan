@@ -5,9 +5,9 @@
 	ng-class="(op_post ? ((thread.op.files.length>1) ? 'multifile' : '') : ((files.length>1) ? 'multifile' : '') )"
 	-->
 	<p class="fileinfo">
-	<span ng-init="thisfile={'nodehidden':false, 'class':'post-image'}">File <small>(
-		<a class="hide-link" ng-click="thisfile.nodehidden = !thisfile.nodehidden">{{thisfile.nodehidden ? "show" : "hide"}}</a>)</small>:
-		<a ng-href="{{file}}">todo: filenname</a>
+	<a class="hide-link" ng-click="thisfile.nodehidden = !thisfile.nodehidden">{{thisfile.nodehidden ? "Show" : "Hide"}} image</a>
+	<span ng-init="thisfile={'nodehidden':false, 'class':'post-image'}">File link:
+		<a ng-href="{{file}}">Download</a>
 		</span>
 	</span>
 	<!-- 

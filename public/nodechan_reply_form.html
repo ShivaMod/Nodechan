@@ -50,7 +50,7 @@
 			<th>Comment</th>
 			<td><textarea name="body" id="body" rows="5" cols="35"  ng-model="post_form.body" required></textarea></td>
 		</tr>
-		<tr id="file"><th>File</th>
+		<tr id="file"><th>Image URL</th>
 			<td>
 				<input type="url" name="file" ng-model="post_form.files[0]" required ng-if="viewmode!='thread'">
 				<input type="url" name="file" ng-model="post_form.files[0]" ng-if="viewmode=='thread'">

@@ -2,10 +2,18 @@
 
 <!-- -->
 <header>
-	<h1>Catalog (<a ng-href="" ng-click="set_location(((viewmode == 'board') ? '/catalog' : '/'))">/{{board_id}}/</a>)<a id="favorite-star" href="" data-active="false">★</a></h1>
+	<div>
+	<h1>Home -> (<a ng-href="" ng-click="set_location('/')">/{{board_id}}/</a>)<a id="favorite-star" href="" data-active="false">★</a></h1>
+	<!--
+	<h1>Home -> (<a ng-href="" ng-click="set_location(((viewmode == 'board') ? '/catalog' : '/'))">/{{board_id}}/</a>)<a id="favorite-star" href="" data-active="false">★</a></h1>
+	-->
+	</div>
+		<p><a ng-click="set_location('/catalog')">Catalog</a></p>
 	<!-- TODO -->
 	<div class="subtitle">
+		<!--
 		<p><a ng-click="set_location('/catalog')" ng-hide="archived" ng-if="viewmode!='catalog'">Catalog</a></p>
+		-->
 	</div>
 </header>
 <!-- -->
