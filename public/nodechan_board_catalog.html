@@ -2,7 +2,7 @@
 <!-- Viewmode if we're browsing the board catalog -->
 <div class="mix theme-catalog" data-reply="{{thread.op.replies}}" data-bump="1416788920" data-time="1414297858" ng-repeat="thread in threads">
 	<div class="thread grid-li grid-size-small">
-		<a ng-onclick="set_location('/'+thread.op.true_id)">
+		<a ng-href="/#/{{thread.op.true_id}}">
 			<img ng-src="{{thread.op.files[0]}}" data-subject="{{thread.op.subject}}" data-name="{{thread.op.name}}" data-muhdifference="" data-last-reply="" data-last-subject="" data-last-name="" data-last-difference="" class="{{board_id}} thread-image" title="{{thread.op.date}}">
 			<!--
 			<img src="https://media.8chan.co/{{board.true_id}}/thumb/1414297858386.png" id="img-{{thread.files[0].link}}" data-subject="Post your Chinkpad" data-name="Anonymous" data-muhdifference="" data-last-reply="" data-last-subject="" data-last-name="" data-last-difference="" class="{{board_id}} thread-image" title="Nov 24 00:28">
