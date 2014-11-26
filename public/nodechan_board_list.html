@@ -1,0 +1,39 @@
+
+<div>
+
+	<nodechan-header></nodechan-header>
+
+	<reply-form></reply-form>
+
+	<div ng-hide="page_jquery.d!='true'">
+		<p>archived is {{archived}}, viewmode is {{viewmode}}, curpath is {{curpath}}</p>
+		<p>expandall is {{expandall}}</p>
+		<p>{{page_location}}</p>
+		<p>{{live_host}}</p>
+		<p>{{page_host}}</p>
+		<p id="jquer">{{page_jquery}}</p>
+		<p>{{page_hash}}</p>
+		<p>{{viewmode}}</p>
+	</div>
+
+	<input type="hidden" name="board" value="{{board._id}}">
+
+	<!-- Viewmode if we're browsing the whole board regularly -->
+	<div class="thread" data-board="{{board.id}}" id="thread_{{thread.op.id}}" ng-repeat-start="thread in threads">
+		<!-- TODO::^Riskyyyyyy 
+		ng-init="load_thread_preview(thread.op.id)"
+		-->
+		<a class="hide-link" ng-click="thread.nodehidden = !thread.nodehidden">[{{thread.nodehidden ? "+" : "-"}}]</a>
+		<div ng-hide="thread.nodehidden">
+			<a id="{{thread.op._id}}" class="post_anchor"></a>
+			<post-op></post-op>
+
+			<post-reply ng-if="thread.posts != []" ng-repeat="post in thread.posts"></post-reply>
+		</div>
+	</div>
+	<hr ng-repeat-end>
+	<!--
+		<mod-footer></mod-footer>
+	-->
+
+</div>

@@ -1,56 +1,34 @@
 
+<div ng-controller="BoardController as board">
+
+	<nodechan-header></nodechan-header>
+
+	<reply-form ng-hide="viewmode!='board'"></reply-form>
+
+	<div ng-hide="page_jquery.d!='true'">
+		<p>archived is {{archived}}, viewmode is {{viewmode}}, curpath is {{curpath}}</p>
+		<p>expandall is {{expandall}}</p>
+		<p>{{page_location}}</p>
+		<p>{{live_host}}</p>
+		<p>{{page_host}}</p>
+		<p id="jquer">{{page_jquery}}</p>
+		<p>{{page_hash}}</p>
+		<p>{{viewmode}}</p>
+	</div>
+
+</div>
+
+
 <!-- Viewmode if we're browsing a single thread -->
-<div class="thread" ng-if="viewmode=='thread'" ng-hide="thread.op._id != page_jquery.t">
+<div class="thread">
 	<!-- TODO::^Riskyyyyyy -->
 	<a id="{{thread.op._id}}" class="post_anchor"></a>
 	<post-op></post-op>
 	
-	<post-reply ng-repeat="post in thread.posts"></post-reply>
+	<post-reply ng-if="thread.posts != []" ng-repeat="post in thread[0].posts"></post-reply>
 
 	<hr>
 	<reply-form></reply-form>
 </div>
 
 
-<!-- Viewmode if we're browsing the whole board regularly -->
-<div class="thread" ng-if="viewmode=='board'" id="thread_{{thread.op.id}}" data-board="{{board.id}}">
-	<!-- TODO::^Riskyyyyyy -->
-	<a class="hide-link" ng-click="thread.nodehidden = !thread.nodehidden">[{{thread.nodehidden ? "+" : "-"}}]</a>
-	<div ng-hide="thread.nodehidden">
-		<a id="{{thread.op._id}}" class="post_anchor"></a>
-		<post-op></post-op>
-
-		<post-reply ng-repeat="post in thread.posts"></post-reply>
-	</div>
-</div>
-<hr ng-if="viewmode=='board'">
-
-
-<!-- Viewmode if we're browsing the board catalog -->
-<div class="mix theme-catalog" ng-if="viewmode=='catalog'" data-reply="{{thread.op.replies}}" data-bump="1416788920" data-time="1414297858">
-	<div class="thread grid-li grid-size-small">
-		<a href="thread.html?t={{thread.op._id}}">
-			<img src="{{thread.op.files[0]}}" data-subject="{{thread.op.subject}}" data-name="{{thread.op.name}}" data-muhdifference="" data-last-reply="" data-last-subject="" data-last-name="" data-last-difference="" class="{{board._id}} thread-image" title="{{thread.op.date}}">
-			<!--
-			<img src="https://media.8chan.co/{{board._id}}/thumb/1414297858386.png" id="img-{{thread.files[0].link}}" data-subject="Post your Chinkpad" data-name="Anonymous" data-muhdifference="" data-last-reply="" data-last-subject="" data-last-name="" data-last-difference="" class="{{board._id}} thread-image" title="Nov 24 00:28">
-			-->
-		</a>
-		<div class="replies">
-			<strong>R: {{thread.op.replies}} / I: {{thread.op.files.length}}</strong>
-				<!-- TODO:dtad: The above should eventually say 'F' instead, for files, perhaps -->
-			<p class="intro">
-				<span class="subject">{{thread.op.subject}}</span>
-			</p>{{thread.op.body}}
-			<!--
-			Example code from 8chan follows
-			Post your chinkpads. Dell Latitudes are welcome too. All other laptops can gtfo.
-			<br>
-			<span class="quote"><br>&gt; Thinkpad T60 running Arch</span><br>
-			<span class="quote">&gt; Intel Core Duo T2400 @ 1.83 GHz</span><br>
-			<span class="quote">&gt; 2GB Memory</span><br>
-			<span class="quote">&gt; Intel 945G</span><br>
-			<span class="quote">&gt; 64GB Crucial m4</span>
-			-->
-		</div>
-	</div>
-</div>

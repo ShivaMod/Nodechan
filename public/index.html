@@ -4,37 +4,19 @@
 		<meta charset="UTF-8">
 		<link rel="stylesheet" href="/style.css"></link>
 		<script type="text/javascript" src="/angular.min.js"></script>
+		<script type="text/javascript" src="/angular-route.js"></script>
 		<script type="text/javascript" src="/ng_nodechan.js"></script>
 	</head>
 	<!-- -->
 	<body ng-controller="ChanController as channel" ngclass="desktop-style">
 		
-		<div ng-controller="BoardController as board">
-			
-			<nodechan-header></nodechan-header>
+		<img src="http://fat.gfycat.com/ActualFeistyBettong.gif">
+		<!--  Chan Header  -->
+		<header>
+			<h1 class="text-center">Thus begins Danchan</h1>	
+			<h1 ng-click="set_hash('jquer')">Hello!</h1>
+		</header>
 
-			<reply-form ng-hide="viewmode!='board'"></reply-form>
-
-			<p>archived is {{archived}}, viewmode is {{viewmode}}, curpath is {{curpath}}</p>
-			<p>expandall is {{expandall}}</p>
-			<div ng-hide="page_jquery.d!='true'">
-				<p>{{page_location}}</p>
-				<p>{{live_host}}</p>
-				<p>{{page_host}}</p>
-				<p id="jquer">{{page_jquery}}</p>
-				<p>{{page_hash}}</p>
-				<p>{{viewmode}}</p>
-			</div>
-
-			<form name="postcontrols" action="/post" method="post">
-				<input type="hidden" name="board" value="{{board._id}}">
-
-				<full-thread ng-repeat="thread in board.threads"></full-thread>
-
-			<!--
-				<mod-footer></mod-footer>
-			-->
-			</form>
-		</div>
+		<ng-view onload autoscroll></ng-view>
 	</body>
 </html>

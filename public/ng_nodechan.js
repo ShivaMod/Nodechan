@@ -1,9 +1,6 @@
 (function() {
-	var app = angular.module('ng_nodechan', []);
-
-
-
-	app.controller('ChanController', ["$location", "$scope", function($location, $scope){
+	var app = angular.module('ng_nodechan', ['ngRoute']);
+	var chantroll = app.controller('ChanController', ["$location", "$http", "$rootScope", "$scope", "$route", "$routeParams", function($location, $http, $rootScope, $scope, $route, $routeParams) {
 
 		$scope.live_host="nodechan.herokuapp.com";
 		$scope.page_location=$location.absUrl();
@@ -11,103 +8,24 @@
 		$scope.page_jquery = $location.search();
 		$scope.page_hash = $location.hash();
 		$scope.archived=($scope.live_host != $scope.page_host);
-	}]);
-	app.controller('BoardController', ["$http", "$scope", "$location", function($http, $scope, $location){
 
-		this.threads = [];
-		var myboard=this;
+		$scope.board_id="tech";
+		$scope.board_name="The Technology Board";
+		$scope.viewmode_last='';
+		$scope.viewmode='';
 
-		this._id="tech";
-		this.name="The Technology Board";
+		$rootScope.threads=[];
 
-		//$scope.curpath=$scope.archived ? $scope.page_host : (this._id+'.'+$scope.live_host+'/#/');
-		$scope.curpath=$scope.archived ? $scope.page_host : ($scope.live_host+'/#/');
-		//$scope.viewmode='board';
-		$scope.viewmode= (($scope.page_jquery.t == undefined) ? 'board' : ($scope.page_jquery.t=='catalog' ? 'catalog' : 'thread'));
-		$scope.sub_result={};
-
-		$scope.refresh_thread_data=function(){
-			
-			$location.replace();
-
-			console.log($scope.viewmode);
-			if ($scope.viewmode == 'thread'){
-
-				console.log($scope.page_jquery.t);
-				$http.get('/json/thread.'+$scope.page_jquery.t).
-				success(function(data){
-					//console.log(data);
-					myboard.threads=[data];
-					console.log("data received");
-					console.log(data);
-				});
-
-				/*
-				var config = {
-					params: {
-						thread_id: post_form.thread_id,
-						name: post_form.name,
-						subject: post_form.subject,
-						files: post_form.files,
-						body: post_form.body,
-					}
-				};
-
-				console.log(config);
-				$http.post("/json/post_reply", null, config)
-				.success(function (data, status, headers, config)
-				{
-					$scope[resultVarName] = data;
-					$location.path('/#/?t=' + data.thread_id).replace();
-				})
-				.error(function (data, status, headers, config)
-				{
-					$scope[resultVarName] = "SUBMIT ERROR";
-				});
-				*/
-
-			} else{
-
-				$http.get('/json/threadlist.json').
-				success(function(root_data){
-					//console.log(data);
-					console.log("data received");
-					console.log(root_data);
-
-					myboard.threads=root_data;
-
-					for(var i=0; i<root_data.length; i++){
-
-						var url='/json/posts.'+root_data[i].op._id+'.preview';
-						console.log(url);
-						$http.get(url).
-						success(function(preview_data){
-							//console.log(data);
-							console.log("preview data received");
-							console.log(preview_data);
-
-							root_data[i].posts=preview_data;
-							myboard.threads=root_data;
-						});
-					}
-				});
-			}
+		$rootScope.get_threads = function(){
+			console.log("returning threadlist:");
+			console.log($rootScope.threads);
+			return $rootScope.threads;
 		}
 
-		$scope.activate_new_path = function(new_path){
-			$location.path(new_path);
-			$scope.refresh_thread_data();
-		}
-
-		$scope.refresh_thread_data();
-
-		$scope.set_hash = function(new_hash){
-			$location.hash(new_hash);
-		}
-		$scope.submitData = function (post_form, resultVarName)
+		$rootScope.submitData = function (post_form, resultVarName)
 		{
 			post_form.sending=true;
-			if ($scope.viewmode == 'thread'){
+			if ($rootScope.viewmode == 'thread'){
 
 				var config = {
 					params: {
@@ -123,18 +41,17 @@
 				$http.post("/json/post_reply", null, config)
 				.success(function (data, status, headers, config)
 				{
-					$scope[resultVarName] = data;
-					myboard.threads[0].posts.push(config.params);
-					$location.path('/#post_no_'+config.params._id+'/?t=' + config.params.thread_id).replace();
-					$scope.refresh_thread_data();
+					$scope.board.threads[0].posts.push(config.params);
+					//^This adds the current post to the reply list: TODO:: fetch any posts made just before client has posted 
+					$location.path('/?t=' + config.params.thread_id + '#post_no_'+config.params._id).replace();
 				})
 				.error(function (data, status, headers, config)
 				{
-					$scope[resultVarName] = "SUBMIT ERROR";
+					console.log("SUBMIT ERROR");
 				});
 
 
-			} else if ($scope.viewmode == 'board'){
+			} else if ($rootScope.viewmode == 'board'){
 
 				var config = {
 					params: {
@@ -145,18 +62,16 @@
 					}
 				};
 
+				console.log("config is:");
 				console.log(config);
 				$http.post("/json/post_op", null, config)
 				.success(function (data, status, headers, config)
 				{
-					$scope[resultVarName] = data;
-					$location.path('/#/?t=' + data.params.id).replace();
-
-					$scope.refresh_thread_data();
+					$location.path('/?t=' + data.params.id).replace();
 				})
 				.error(function (data, status, headers, config)
 				{
-					$scope[resultVarName] = "SUBMIT ERROR";
+					console.log("SUBMIT ERROR");
 				});
 			}
 			post_form.subject="";
@@ -164,32 +79,115 @@
 			post_form.body="";
 			post_form.sending=false;
 		};
+
 	}]);
-	app.directive("nodechanHeader", function() {
+
+	chantroll.load_board = function($rootScope, $http){
+		console.log("something is HAPPENING with the board");
+		return $http.get('/json/threadlist.json')
+			.success(function(root_data){
+				console.log("data received");
+				console.log(root_data);
+
+				$rootScope.threads=root_data;
+				$rootScope.viewmode='catalog';
+				return "success";
+			}
+		);
+	};
+
+	chantroll.load_thread = function($rootScope, $http, $location){
+		console.log("a FULL THREAD is loading!");
+		return $http.get('/json/thread.'+$location.search().t)
+			.success(function(data){
+				console.log("full thread received");
+				console.log(data);
+
+				$rootScope.threads=[data];
+				//^This is done for a good reason
+				//this.op=data.op;
+				//this.posts=data.posts;
+				viewmode='thread';
+				return "success";
+			}
+		);
+	};
+
+	app.config(function($routeProvider){
+
+		//
+		$routeProvider
+		.when('/?t=:thread_id*', {
+			templateUrl: 'nodechan_thread.html',
+			controller: 'FullThreadController',
+			controllerAs: 'thread',
+			resolve: {
+				full_thread: chantroll.load_thread
+			}
+		})
+		.when('/?t=catalog*', {
+			templateUrl: 'nodechan_board_catalog.html',
+			controller: 'BoardCatalogController',
+			controllerAs: 'board',
+			resolve: {
+				board_list: chantroll.load_board
+			}
+		})
+		.when('/', {
+			templateUrl: 'nodechan_board_list.html',
+			controller: 'BoardListController',
+			controllerAs: 'board',
+			resolve: {
+				board_list: chantroll.load_board
+			}
+		})
+		.otherwise({
+			redirectTo: '/'
+		})
+		//
+	})
+	.controller('BoardListController', ["$http", "$scope", "$route", function($http, $scope, $location){
+
+	}])
+	.controller('BoardCatalogController', ["$http", "$scope", "$route", function($http, $scope, $location){
+
+	}])
+	.controller('FullThreadController', ["$http", "$scope", "$route", function($http, $scope, $location){
+
+	}])
+	.directive("nodechanHeader", function() {
 		return {
 			restrict: 'E',
-			templateUrl: "nodechan_header.html",
-			controller:function(){
-
-			}
+			templateUrl: "nodechan_header.html"
 		};
-
 	});
-	app.directive('fullThread', ["$http", function(){
+	/*
+	app.directive('fullThread', function(thread_error){
 		return_object={
 			restrict: 'E',
 			templateUrl: "nodechan_thread.html",
-			controller:function(){
-				this._id="10";	//TODO
+		    link: function (scope, element) {
+		    }
+			controller:function($scope, $http, $location){
+				console.log("new thread is:");
+				console.log(this);
+				//this._id="";	//TODO
 				this.nodehidden=false;
-				this.op={};	//TODO
 				this.posts=[];
-				//Note: should have an array of 'replies', strings of the post IDs of repliest to the post. This should be generated clientside after all posts have loaded.
+				this_thread=this;
+				console.log("current thread is:");
+				console.log($scope.thread);
 			}
 		};
+				//
+				//Note: should have an array of 'replies', strings of the post IDs of repliest to the post. This should be generated clientside after all posts have loaded.
+		
+		//$scope.board.threads[thread_index].posts = all_posts;
+
 		return return_object;
 		//Need a function for getting newer posts, posts in the thread since the last post, then appended to this.posts
-	}]);
+	});
+	*/
 	/*
 		$http.get('http://localhost:5000/examplethread.json').then(function(res){
 			this.posts = res.data.posts;
@@ -208,8 +206,8 @@
 				
 			}
 		};
-	});
-	app.directive("postReply", function() {
+	})
+	.directive("postReply", function() {
 		return {
 			restrict: 'E',
 			templateUrl: "nodechan_post_reply.html",
@@ -217,16 +215,16 @@
 
 			}
 		};
-	});
-	app.directive("nodechanFile", function() {
+	})
+	.directive("nodechanFile", function() {
 		return {
 			restrict: 'E',
 			templateUrl: "nodechan_file.html",
 			controller:function(){
 			}
 		};
-	});
-	app.directive("replyForm", function() {
+	})
+	.directive("replyForm", function() {
 		return {
 			restrict: 'E',
 			templateUrl: "nodechan_reply_form.html",
@@ -234,8 +232,8 @@
 
 			}
 		};
-	});
-	app.directive("modFooter", function() {
+	})
+	.directive("modFooter", function() {
 		return {
 			restrict: 'E',
 			templateUrl: "nodechan_footer.html",

@@ -1,4 +1,4 @@
-<div class="post reply">
+<form class="post reply" name="postcontrols">
 	<!-- op post should be different, as per convention, with class "post op" -->
 	<p class="intro">
 		<a id="{{post._id}}" class="post_anchor"></a>
@@ -11,8 +11,10 @@
 			<time datetime="{{post.date}}" data-local="true">{{post.date}}</time>
 		</label>
 		&nbsp;
-		<a class="post_no" id="post_no_{{post._id}}" ng-href="'/#'+{{post._id}}+'/index.html?t='+{{thread._id}}" ng-click="activate_new_path('/#' + post._id + '/index.html?t=' + thread._id)">
+		<a class="post_no" id="post_no_{{post._id}}" ng-href="'/thread/'+{{thread.op._id}}+'#post_no_'+{{post._id}}">
 		<!--
+		<a class="post_no" id="post_no_{{post._id}}" ng-href="'/#'+{{post._id}}+'/?t='+{{thread._id}}">
+
 		add to the above
 		onclick="highlightReply({{post._id}})"
 		-->
@@ -35,5 +37,5 @@
 	</div>
 	<p class="body">{{post.body}}</p>
 	<div class="post_modified"></div>
-</div>
+</form>
 <br>

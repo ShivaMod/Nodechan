@@ -1,15 +1,10 @@
 
-<!--  Chan Header  -->
-<header>
-	<h1 class="text-center">Thus begins Danchan</h1>	
-	<h1 ng-click="set_hash('jquer')">Hello!</h1>
-</header>
 
 <!-- -->
 <header ng-if="viewmode!='catalog'">
 	<h1>
 		<!-- <a href="{{(board._id + '.' + curpath) + '/#/'}}">/{{board._id}}/</a> - {{board.name}} -->
-		<a href="http://{{live_host}}/#/">/{{board._id}}/</a> - {{board.name}}
+		<a href="{{live_host}}/catalog">/{{board_id}}/</a> - {{board_name}}
 		<a id="favorite-star" href="" data-active="false" ng-hide="archived">★</a>
 	</h1>
 	<div class="subtitle">
@@ -17,7 +12,7 @@
 	</div>
 </header>
 <header ng-if="viewmode=='catalog'">
-	<h1>Catalog (<a href="{{live_host}}">/{{board._id}}/</a>)<a id="favorite-star" href="" data-active="false">★</a></h1>
+	<h1>Catalog (<a href="{{live_host}}/">/{{board._id}}/</a>)<a id="favorite-star" href="" data-active="false">★</a></h1>
 	<!-- TODO -->
 	<div class="subtitle"></div>
 </header>

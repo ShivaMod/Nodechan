@@ -1,5 +1,6 @@
 
 //var asynch = require('asynch');
+var Q = require('q');
 var mongoose = require('mongoose');
 var autoIncrement = require('mongoose-auto-increment');
 
@@ -75,12 +76,38 @@ exports.threadlist = function(req, res, next) {
 		} else {
 			//console.log(db_threads);
 			var new_board=[]
+			var promise_list=[];
+
 			for (var i=0; i<db_threads.length; i++){
-				var temp_thread = {"op":db_threads[i],"posts": []};
-				new_board.push(temp_thread);
+				var curthread_id=db_threads[i]._id;
+				var query = Model_post.find({ thread_id: curthread_id }).populate({ path:'_id thread_id date author name files subject body', options: { limit: 5 } }).sort({date: 'ascending'}).exec(function(err_inner, db_posts){
+					if (err_inner) {
+						console.error(err_inner);
+						return [];
+					}
+					if (db_posts == undefined) db_posts=[];
+					//else if (db_posts[0]== undefined) db_posts=[];
+
+					//console.log(db_posts);
+					return db_posts;
+				});
+				query.onReject(function (reason) {
+					console.log(reason);
+					return [];
+					//done(req, res, []);
+				});
+				promise_list.push(query);
 			}
-			//console.log(new_board);
-			done(req, res, new_board);
+
+			Q.all(promise_list).then(function(){
+
+				for (var i=0; i<db_threads.length; i++){
+					var temp_thread = {"op":db_threads[i],"posts": promise_list[i]};
+					new_board.push(temp_thread);
+				}
+				console.log(new_board);
+				done(req, res, new_board);
+			})
 		}
 	});
 }
