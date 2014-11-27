@@ -10,7 +10,7 @@
 
 		<label for="delete_{{post.true_id}}">
 			<a class="email" href="mailto:{{post.email}}">
-				<span class="name">{{post.name}}</span>
+				<span class="name">{{(post.name!=undefined) ? post.name : "Anonymous"}}</span>
 			</a>
 			&nbsp;
 			<time datetime="{{post.date}}" data-local="true">{{ post.date | date : format : timezone}}</time>

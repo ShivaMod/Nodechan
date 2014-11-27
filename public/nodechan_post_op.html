@@ -11,7 +11,7 @@
 		<label for="delete_{{thread.op.true_id}}">
 		-->
 		<span class="subject">{{thread.op.subject}}</span>
-		<span class="name">{{thread.op.name}}</span>
+		<span class="name">{{(thread.op.name!=undefined) ? thread.op.name : "Anonymous"}}</span>
 		&nbsp;
 		<time datetime="{{thread.op.date}}" data-local="true">{{ thread.op.date | date : format : timezone}}</time>
 		</label>
