@@ -94,22 +94,38 @@ form table {
 
 form table input {
   height: auto;
+  width: auto;
+  padding-right: 0px;
 }
 
-input[type="text"],input[type="password"],textarea {
+input,textarea{
+  background: #222222;
+  color: #aaaaaa;
+}
+
+input[type="text"],input[type="url"],input[type="password"],textarea {
   border: 1px solid #aaaaaa;
   text-indent: 0;
   text-shadow: none;
   text-transform: none;
   word-spacing: normal;
-  max-width: 75%;
 }
 
 button:disabled {
   color: #a9a9a9;
 }
 
-#quick-reply input[type="text"], input[type="password"], #quick-reply textarea {
+.ng-invalid.ng-dirty {
+  border-color: red;
+  background: #552222;
+}
+
+.ng-valid.ng-dirty {
+  border-color: green;
+  background: #223322;
+}
+
+#file input[type="url"] {
   max-width: 100%;
 }
 
