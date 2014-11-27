@@ -2,7 +2,7 @@
 <br>
 <div style="right: 0px; position: fixed;" ng-init="post_form={'files':[''], 'thread_id':thread.op.true_id}" class="post reply">
 
-	<a class="hide-link" ng-click="post_form.nodehidden = !post_form.nodehidden">[{{post_form.nodehidden ? "+" : "-"}}]</a>
+	<a class="hide-link clickable" ng-click="post_form.nodehidden = !post_form.nodehidden">[{{post_form.nodehidden ? "+" : "-"}}]</a>
 
 	<form name="post" ng-submit="submitData(post_form, sub_result)" ng-hide="post_form.nodehidden">
 		<h1 ng-if="viewmode=='board'" class="text-center">Create New Thread</h1>

@@ -6,7 +6,7 @@
 		<!--
 		<input type="checkbox" class="delete" name="delete_{{post.true_id}}" id="delete_{{post.true_id}}">
 		-->
-		<a class="hide-link" ng-click="post.nodehidden = !post.nodehidden">[{{post.nodehidden ? "+" : "-"}}]</a>
+		<a class="hide-link clickable" ng-click="post.nodehidden = !post.nodehidden">[{{post.nodehidden ? "+" : "-"}}]</a>
 
 		<label for="delete_{{post.true_id}}">
 			<a class="email" href="mailto:{{post.email}}">

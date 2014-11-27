@@ -5,7 +5,7 @@
 	ng-class="(op_post ? ((thread.op.files.length>1) ? 'multifile' : '') : ((files.length>1) ? 'multifile' : '') )"
 	-->
 	<p class="fileinfo">
-	<a class="hide-link" ng-click="thisfile.nodehidden = !thisfile.nodehidden">{{thisfile.nodehidden ? "Show" : "Hide"}} image</a>
+	<a class="hide-link clickable" ng-click="thisfile.nodehidden = !thisfile.nodehidden">{{thisfile.nodehidden ? "Show" : "Hide"}} image</a>
 	<span ng-init="thisfile={'nodehidden':false, 'class':'post-image'}">File link:
 		<a ng-href="{{file}}">Download</a>
 		</span>
@@ -25,7 +25,7 @@
 	<!--
 	This break fixes things for a single posted image
 	-->
-	<a target="_blank" ng-hide="thisfile.nodehidden" ng-model="thisfile.class"><img ng-src="{{file}}" ng-class="thisfile.class" ng-click="expandme=!expandme"><span ng-hide="true">{{thisfile.class = (expandall ? 'full-image' : (expandme ? 'full-image' : (op_post ? 'op-image' : 'post-image')))}}</span></img></a>
+	<a target="_blank" ng-hide="thisfile.nodehidden" ng-model="thisfile.class"><img ng-src="{{file}}" class="clickable" ng-class="thisfile.class" ng-click="expandme=!expandme"><span ng-hide="true">{{thisfile.class = (expandall ? 'full-image' : (expandme ? 'full-image' : (op_post ? 'op-image' : 'post-image')))}}</span></img></a>
 	<!--
 	<a href="{{file}}" target="_blank" ng-hide="thisfile.nodehidden" ng-model="thisfile.class"><img ng-src="{{file}}" ng-class="thisfile.class" ng-click="expandme=!expandme"><span ng-hide="true">{{thisfile.class = (expandall ? 'full-image' : (expandme ? 'full-image' : (op_post ? 'op-image' : 'post-image')))}}</span></img></a>
 	-->

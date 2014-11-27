@@ -966,6 +966,10 @@ pre {
   word-wrap: break-word;
 }
 
+.clickable {
+  cursor: pointer;
+}
+
 .poster_id {
   cursor: pointer;
 }
