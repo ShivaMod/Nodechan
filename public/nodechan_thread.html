@@ -1,8 +1,6 @@
 
 <div>
 
-	<reply-form></reply-form>
-
 	<div ng-hide="page_jquery.d!='true'">
 		<p>archived is {{archived}}, viewmode is {{viewmode}}, curpath is {{curpath}}</p>
 		<p>expandall is {{expandall}}</p>
@@ -22,12 +20,10 @@
 	<!-- TODO::^Riskyyyyyy -->
 	<a id="{{thread.op.true_id}}" class="post_anchor"></a>
 	<post-op></post-op>
-	
+
 	<post-reply ng-if="thread.posts != []" ng-repeat="post in thread.posts"></post-reply>
 
 	<hr>
-
-	<reply-form></reply-form>
 </div>
 
 
