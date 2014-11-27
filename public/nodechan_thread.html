@@ -1,7 +1,7 @@
 
 <div>
 
-	<reply-form ng-hide="viewmode!='board'"></reply-form>
+	<reply-form></reply-form>
 
 	<div ng-hide="page_jquery.d!='true'">
 		<p>archived is {{archived}}, viewmode is {{viewmode}}, curpath is {{curpath}}</p>
@@ -26,6 +26,7 @@
 	<post-reply ng-if="thread.posts != []" ng-repeat="post in thread.posts"></post-reply>
 
 	<hr>
+
 	<reply-form></reply-form>
 </div>
 
