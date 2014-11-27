@@ -84,8 +84,8 @@ header div.subtitle {
 }
 
 form {
-  margin-bottom: 10px;
-  margin-right: 10px;
+  margin-bottom: 0px;
+  margin-right: 0px;
 }
 
 form table {
@@ -97,12 +97,16 @@ form table input {
 }
 
 input[type="text"],input[type="password"],textarea {
-  border: 1px solid #a9a9a9;
+  border: 1px solid #aaaaaa;
   text-indent: 0;
   text-shadow: none;
   text-transform: none;
   word-spacing: normal;
   max-width: 75%;
+}
+
+button:disabled {
+  color: #a9a9a9;
 }
 
 #quick-reply input[type="text"], input[type="password"], #quick-reply textarea {
@@ -111,6 +115,10 @@ input[type="text"],input[type="password"],textarea {
 
 #upload input[type="file"] {
   max-width: 230px;
+}
+
+th {
+  color: #bbbbbb;
 }
 
 form table tr td {

@@ -1,12 +1,11 @@
 
-<br>
 <div style="right: 0px; bottom: 0px; position: fixed;" ng-init="post_form={'files':[''], 'thread_id':thread.op.true_id}">
 
-	<a class="hide-link clickable" ng-click="post_form.nodehidden = !post_form.nodehidden">[{{post_form.nodehidden ? "+" : "-"}}]</a>
+		<button type="submit" name="post" ng-disabled="(post.$invalid || post_form.sending)" ng-if="viewmode!='thread'" class="text-center" ng-hide="post_form.nodehidden">Create New Thread</button>
+		<button type="submit" name="post" ng-disabled="(post.$invalid || post_form.sending)" ng-if="viewmode=='thread'" class="text-center" ng-hide="post_form.nodehidden">Create New Reply</button>
+		<br>
 
-	<form name="post" ng-submit="submitData(post_form, sub_result)" ng-hide="post_form.nodehidden">
-		<h1 ng-if="viewmode!='thread'" class="text-center">Create New Thread</h1>
-		<h1 ng-if="viewmode=='thread'" class="text-center">Create New Reply</h1>
+	<form name="post" style="background: #272727; display: inline-block;" ng-submit="submitData(post_form, sub_result)" ng-hide="post_form.nodehidden">
 		<!--
 		onsubmit="return dopost(this);"
 		enctype="multipart/form-data"
@@ -40,12 +39,11 @@
 			</tr>
 			-->
 			<tr>
-				<th>Subject</th>
+				<th>Subject<em style="color: #eebbbb" ng-if="viewmode!='thread'">*</em></th>
 				<td>
 					<input type="text" name="subject" size="25" maxlength="100" autocomplete="off" ng-model="post_form.subject" required ng-if="viewmode!='thread'">
 					<input type="text" name="subject" size="25" maxlength="100" autocomplete="off" ng-model="post_form.subject" ng-if="viewmode=='thread'">
 					<!-- TODO:: This is dirty^ clean it -->
-					<button type="submit" name="post" ng-disabled="(post.$invalid || post_form.sending)">New Reply</button>
 					<!--
 					<input id="spoiler" name="spoiler" type="checkbox">
 					<label for="spoiler">Spoiler Image</label>
@@ -53,10 +51,10 @@
 				</td>
 			</tr>
 			<tr>
-				<th>Comment</th>
+				<th>Comment<em style="color: #eebbbb">*</em></th>
 				<td><textarea name="body" id="body" rows="5" cols="35"  ng-model="post_form.body" required></textarea></td>
 			</tr>
-			<tr id="file"><th>Image URL</th>
+			<tr id="file"><th>Image URL<em style="color: #eebbbb" ng-if="viewmode!='thread'">*</em></th>
 				<td>
 					<input type="url" name="file" ng-model="post_form.files[0]" required ng-if="viewmode!='thread'">
 					<input type="url" name="file" ng-model="post_form.files[0]" ng-if="viewmode=='thread'">
@@ -83,8 +81,6 @@
 		<!--
 		<input type="hidden" name="hash" value="7ce6ace4dad906413c989282f3eb99cc64e4bb2e">
 		-->
-		<div>
-			<p>{{ajaxSubmitResult1}}</p>
-		</div>
 	</form>
 </div>
+	<a class="hide-link clickable" style="right: 10px; bottom: 10px; position: fixed;" ng-click="post_form.nodehidden = !post_form.nodehidden">[{{post_form.nodehidden ? "+" : "-"}}]</a>
