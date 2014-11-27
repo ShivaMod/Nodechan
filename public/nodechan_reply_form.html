@@ -1,89 +1,91 @@
 
 <br>
-<div style="right: 0px; position: fixed;" ng-init="post_form={'files':[''], 'thread_id':thread.op.true_id}">
+<div style="right: 0px; position: fixed;" ng-init="post_form={'files':[''], 'thread_id':thread.op.true_id}" class="post reply">
+
 	<a class="hide-link" ng-click="post_form.nodehidden = !post_form.nodehidden">[{{post_form.nodehidden ? "+" : "-"}}]</a>
-<form name="post" ng-submit="submitData(post_form, sub_result)" ng-hide="post_form.nodehidden">
-	<h1 ng-if="viewmode=='board'" class="text-center">Create New Thread</h1>
-	<h1 ng-if="viewmode=='thread'" class="text-center">Create New Reply</h1>
-	<!--
-	onsubmit="return dopost(this);"
-	enctype="multipart/form-data"
-	action="/json/post_op" method="post"
-	<input type="hidden" name="thread" value="50388">
-	<input type="hidden" value="" name="login">
-	<input type="hidden" name="board" value="tech">
-	<input style="display:none" type="text" name="text" value="☡?V^]* E3♘Smo%rp\-W2/7k|nL}g.tY@b">
-	-->
-	<table>
-		<tbody>
-		<tr>
-			<th>Name</th>
-			<td>
-				<input type="text" name="name" size="25" maxlength="35" autocomplete="off" ng-model="post_form.name">
-				<!-- TODO:dtad: remember name from last post -->
-				<!--
-				<div style="display:none">
-					<input type="text" name="name" value="">
-				</div>
-				-->
-			</td>
-		</tr>
+	
+	<form name="post" ng-submit="submitData(post_form, sub_result)" ng-hide="post_form.nodehidden">
+		<h1 ng-if="viewmode=='board'" class="text-center">Create New Thread</h1>
+		<h1 ng-if="viewmode=='thread'" class="text-center">Create New Reply</h1>
 		<!--
-		<tr>
-			<th>Email<textarea name="user" style="display:none" ng-model="post.">g[sD$S^bU Ece6hfvt⚍J}!z3aVP~x`I\{lKFL.HrT%@?i,&lt;☾-⛈</textarea></th>
-			<td>
-				<input type="text" name="email" size="25" maxlength="40" autocomplete="off">
-				<input style="display:none" type="text" name="mw1ry☐2o☹eczisnd0bh♭x74u8fpglt5☘9k" value="">
-			</td>
-		</tr>
+		onsubmit="return dopost(this);"
+		enctype="multipart/form-data"
+		action="/json/post_op" method="post"
+		<input type="hidden" name="thread" value="50388">
+		<input type="hidden" value="" name="login">
+		<input type="hidden" name="board" value="tech">
+		<input style="display:none" type="text" name="text" value="☡?V^]* E3♘Smo%rp\-W2/7k|nL}g.tY@b">
 		-->
-		<tr>
-			<th>Subject</th>
-			<td>
-				<input type="text" name="subject" size="25" maxlength="100" autocomplete="off" ng-model="post_form.subject" required ng-if="viewmode!='thread'">
-				<input type="text" name="subject" size="25" maxlength="100" autocomplete="off" ng-model="post_form.subject" ng-if="viewmode=='thread'">
-				<!-- TODO:: This is dirty^ clean it -->
-				<button type="submit" name="post" ng-disabled="(post.$invalid || post_form.sending)">New Reply</button>
-				<!--
-				<input id="spoiler" name="spoiler" type="checkbox">
-				<label for="spoiler">Spoiler Image</label>
-				-->
-			</td>
-		</tr>
-		<tr>
-			<th>Comment</th>
-			<td><textarea name="body" id="body" rows="5" cols="35"  ng-model="post_form.body" required></textarea></td>
-		</tr>
-		<tr id="file"><th>Image URL</th>
-			<td>
-				<input type="url" name="file" ng-model="post_form.files[0]" required ng-if="viewmode!='thread'">
-				<input type="url" name="file" ng-model="post_form.files[0]" ng-if="viewmode=='thread'">
-				<!--
+		<table>
+			<tbody>
+			<tr>
+				<th>Name</th>
+				<td>
+					<input type="text" name="name" size="25" maxlength="35" autocomplete="off" ng-model="post_form.name">
+					<!-- TODO:dtad: remember name from last post -->
+					<!--
+					<div style="display:none">
+						<input type="text" name="name" value="">
+					</div>
+					-->
+				</td>
+			</tr>
+			<!--
+			<tr>
+				<th>Email<textarea name="user" style="display:none" ng-model="post.">g[sD$S^bU Ece6hfvt⚍J}!z3aVP~x`I\{lKFL.HrT%@?i,&lt;☾-⛈</textarea></th>
+				<td>
+					<input type="text" name="email" size="25" maxlength="40" autocomplete="off">
+					<input style="display:none" type="text" name="mw1ry☐2o☹eczisnd0bh♭x74u8fpglt5☘9k" value="">
+				</td>
+			</tr>
+			-->
+			<tr>
+				<th>Subject</th>
+				<td>
+					<input type="text" name="subject" size="25" maxlength="100" autocomplete="off" ng-model="post_form.subject" required ng-if="viewmode!='thread'">
+					<input type="text" name="subject" size="25" maxlength="100" autocomplete="off" ng-model="post_form.subject" ng-if="viewmode=='thread'">
+					<!-- TODO:: This is dirty^ clean it -->
+					<button type="submit" name="post" ng-disabled="(post.$invalid || post_form.sending)">New Reply</button>
+					<!--
+					<input id="spoiler" name="spoiler" type="checkbox">
+					<label for="spoiler">Spoiler Image</label>
+					-->
+				</td>
+			</tr>
+			<tr>
+				<th>Comment</th>
+				<td><textarea name="body" id="body" rows="5" cols="35"  ng-model="post_form.body" required></textarea></td>
+			</tr>
+			<tr id="file"><th>Image URL</th>
+				<td>
+					<input type="url" name="file" ng-model="post_form.files[0]" required ng-if="viewmode!='thread'">
+					<input type="url" name="file" ng-model="post_form.files[0]" ng-if="viewmode=='thread'">
+					<!--
 
-				<input type="url" name="input" id="upload_file" ng-model="post.file.1" required ng-if="viewmode!='thread'">
-				<input type="url" name="input" id="upload_file" ng-model="post.file.[0]" ng-if="viewmode=='thread'">
+					<input type="url" name="input" id="upload_file" ng-model="post.file.1" required ng-if="viewmode!='thread'">
+					<input type="url" name="input" id="upload_file" ng-model="post.file.[0]" ng-if="viewmode=='thread'">
 
-				<input type="file" name="file" id="upload_file">
-				<a href="#" class="add_image">+</a>
-				-->
-			</td>
-		</tr>
-				<!--
-		<tr>
-			<th>Password
-				<input type="text" style="display: none">
-				<input type="password" style="display: none"></th><td><input type="password" name="password" value="" size="12" maxlength="18" autocomplete="off"> <span class="unimportant">(For file deletion.)</span>
-			</td>
-		</tr>
-				-->
-		</tbody>
-	</table>
-	<!--
-	<input type="hidden" name="hash" value="7ce6ace4dad906413c989282f3eb99cc64e4bb2e">
-	-->
-	<div>
-		<p>{{ajaxSubmitResult1}}</p>
-	</div>
-</form>
+					<input type="file" name="file" id="upload_file">
+					<a href="#" class="add_image">+</a>
+					-->
+				</td>
+			</tr>
+					<!--
+			<tr>
+				<th>Password
+					<input type="text" style="display: none">
+					<input type="password" style="display: none"></th><td><input type="password" name="password" value="" size="12" maxlength="18" autocomplete="off"> <span class="unimportant">(For file deletion.)</span>
+				</td>
+			</tr>
+					-->
+			</tbody>
+		</table>
+		<!--
+		<input type="hidden" name="hash" value="7ce6ace4dad906413c989282f3eb99cc64e4bb2e">
+		-->
+		<div>
+			<p>{{ajaxSubmitResult1}}</p>
+		</div>
+	</form>
 </div>
 <hr ng-if="viewmode=='board'">

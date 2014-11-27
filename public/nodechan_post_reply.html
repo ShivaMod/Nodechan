@@ -1,8 +1,13 @@
-<form class="post reply" name="postcontrols">
+
+<div class="post reply" ng-init="post.nodehidden = false">
 	<!-- op post should be different, as per convention, with class "post op" -->
 	<p class="intro">
 		<a id="{{post.true_id}}" class="post_anchor"></a>
+		<!--
 		<input type="checkbox" class="delete" name="delete_{{post.true_id}}" id="delete_{{post.true_id}}">
+		-->
+		<a class="hide-link" ng-click="post.nodehidden = !post.nodehidden">[{{post.nodehidden ? "+" : "-"}}]</a>
+
 		<label for="delete_{{post.true_id}}">
 			<a class="email" href="mailto:{{post.email}}">
 				<span class="name">{{post.name}}</span>
@@ -32,10 +37,12 @@
 	</p>
 	<!--
 	-->
-	<div class="files" ng-if="post.files.length > 0">
-		<nodechan-file ng-repeat="file in post.files"></nodechan-file>
+	<div ng-hide="post.nodehidden">
+		<div class="files" ng-if="post.files.length > 0">
+			<nodechan-file ng-repeat="file in post.files"></nodechan-file>
+		</div>
+		<p class="body">{{post.body}}</p>
 	</div>
-	<p class="body">{{post.body}}</p>
 	<div class="post_modified"></div>
-</form>
+</div>
 <br>
