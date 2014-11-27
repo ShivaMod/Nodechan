@@ -8,7 +8,7 @@
 				<span class="name">{{post.name}}</span>
 			</a>
 			&nbsp;
-			<time datetime="{{post.date}}" data-local="true">{{post.date}}</time>
+			<time datetime="{{post.date}}" data-local="true">{{ post.date | date : format : timezone}}</time>
 		</label>
 		&nbsp;
 		<a class="post_no" id="post_no_{{post.true_id}}" ng-click="set_location('/'+thread.op.true_id+'#post_no_'+post.true_id)">
