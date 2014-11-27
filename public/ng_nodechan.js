@@ -25,7 +25,7 @@
 		$rootScope.set_location = function(new_path){
 			console.log("setting new url:", new_path);
 			$location.url(new_path);
-			$location.replace();
+			//$location.replace();
 		}
 
 		$rootScope.set_viewmode = function(new_view){

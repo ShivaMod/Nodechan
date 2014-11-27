@@ -85,7 +85,7 @@ header div.subtitle {
 
 form {
   margin-bottom: 1em;
-  margin-right: 1em;
+  margin-right: 10px;
 }
 
 form table {
@@ -661,7 +661,7 @@ p.intro.thread-hidden {
 .hide-link {
   font-size: 15px;
   float:left;
-  margin-right:5px;
+  margin-right:20px;
 }
 
 form.ban-appeal {
