@@ -65,7 +65,7 @@
 		<input type="hidden" name="hash" value="7ce6ace4dad906413c989282f3eb99cc64e4bb2e">
 		-->
 	</form>
+		<button type="submit" name="post" style="margin-left: 0px; bottom: 0px; position: fixed;" ng-disabled="(post.$invalid || post_form.sending)" ng-if="viewmode!='thread'" class="text-center" ng-hide="post_form.nodehidden">Create New Thread</button>
+		<button type="submit" name="post" style="margin-left: 0px; bottom: 0px; position: fixed;" ng-disabled="(post.$invalid || post_form.sending)" ng-if="viewmode=='thread'" class="text-center" ng-hide="post_form.nodehidden">Create New Reply</button>
 </div>
-		<button type="submit" name="post" style="right: 145px; bottom: 0px; position: fixed;" ng-disabled="(post.$invalid || post_form.sending)" ng-if="viewmode!='thread'" class="text-center" ng-hide="post_form.nodehidden">Create New Thread</button>
-		<button type="submit" name="post" style="right: 145px; bottom: 0px; position: fixed;" ng-disabled="(post.$invalid || post_form.sending)" ng-if="viewmode=='thread'" class="text-center" ng-hide="post_form.nodehidden">Create New Reply</button>
 	<a class="hide-link clickable" style="right: 10px; bottom: 0px; position: fixed;" ng-click="post_form.nodehidden = !post_form.nodehidden">[{{post_form.nodehidden ? "+" : "-"}}]</a>
