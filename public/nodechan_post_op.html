@@ -4,6 +4,7 @@
 </div>
 
 <div class="post op" id="op_{{thread.op.true_id}}">
+
 	<p class="intro">
 		<!--
 		<input type="checkbox" class="delete" name="delete_{{thread.op.true_id}}" id="delete_{{thread.op.true_id}}">
@@ -26,6 +27,7 @@
 		add to the above tag: onclick="citeReply({{thread.op.true_id}})"
 		href="#q{{thread.op.true_id}}"
 		-->
+		<a class="clickable" ng-click="set_location('/'+thread.op.true_id)" ng-if="viewmode=='board'">[Reply]</a>
 	</p>
 
 

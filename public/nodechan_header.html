@@ -8,9 +8,9 @@
 	<h1>Home -> (<a ng-href="" ng-click="set_location(((viewmode == 'board') ? '/catalog' : '/'))">/{{board_id}}/</a>)<a id="favorite-star" href="" data-active="false">★</a></h1>
 	-->
 	</div>
-		<p><a ng-click="set_location('/catalog')" class="clickable">Catalog</a></p>
 	<!-- TODO -->
 	<div class="subtitle">
+		<p><a ng-click="set_location('/catalog')" class="clickable">Catalog</a> <a class="unimportant clickable" id="expand-all-images" ng-init="expandall=false" ng-click="expandall=!expandall" ng-hide="viewmode=='catalog'">Expand all images</a></p>
 		<!--
 		<p><a ng-click="set_location('/catalog')" ng-hide="archived" ng-if="viewmode!='catalog'">Catalog</a></p>
 		-->
@@ -19,8 +19,6 @@
 <!-- -->
 
 <iframe width="100%" height="130" scrolling="yes" frameborder="no" src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/171574021&amp;auto_play=false&amp;hide_related=false&amp;show_comments=false&amp;show_user=true&amp;show_reposts=false&amp;visual=true"></iframe>
-
-<div id="expand-all-images" ng-init="expandall=false" ng-click="expandall=!expandall" ng-hide="viewmode=='catalog'"><a class="unimportant clickable">Expand all images</a></div>
 <!--
 <div id="treeview">
 	<a class="unimportant" href="javascript:void(0)">Tree view</a>
