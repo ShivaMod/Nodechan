@@ -27,7 +27,7 @@
 	-->
 
 	<div ng-hide="hide_all || thisfile.nodehidden" ng-model="thisfile.class" class="clickable" ng-click="expandme=!expandme">
-		<span ng-hide="true">{{thisfile.class = (expand_all ? 'full-image' : (expandme ? 'full-image' : (op_post ? 'op-image' : 'post-image')))}}</span>
+		<span ng-hide="true">{{thisfile.class = ((expand_all || this_thread.expand_all) ? 'full-image' :(expandme ? 'full-image' : (op_post ? 'op-image' : 'post-image' )))}}</span>
 
 		<img ng-if='!file_meta.embed' ng-hide="thisfile.nodehidden" ng-src="{{file}}" ng-class="thisfile.class"></img>
 		<iframe ng-if='file_meta.embed' ng-src="{{file_meta.link}}" frameborder="0" ng-class="thisfile.class" webkitallowfullscreen mozallowfullscreen allowfullscreen ></iframe>
