@@ -23,7 +23,7 @@
 	href="#q{{thread.op.true_id}}"
 	-->
 	<a class="clickable" ng-click="set_location_thread(thread.op.true_id)" ng-if="viewmode=='board'">[View Thread]</a>
-	<a class="clickable" ng-click="this_thread.hide_all=!(this_thread.hide_all)">[Hide Media]</a>
+	<a class="clickable" ng-click="this_thread.hide_all=!(this_thread.hide_all)">[{{this_thread.hide_all ? "Show" : "Hide"}} Media]</a>
 
 </p>
 
