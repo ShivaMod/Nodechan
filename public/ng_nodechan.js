@@ -42,8 +42,16 @@
 			console.log("viewmode set:");
 			console.log(new_view);
 			//console.log($rootScope.viewmode);
-
 		}
+
+		$rootScope.gotoBottom = function() {
+			// set the location.hash to the id of
+			// the element you wish to scroll to.
+			$location.hash('footer_position');
+
+			// call $anchorScroll()
+			$anchorScroll();
+		};
 
 		$rootScope.submitData = function (post_form, resultVarName)
 		{

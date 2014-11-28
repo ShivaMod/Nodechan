@@ -10,7 +10,11 @@
 	</div>
 	<!-- TODO -->
 	<div class="subtitle">
-		<p><a ng-click="set_location('/catalog')" class="clickable">Catalog</a> <a class="unimportant clickable" id="expand-all-images" ng-init="expandall=false" ng-click="expandall=!expandall" ng-hide="viewmode=='catalog'">Expand all images</a></p>
+		<p>
+		<a ng-click="set_location('/catalog')" class="clickable">[Catalog]</a>
+		<a ng-init="expandall=false" ng-click="expandall=!expandall" class="unimportant clickable" id="expand-all-images" ng-hide="viewmode=='catalog'">[Expand all images]</a>
+		<a ng-click="gotoBottom()" class="unimportant clickable" id="ctrl-jump-bottom">[Scroll to bottom]</a>
+		</p>
 		<!--
 		<p><a ng-click="set_location('/catalog')" ng-hide="archived" ng-if="viewmode!='catalog'">Catalog</a></p>
 		-->
