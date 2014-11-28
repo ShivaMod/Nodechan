@@ -88,7 +88,7 @@
 
 			var file_meta={'youtube':false, 'embed':false, 'link':''};
 
-			if (_.str.contains(mytext, 'youtu.be')) {
+			if (_.str.contains(mytext, 'youtu.be') || _.str.contains(mytext, 'youtube.com')) {
 
 				file_meta.youtube=true;
 				file_meta.embed=true;
