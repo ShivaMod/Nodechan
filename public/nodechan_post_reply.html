@@ -37,7 +37,7 @@
 	<!--
 	-->
 	<div ng-hide="post.nodehidden">
-		<div class="files" ng-if="post.files.length > 0">
+		<div class="files" ng-if="post.files.length > 0" ng-hide="this_thread.hide_all">
 			<nodechan-file ng-repeat="file in post.files"></nodechan-file>
 		</div>
 		<p ng-bind-html='test_post'></p>

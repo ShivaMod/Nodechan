@@ -252,6 +252,7 @@
 	.controller('FullThreadController', ["$http", "$rootScope", "$scope", "$route", "$location", "$routeParams", function($http, $rootScope, $scope, $location, $route, $routeParams){
 		$rootScope.set_viewmode('thread');
 		$rootScope.curthread_id = $routeParams.thread_id;
+		$scope.this_thread={'hide_all':false};
 		console.log("current thread ID noted as:", $routeParams.thread_id)
 
 	}])
