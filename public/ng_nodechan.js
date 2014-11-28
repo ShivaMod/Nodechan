@@ -93,7 +93,7 @@
 				file_meta.youtube=true;
 				file_meta.embed=true;
 				console.log(mytext);
-				var temp_url = mytext.replace(/(?:http:\/\/)?(?:www\.)?(?:youtube\.com|youtu\.be)\/(?:watch\?v=)?(.+)/g, 'http://www.youtube.com/embed/$1');
+				var temp_url = mytext.replace(/(?:http:\/\/|https:\/\/)?(?:www\.)?(?:youtube\.com|youtu\.be)\/(?:watch\?v=)?(.+)/g, 'https://www.youtube.com/embed/$1');
 				file_meta.link = $sce.trustAsResourceUrl(temp_url);
 				//$scope.file_meta.link = $sce.trustAsResourceUrl($scope.file);
 
