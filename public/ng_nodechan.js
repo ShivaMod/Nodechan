@@ -84,6 +84,27 @@
 			//$anchorScroll();
 		};
 
+		$rootScope.parse_Link = function(mytext) {
+
+			var file_meta={'youtube':false, 'embed':false, 'link':''};
+
+			if (_.str.contains(mytext, 'youtu.be')) {
+
+				file_meta.youtube=true;
+				file_meta.embed=true;
+				console.log(mytext);
+				var temp_url = mytext.replace(/(?:http:\/\/)?(?:www\.)?(?:youtube\.com|youtu\.be)\/(?:watch\?v=)?(.+)/g, 'http://www.youtube.com/embed/$1"');
+				file_meta.link = $sce.trustAsResourceUrl(temp_url);
+				//$scope.file_meta.link = $sce.trustAsResourceUrl($scope.file);
+
+				//$scope.file = $sce.trustAsHtml($scope.file.replace(/(?:http:\/\/)?(?:www\.)?(?:youtube\.com|youtu\.be)\/(?:watch\?v=)?(.+)/g, '<iframe width="420" height="345" src="http://www.youtube.com/embed/$1" frameborder="0" allowfullscreen></iframe>'));
+				//$scope.file = $scope.file.replace(/(?:http:\/\/)?(?:www\.)?(?:youtube\.com|youtu\.be)\/(?:watch\?v=)?(.+)/g, '<iframe width="420" height="345" src="http://www.youtube.com/embed/$1" frameborder="0" allowfullscreen></iframe>');
+				console.log("parsed link looks like:");
+				console.log(temp_url);
+			}
+			return file_meta;
+		};
+
 		$rootScope.submitData = function (post_form, resultVarName)
 		{
 			post_form.sending=true;
@@ -290,7 +311,7 @@
 		return {
 			restrict: 'E',
 			templateUrl: "nodechan_post_reply.html",
-			controller:['$scope',function($scope){
+			controller:['$scope', '_', function($scope, _){
 
 				$scope.test_post=$scope.post.body.replace(/\n/g, '<br>');
 				$scope.parse_post_body = function(post_body){
@@ -300,12 +321,23 @@
 			}]
 		};
 	})
+	app.filter("chan_trust_html", ['$sce', function($sce) {
+		return function(htmlCode){
+			return $sce.trustAsHtml(htmlCode);
+		}
+	}])
 	.directive("nodechanFile", function() {
 		return {
 			restrict: 'E',
 			templateUrl: "nodechan_file.html",
-			controller:function(){
-			}
+			controller:['$rootScope', '$scope', '_', '$sce', function($rootScope, $scope, _, $sce){
+
+				$scope.file_meta = $rootScope.parse_Link($scope.file);
+
+				-->
+				//$scope.parsed_link = '<iframe width="560" height="315" src="//www.youtube.com/embed/7E9lt-b3Jtw" frameborder="0" allowfullscreen></iframe>';
+			}],
+			controllerAs:'nodechanFileController'
 		};
 	})
 	.directive("replyForm", function() {

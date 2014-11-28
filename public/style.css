@@ -37,6 +37,7 @@ p.intro a.post_no {
 
 p.intro a.post_no,p.intro a.email,p.intro a.post_anchor {
   margin: 0;
+  margin-left: 0;
 }
 
 p.intro a.email span.name {
@@ -224,7 +225,7 @@ img.banner,img.board_image {
   display: block;
   float: left;
   width:250px;
-  margin: 5px 20px 10px 20px;
+  margin: 5px 10px 10px 0px;
   border: none;
 }
 
@@ -232,7 +233,7 @@ img.banner,img.board_image {
   display: block;
   float: left;
   width:150px;
-  margin: 5px 20px 10px 20px;
+  margin: 5px 5px 5px 5px;
   border: none;
 }
 
@@ -245,8 +246,8 @@ img.banner,img.board_image {
 }
 
 div.post .post-image {
-  padding: 5px;
-  margin: 0 20px 0 0;
+  padding: 0px;
+  margin: 0 10px 0 0;
 }
 
 div.post img.icon {
@@ -275,6 +276,8 @@ p.intro {
   padding-bottom: 0.2em;
 }
 
+p.intro 
+
 input.delete {
   float: left;
   margin: 1px 6px 0 0;
@@ -295,7 +298,7 @@ p.intro span.capcode,p.intro a.capcode,p.intro a.nametag {
   margin-left: 0;
 }
 
-p.intro a {
+p.intro {
   margin-left: 8px;
 }
 
@@ -323,7 +326,7 @@ div.post.reply div.body a {
 }
 
 div.post {
-  padding-left: 20px;
+  padding-left: 7px;
 }
 
 div.post div.body {
@@ -703,7 +706,7 @@ pre {
   display: inline!important;
 }
 
-.theme-catalog div.thread img {
+.theme-catalog div.thread img iframe {
   float: none!important;
   margin: auto;
   max-height: 150px;

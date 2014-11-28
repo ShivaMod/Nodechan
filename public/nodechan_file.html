@@ -4,28 +4,34 @@
 	Someday, add multifile support:
 	ng-class="(op_post ? ((thread.op.files.length>1) ? 'multifile' : '') : ((files.length>1) ? 'multifile' : '') )"
 	-->
-	
-	<span ng-init="thisfile={'nodehidden':false, 'class':'post-image'}">File (<a class="hide-link clickable" ng-click="thisfile.nodehidden = !thisfile.nodehidden">{{thisfile.nodehidden ? "Show" : "Hide"}}</a>):
-		<a ng-href="{{file}}">Download</a>
-		</span>
-	</span>
 	<div class="fileinfo">
-	<!-- 
-		TODO:dtad: when I allow uploading images directly to the channel, probably never
-		TODO:dtad: multifile media doesn't render correctly
+	
+		<span ng-init="thisfile={'nodehidden':false, 'class':'post-image'}">Media (<a class="hide-link clickable" ng-click="thisfile.nodehidden = !thisfile.nodehidden">{{thisfile.nodehidden ? "Show" : "Hide"}}</a>):
+			<a ng-if='!file_meta.embed' ng-href="{{file}}">Download</a>
+			</span>
+		</span>
+		<!-- 
+			TODO:dtad: when I allow uploading images directly to the channel, probably never
+			TODO:dtad: multifile media doesn't render correctly
 
-		<a ng-href="{{file}}">todo: filenname</a>
-		<span class="unimportant">(TODO: filesize, todo: dimensions, 20:11, <a download="the_jews_did_this.gif" ng-href="{{file.link}}" title="Save as original filename">todo: original filename</a>)
+			<a ng-href="{{file}}">todo: filenname</a>
+			<span class="unimportant">(TODO: filesize, todo: dimensions, 20:11, <a download="the_jews_did_this.gif" ng-href="{{file.link}}" title="Save as original filename">todo: original filename</a>)
 
-		<a ng-href="{{file}}">1416603908353.gif</a>
-		<span class="unimportant">(609.17 KB, 500x275, 20:11, <a download="the_jews_did_this.gif" href="https://media.8chan.co/{{board_id}}/src/1416603908353.gif" title="Save as original filename">the_jews_did_this.gif</a>)
-	-->
+			<a ng-href="{{file}}">1416603908353.gif</a>
+			<span class="unimportant">(609.17 KB, 500x275, 20:11, <a download="the_jews_did_this.gif" href="https://media.8chan.co/{{board_id}}/src/1416603908353.gif" title="Save as original filename">the_jews_did_this.gif</a>)
+		-->
 	</div>
 	<br>
 	<!--
 	This break fixes things for a single posted image
 	-->
-	<a target="_blank" ng-hide="thisfile.nodehidden" ng-model="thisfile.class"><img ng-src="{{file}}" class="clickable" ng-class="thisfile.class" ng-click="expandme=!expandme"><span ng-hide="true">{{thisfile.class = (expandall ? 'full-image' : (expandme ? 'full-image' : (op_post ? 'op-image' : 'post-image')))}}</span></img></a>
+
+	<div ng-hide="thisfile.nodehidden" ng-model="thisfile.class" class="clickable" ng-click="expandme=!expandme">
+		<span ng-hide="true">{{thisfile.class = (expandall ? 'full-image' : (expandme ? 'full-image' : (op_post ? 'op-image' : 'post-image')))}}</span>
+
+		<img ng-if='!file_meta.embed' ng-hide="thisfile.nodehidden" ng-src="{{file}}" ng-class="thisfile.class"></img>
+		<iframe ng-if='file_meta.youtube' ng-src="{{file_meta.link}}" frameborder="0" ng-class="thisfile.class" allowfullscreen ></iframe>
+	</div>
 	<!--
 	<a href="{{file}}" target="_blank" ng-hide="thisfile.nodehidden" ng-model="thisfile.class"><img ng-src="{{file}}" ng-class="thisfile.class" ng-click="expandme=!expandme"><span ng-hide="true">{{thisfile.class = (expandall ? 'full-image' : (expandme ? 'full-image' : (op_post ? 'op-image' : 'post-image')))}}</span></img></a>
 	-->
