@@ -95,21 +95,40 @@
 
 		$rootScope.parse_Link = function(mytext) {
 
-			var file_meta={'youtube':false, 'vimeo':false, 'embed':false, 'link':''};
+			var file_meta={'link_type':'', 'embed':false, 'link':''};
+			var temp_url = '';
 
 			if (_.str.contains(mytext, 'youtu.be') || _.str.contains(mytext, 'youtube.com')) {
 
-				file_meta.youtube=true;
+				file_meta.link_type='youtube';
 				file_meta.embed=true;
 				console.log(mytext);
-				var temp_url = mytext.replace(/(?:http:\/\/|https:\/\/)?(?:www\.)?(?:youtube\.com|youtu\.be)\/(?:watch\?v=)?(.+)/g, 'https://www.youtube.com/embed/$1');
+				temp_url = mytext.replace(/(?:http:\/\/|https:\/\/)?(?:www\.)?(?:youtube\.com|youtu\.be)\/(?:watch\?v=)?(.+)/g, 'https://www.youtube.com/embed/$1');
 				file_meta.link = $sce.trustAsResourceUrl(temp_url);
 				//$scope.file_meta.link = $sce.trustAsResourceUrl($scope.file);
 
 				//$scope.file = $sce.trustAsHtml($scope.file.replace(/(?:http:\/\/)?(?:www\.)?(?:youtube\.com|youtu\.be)\/(?:watch\?v=)?(.+)/g, '<iframe width="420" height="345" src="http://www.youtube.com/embed/$1" frameborder="0" allowfullscreen></iframe>'));
 				//$scope.file = $scope.file.replace(/(?:http:\/\/)?(?:www\.)?(?:youtube\.com|youtu\.be)\/(?:watch\?v=)?(.+)/g, '<iframe width="420" height="345" src="http://www.youtube.com/embed/$1" frameborder="0" allowfullscreen></iframe>');
+			} else if (_.str.contains(mytext, 'vimeo.com')) {
+
+				file_meta.link_type='vimeo';
+				file_meta.embed=true;
+				console.log(mytext);
+				temp_url = mytext.replace(/(?:http:\/\/|https:\/\/)?(?:www\.)?(?:vimeo\.com)\/(.+)/g, '//player.vimeo.com/video/$1');
+				file_meta.link = $sce.trustAsResourceUrl(temp_url);
+				//rom: https://vimeo.com/63534746 
+				//to: http://player.vimeo.com/video/63534746
 				console.log("parsed link looks like:");
 				console.log(temp_url);
+			} else if (_.str.contains(mytext, 'soundcloud.com')) {
+
+				file_meta.link_type='soundcloud';
+				file_meta.embed=true;
+				console.log(mytext);
+				temp_url = mytext.replace(/(?:http:\/\/|https:\/\/)?(?:www\.)?(?:vimeo\.com)\/(?:watch\?v=)?(.+)/g, 'https://www.youtube.com/embed/$1');
+				file_meta.link = $sce.trustAsResourceUrl(temp_url);
+				//rom: https://vimeo.com/63534746 
+				//to: http://player.vimeo.com/video/63534746
 			}
 			return file_meta;
 		};
