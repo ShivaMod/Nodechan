@@ -1,6 +1,16 @@
 (function() {
-	var app = angular.module('ng_nodechan', ['ngRoute', 'ngCookies', 'ngSanitize']);
-	var chantroll = app.controller('ChanController', ["$location", "$http", "$rootScope", "$scope", "$route", "$routeParams", function($location, $http, $rootScope, $scope, $route, $routeParams) {
+	var underscore = angular.module('underscore', []);
+	underscore.factory('_', function() {
+		//window._.str = underscore;
+
+		// Mix in non-conflict functions to Underscore namespace if you want
+		window._.mixin(_.str.exports());
+
+		return window._;
+	});
+
+	var app = angular.module('ng_nodechan', ['ngRoute', 'ngCookies', 'ngSanitize', 'underscore']);
+	var chantroll = app.controller('ChanController', ["$location", '$sce', "$http", "$rootScope", "$scope", "$route", "$routeParams", function($location, $sce, $http, $rootScope, $scope, $route, $routeParams) {
 
 		$scope.live_host="nodechan.herokuapp.com";
 		$scope.page_location=$location.absUrl();
