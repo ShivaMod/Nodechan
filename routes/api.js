@@ -87,7 +87,7 @@ exports.threadlist = function(req, res, next) {
 				var curthread_id=db_threads[i].true_id;
 				//console.log("curthread_id is:");
 				//console.log(curthread_id);
-				var query = Model_post.find({ thread_id: curthread_id }).limit(5).sort({date: 'ascending'}).exec(function(err_inner, db_posts){
+				var query = Model_post.find({ thread_id: curthread_id }).limit(5).sort({date: 'desc'}).exec(function(err_inner, db_posts){
 					console.log(curthread_id);
 					if (err_inner) {
 						console.error(err_inner);
@@ -97,7 +97,7 @@ exports.threadlist = function(req, res, next) {
 					//else if (db_posts[0]== undefined) db_posts=[];
 
 					console.log(db_posts);
-					return db_posts;
+					return db_posts.reverse();
 				});
 				query.onReject(function (reason) {
 					console.log(reason);
