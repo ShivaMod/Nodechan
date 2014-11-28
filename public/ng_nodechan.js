@@ -133,8 +133,7 @@
 			return file_meta;
 		};
 
-		$rootScope.submitData = function (post_form, resultVarName)
-		{
+		$rootScope.submitData = function (post_form, resultVarName){
 			post_form.sending=true;
 
 			if (post_form.name != "") $rootScope.cookie_set_postname(post_form.name);
@@ -196,9 +195,12 @@
 					console.log("SUBMIT ERROR");
 				});
 			}
+			//var temp_name=post_form.name;
 			post_form.subject="";
 			post_form.files=[''];
 			post_form.body="";
+			$scope.post_form_tag.$setPristine();
+			//post_form.name=temp_name;
 			post_form.sending=false;
 		};
 

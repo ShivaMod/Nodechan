@@ -1,7 +1,7 @@
 
 <div style="right: 0px; bottom: 0px; position: fixed; background: #272727;" ng-init="post_form={'files':['']}">
 
-	<form name="post" style="display: inline-block; margin-bottom: 20px;" ng-submit="submitData(post_form, sub_result)" ng-hide="post_form.nodehidden">
+	<form name="post_form_tag" style="display: inline-block; margin-bottom: 20px;" ng-submit="submitData(post_form, sub_result)" ng-hide="post_form.nodehidden">
 		<!--
 		onsubmit="return dopost(this);"
 		enctype="multipart/form-data"
@@ -64,8 +64,8 @@
 		<!--
 		<input type="hidden" name="hash" value="7ce6ace4dad906413c989282f3eb99cc64e4bb2e">
 		-->
-		<button type="submit" name="post" style="margin-left: 0px; bottom: 0px; position: fixed;" ng-disabled="(post.$invalid || post_form.sending)" ng-if="viewmode!='thread'" class="text-center" ng-hide="post_form.nodehidden">Create New Thread</button>
-		<button type="submit" name="post" style="margin-left: 0px; bottom: 0px; position: fixed;" ng-disabled="(post.$invalid || post_form.sending)" ng-if="viewmode=='thread'" class="text-center" ng-hide="post_form.nodehidden">Create New Reply</button>
+		<button type="submit" style="margin-left: 0px; bottom: 0px; position: fixed;" ng-disabled="(post.$invalid || post_form.sending)" ng-if="viewmode!='thread'" class="text-center" ng-hide="post_form.nodehidden">Create New Thread</button>
+		<button type="submit" style="margin-left: 0px; bottom: 0px; position: fixed;" ng-disabled="(post.$invalid || post_form.sending)" ng-if="viewmode=='thread'" class="text-center" ng-hide="post_form.nodehidden">Create New Reply</button>
 	</form>
 </div>
 	<a class="hide-link clickable" style="right: 10px; bottom: 0px; position: fixed;" ng-click="post_form.nodehidden = !post_form.nodehidden">[{{post_form.nodehidden ? "+" : "-"}}]</a>
