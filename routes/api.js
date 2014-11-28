@@ -292,3 +292,59 @@ exports.post_reply = function(req, res, next) {
 	//TODO:: increment thread's total replies
 	//TODO:: update thread's total media links
 }
+
+exports.del_thread = function(req, res, next) {
+
+	var curthread_id=req.params.thread_id;
+	console.log("request is to delete thread:", curthread_id);
+
+	var authorized = false;
+	if (!authorized){
+		done(req, res, "I'm sorry, I can't let you do that Dave");
+	}
+	Model_thread_op.findOne({true_id:curthread_id}).remove(function (err, db_thread) {
+		if (err) {
+			console.error(err);
+			done(req, res, err);
+		} else {
+			console.log("db_thread is:");
+			console.log(db_thread);
+			var new_board=[]
+			
+			var query = Model_post.find({ thread_id: curthread_id }).remove(function(err_inner, db_posts){
+				if (err) {
+					console.error(err);
+					done(req, res, err_inner);
+					return undefined;
+				}
+				//console.log("query result is:", db_posts);
+				if (db_posts == undefined){
+
+					var temp_thread = {"op":db_thread,"posts": []};
+				}else{
+
+					var temp_thread = {"op":db_thread,"posts": db_posts};
+				}
+				console.log("db_posts were:");
+				console.log(db_posts);
+				
+				//if (db_posts[0]== undefined) db_posts=[];
+				//console.log("new thread is:", temp_thread);
+
+				done(req, res, temp_thread);
+			});
+		}
+	});
+}
+
+exports.del_reply = function(req, res, next) {
+
+}
+
+exports.mod_thread = function(req, res, next) {
+
+}
+
+exports.mod_reply = function(req, res, next) {
+
+}
