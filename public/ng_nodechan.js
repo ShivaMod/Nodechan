@@ -84,9 +84,18 @@
 			//$anchorScroll();
 		};
 
+		$rootScope.gotoTop = function() {
+			// set the location.hash to the id of
+			// the element you wish to scroll to.
+			$location.hash('header_position');
+
+			// call $anchorScroll()
+			//$anchorScroll();
+		};
+
 		$rootScope.parse_Link = function(mytext) {
 
-			var file_meta={'youtube':false, 'embed':false, 'link':''};
+			var file_meta={'youtube':false, 'vimeo':false, 'embed':false, 'link':''};
 
 			if (_.str.contains(mytext, 'youtu.be') || _.str.contains(mytext, 'youtube.com')) {
 

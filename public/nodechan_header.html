@@ -3,7 +3,7 @@
 <iframe width="100%" height="130" scrolling="yes" frameborder="no" src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/171574021&amp;auto_play=false&amp;hide_related=false&amp;show_comments=false&amp;show_user=true&amp;show_reposts=false&amp;visual=true"></iframe>
 
 <!-- -->
-<header>
+<header id="header_position">
 	<!--
 	<img src="http://fat.gfycat.com/ActualFeistyBettong.gif">
 	-->
@@ -18,9 +18,11 @@
 	<!-- TODO -->
 	<div class="subtitle">
 		<p>
-		<a ng-click="set_location('/catalog')" class="clickable">[Catalog]</a>
-		<a ng-init="expandall=false" ng-click="expandall=!expandall" class="unimportant clickable" id="expand-all-images" ng-hide="viewmode=='catalog'">[Expand all images]</a>
-		<a ng-click="gotoBottom()" class="unimportant clickable" id="ctrl-jump-bottom">[Scroll to bottom]</a>
+			<a ng-click="set_location((viewmode=='catalog' ? '/' : '/catalog'))" class="clickable">[{{viewmode=='catalog' ? "Board Home" : "Catalog"}}]</a>
+			<a ng-click="gotoBottom()" class="unimportant clickable" id="ctrl-jump-bottom">[Jump to bottom]</a>
+		</p>
+		<p>
+			<a ng-init="expandall=false" ng-click="expandall=!expandall" class="unimportant clickable" id="expand-all-images" ng-hide="viewmode=='catalog'">[Expand all images]</a>
 		</p>
 		<!--
 		<p><a ng-click="set_location('/catalog')" ng-hide="archived" ng-if="viewmode!='catalog'">Catalog</a></p>
