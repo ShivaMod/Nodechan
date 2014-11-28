@@ -6,16 +6,10 @@
 		<!-- TODO::^Riskyyyyyy 
 		ng-init="load_thread_preview(thread.op.true_id)"
 		-->
-		<a class="hide-link clickable" ng-click="thread.nodehidden = !thread.nodehidden">[{{thread.nodehidden ? "+" : "-"}}] thread</a>
 		
-		<div ng-hide="thread.nodehidden">
-			<a id="{{thread.op.true_id}}" class="post_anchor"></a>
-			<post-op></post-op>
-
-			<br>
-			
-			<post-reply ng-if="thread.posts != []" ng-repeat="post in thread.posts"></post-reply>
-		</div>
+		<post-op></post-op>
+		
+		<post-reply ng-if="thread.posts != []" ng-repeat="post in thread.posts" ng-hide="thread.nodehidden"></post-reply>
 	</div>
 	<hr ng-repeat-end>
 	<!--

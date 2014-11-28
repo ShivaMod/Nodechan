@@ -1,35 +1,36 @@
 
-<div class="files" id="op" ng-if="thread.op.files.length >= 0">
-	<nodechan-file ng-repeat="file in thread.op.files" ng-init="op_post=true"></nodechan-file>
-</div>
+<p class="intro" id="op_{{thread.op.true_id}}">
 
-<div class="post op" id="op_{{thread.op.true_id}}">
+	<a ng-if="viewmode=='board'" class="hide-link clickable" ng-click="thread.nodehidden = !thread.nodehidden">[{{thread.nodehidden ? "+" : "-"}}]</a>
+	<!--
+	<input type="checkbox" class="delete" name="delete_{{thread.op.true_id}}" id="delete_{{thread.op.true_id}}">
+	<label for="delete_{{thread.op.true_id}}">
+	-->
+	<span class="subject">{{thread.op.subject}}</span> -
+	<span class="name">{{(thread.op.name!=undefined) ? thread.op.name : "Anonymous"}}</span>
+	&nbsp;
+	<time datetime="{{thread.op.date}}" data-local="true">{{ thread.op.date | date : format : timezone}}</time>
+	</label>
+	&nbsp;
+	<a class="post_no" ng-click="set_location_thread(thread.op.true_id)">Thread No. {{thread.op.true_id}}</a>
+	<!-- add to the above tag:
+	<a class="post_no" id="post_no_{{thread.op.true_id}}" href="/#/?t={{thread.op.true_id}}">No.</a>
 
-	<p class="intro">
-		<!--
-		<input type="checkbox" class="delete" name="delete_{{thread.op.true_id}}" id="delete_{{thread.op.true_id}}">
-		<label for="delete_{{thread.op.true_id}}">
-		-->
-		<span class="subject">{{thread.op.subject}}</span>
-		<span class="name">{{(thread.op.name!=undefined) ? thread.op.name : "Anonymous"}}</span>
-		&nbsp;
-		<time datetime="{{thread.op.date}}" data-local="true">{{ thread.op.date | date : format : timezone}}</time>
-		</label>
-		&nbsp;
-		<a class="post_no" id="op_post_no_{{thread.op.true_id}}" ng-click="set_location_thread(thread.op.true_id)">No.</a>
-		<!-- add to the above tag:
-		<a class="post_no" id="post_no_{{thread.op.true_id}}" href="/#/?t={{thread.op.true_id}}">No.</a>
+	onclick="highlightReply({{thread.op.true_id}})" 
+	TODO: make 'quote' work properly-->
+	<!--
+	add to the above tag: onclick="citeReply({{thread.op.true_id}})"
+	href="#q{{thread.op.true_id}}"
+	-->
+	<a class="clickable" ng-click="set_location_thread(thread.op.true_id)" ng-if="viewmode=='board'">[View Thread]</a>
+</p>
 
-		onclick="highlightReply({{thread.op.true_id}})" 
-		TODO: make 'quote' work properly-->
-		<a class="post_no">{{thread.op.true_id}}</a>
-		<!--
-		add to the above tag: onclick="citeReply({{thread.op.true_id}})"
-		href="#q{{thread.op.true_id}}"
-		-->
-		<a class="clickable" ng-click="set_location_thread(thread.op.true_id)" ng-if="viewmode=='board'">[Reply]</a>
-	</p>
 
+<div class="post op post_anchor" ng-hide="thread.nodehidden">
+
+	<div class="files" ng-if="thread.op.files.length >= 0">
+		<nodechan-file ng-repeat="file in thread.op.files" ng-init="op_post=true"></nodechan-file>
+	</div>
 
 	<div class="body">{{thread.op.body}}</div>
 	<div class="post_modified"></div>

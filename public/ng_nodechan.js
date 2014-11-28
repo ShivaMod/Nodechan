@@ -1,5 +1,5 @@
 (function() {
-	var app = angular.module('ng_nodechan', ['ngRoute', 'ngCookies']);
+	var app = angular.module('ng_nodechan', ['ngRoute', 'ngCookies', 'ngSanitize']);
 	var chantroll = app.controller('ChanController', ["$location", "$http", "$rootScope", "$scope", "$route", "$routeParams", function($location, $http, $rootScope, $scope, $route, $routeParams) {
 
 		$scope.live_host="nodechan.herokuapp.com";
@@ -16,6 +16,24 @@
 
 		$rootScope.threads=[];
 
+		$rootScope.refresh_threadlist = function(){
+			//$location.url('/');
+			console.log("something is HAPPENING with the board");
+			$http.get('/json/threadlist.json')
+				.success(function(root_data){
+					console.log("data received");
+					console.log(root_data);
+
+					threads=root_data;
+					//viewmode='board';
+					$scope.$apply();
+					return "success";
+				}
+			);
+			/*
+			*/
+		}
+
 		$rootScope.get_threads = function(){
 			console.log("returning threadlist:");
 			console.log($rootScope.threads);
@@ -30,10 +48,13 @@
 
 		$rootScope.set_location_thread = function(requested_thread){
 			$rootScope.set_location('/'+requested_thread);
+			//$location.hash('op_'+requested_thread);
+			//something's wrong with jumping to the correct id
 		}
 
 		$rootScope.set_location_thread_and_post = function(requested_thread, requested_post){
-			$rootScope.set_location('/'+requested_thread+'#post_no_'+requested_post);
+			$rootScope.set_location('/'+requested_thread);
+			$location.hash('post_no_'+requested_post);
 		}
 
 		$rootScope.set_viewmode = function(new_view){
@@ -50,7 +71,7 @@
 			$location.hash('footer_position');
 
 			// call $anchorScroll()
-			$anchorScroll();
+			//$anchorScroll();
 		};
 
 		$rootScope.submitData = function (post_form, resultVarName)
@@ -91,7 +112,7 @@
 				});
 
 
-			} else if ($rootScope.viewmode == 'board'){
+			} else {
 
 				var config = {
 					params: {
@@ -259,9 +280,14 @@
 		return {
 			restrict: 'E',
 			templateUrl: "nodechan_post_reply.html",
-			controller:function(){
+			controller:['$scope',function($scope){
 
-			}
+				$scope.test_post=$scope.post.body.replace(/\n/g, '<br>');
+				$scope.parse_post_body = function(post_body){
+					return post_body.replace(/\n/g, '<br>');
+					//return '<p class="body">'+post_body.replace(/\n/g, '<br>')+'</p>';
+				}
+			}]
 		};
 	})
 	.directive("nodechanFile", function() {

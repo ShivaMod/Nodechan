@@ -4,12 +4,12 @@
 	Someday, add multifile support:
 	ng-class="(op_post ? ((thread.op.files.length>1) ? 'multifile' : '') : ((files.length>1) ? 'multifile' : '') )"
 	-->
-	<p class="fileinfo">
-	<a class="hide-link clickable" ng-click="thisfile.nodehidden = !thisfile.nodehidden">{{thisfile.nodehidden ? "Show" : "Hide"}} image</a>
-	<span ng-init="thisfile={'nodehidden':false, 'class':'post-image'}">File link:
+	
+	<span ng-init="thisfile={'nodehidden':false, 'class':'post-image'}">File (<a class="hide-link clickable" ng-click="thisfile.nodehidden = !thisfile.nodehidden">{{thisfile.nodehidden ? "Show" : "Hide"}}</a>):
 		<a ng-href="{{file}}">Download</a>
 		</span>
 	</span>
+	<div class="fileinfo">
 	<!-- 
 		TODO:dtad: when I allow uploading images directly to the channel, probably never
 		TODO:dtad: multifile media doesn't render correctly
@@ -20,7 +20,7 @@
 		<a ng-href="{{file}}">1416603908353.gif</a>
 		<span class="unimportant">(609.17 KB, 500x275, 20:11, <a download="the_jews_did_this.gif" href="https://media.8chan.co/{{board_id}}/src/1416603908353.gif" title="Save as original filename">the_jews_did_this.gif</a>)
 	-->
-	</p>
+	</div>
 	<br>
 	<!--
 	This break fixes things for a single posted image

@@ -1,5 +1,5 @@
 
-<div class="post reply" ng-init="post.nodehidden = false">
+<div class="post reply" ng-init="post.nodehidden = false" id="post_no_{{post.true_id}}">
 	<!-- op post should be different, as per convention, with class "post op" -->
 	<p class="intro">
 		<a id="{{post.true_id}}" class="post_anchor"></a>
@@ -9,23 +9,22 @@
 		<a class="hide-link clickable" ng-click="post.nodehidden = !post.nodehidden">[{{post.nodehidden ? "+" : "-"}}]</a>
 
 		<label for="delete_{{post.true_id}}">
-			<a class="email" href="mailto:{{post.email}}">
-				<span class="name">{{(post.name!=undefined) ? post.name : "Anonymous"}}</span>
-			</a>
+			<a class="email" href="mailto:{{post.email}}"></a>
+			<span class="subject">{{post.subject}}</span><span ng-if="post.subject!='' && post.subject!=undefined"> -</span>
+			<span class="name">{{(post.name!=undefined) ? post.name : "Anonymous"}}</span>
 			&nbsp;
 			<time datetime="{{post.date}}" data-local="true">{{ post.date | date : format : timezone}}</time>
 		</label>
 		&nbsp;
-		<a class="post_no" id="post_no_{{post.true_id}}" ng-click="set_location_thread_and_post(thread.op.true_id, post.true_id)">
+		<a class="post_no" ng-click="set_location_thread_and_post(thread.op.true_id, post.true_id)">
 		<!--
 		<a class="post_no" id="post_no_{{post.true_id}}" ng-href="'/#'+{{post.true_id}}+'/?t='+{{thread.true_id}}">
 
 		add to the above
 		onclick="highlightReply({{post.true_id}})"
 		-->
-			No.
+			Post No. {{post.true_id}}
 		</a>
-		<a class="post_no">{{post.true_id}}</a>
 		<!-- 
 		later, can add
 		onclick="citeReply({{post.true_id}})" 
@@ -41,7 +40,7 @@
 		<div class="files" ng-if="post.files.length > 0">
 			<nodechan-file ng-repeat="file in post.files"></nodechan-file>
 		</div>
-		<p class="body">{{post.body}}</p>
+		<p ng-bind-html='test_post'></p>
 	</div>
 	<div class="post_modified"></div>
 </div>
