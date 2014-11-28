@@ -22,7 +22,8 @@
 			<a ng-click="gotoBottom()" class="unimportant clickable" id="ctrl-jump-bottom">[Jump to bottom]</a>
 		</p>
 		<p>
-			<a ng-init="expandall=false" ng-click="expandall=!expandall" class="unimportant clickable" id="expand-all-images" ng-hide="viewmode=='catalog'">[Expand all images]</a>
+			<a ng-init="hide_all=false" ng-click="hide_all=!hide_all" class="unimportant clickable" id="hide-all-images" ng-hide="viewmode=='catalog'">[{{hide_all ? "Show" : "Hide all"}} media]</a>
+			<a ng-init="expand_all=false" ng-click="expand_all=!expand_all" class="unimportant clickable" id="expand-all-images" ng-hide="viewmode=='catalog'">[{{expand_all ? "Normal size" : "Expand all"}} media]</a>
 		</p>
 		<!--
 		<p><a ng-click="set_location('/catalog')" ng-hide="archived" ng-if="viewmode!='catalog'">Catalog</a></p>
