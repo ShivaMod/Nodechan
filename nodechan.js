@@ -31,8 +31,16 @@ app.get('/json/thread.:thread_id?', board_handler.thread)
 app.get('/json/posts.:thread_id?.preview', board_handler.preview)
 app.get('/json/posts.:thread_id?.posts', board_handler.posts)
 
-app.post('/json/post_op', board_handler.post_op)
+app.get('/json/updated_threads_since.:date?', board_handler.posts)
+
+app.post('/json/post_thread', board_handler.post_thread)
 app.post('/json/post_reply', board_handler.post_reply)
+
+app.post('/json/del_thread.:thread_id?', board_handler.del_thread)
+app.post('/json/del_reply.:post_id?', board_handler.del_reply)
+
+app.post('/json/mod_thread.:thread_id?', board_handler.mod_thread)
+app.post('/json/mod_reply.:post_id?', board_handler.mod_reply)
 
 //app.get('/people.:format?', tokenAuth, people.index);
 /*

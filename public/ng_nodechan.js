@@ -1,5 +1,5 @@
 (function() {
-	var app = angular.module('ng_nodechan', ['ngRoute']);
+	var app = angular.module('ng_nodechan', ['ngRoute', 'ngCookies']);
 	var chantroll = app.controller('ChanController', ["$location", "$http", "$rootScope", "$scope", "$route", "$routeParams", function($location, $http, $rootScope, $scope, $route, $routeParams) {
 
 		$scope.live_host="nodechan.herokuapp.com";
@@ -28,6 +28,14 @@
 			//$location.replace();
 		}
 
+		$rootScope.set_location_thread = function(requested_thread){
+			$rootScope.set_location('/'+requested_thread);
+		}
+
+		$rootScope.set_location_thread_and_post = function(requested_thread, requested_post){
+			$rootScope.set_location('/'+requested_thread+'#post_no_'+requested_post);
+		}
+
 		$rootScope.set_viewmode = function(new_view){
 			$rootScope.viewmode=new_view;
 			$scope.viewmode=new_view;
@@ -40,13 +48,16 @@
 		$rootScope.submitData = function (post_form, resultVarName)
 		{
 			post_form.sending=true;
+
+			if (post_form.name != "") $rootScope.cookie_set_postname(post_form.name);
+
 			console.log("current viewmode is:")
 			console.log($rootScope.viewmode)
 			if ($rootScope.viewmode == 'thread'){
 
 				var config = {
 					params: {
-						thread_id: post_form.thread_id,
+						thread_id: $rootScope.curthread_id,
 						name: post_form.name,
 						subject: post_form.subject,
 						files: post_form.files,
@@ -59,9 +70,12 @@
 				$http.post("/json/post_reply", null, config)
 				.success(function (data, status, headers, config)
 				{
-					$rootScope.threads[0].posts.push(config.params);
+					console.log("New thread is:");
+					console.log(data);
+					//$rootScope.set_location('/#post_no_'+data.true_id+'/'+data.thread_id);
+
+					$rootScope.threads[0].posts.push(data);
 					//^This adds the current post to the reply list: TODO:: fetch any posts made just before client has posted 
-					$rootScope.set_location('/'+config.params.thread_id+'#post_no_'+config.params.true_id);
 				})
 				.error(function (data, status, headers, config)
 				{
@@ -82,12 +96,12 @@
 
 				console.log("config is:");
 				console.log(config);
-				$http.post("/json/post_op", null, config)
+				$http.post("/json/post_thread", null, config)
 				.success(function (data, status, headers, config)
 				{
 					//console.log("new thread op's true_id is:");
 					//console.log(data.true_id);
-					$rootScope.set_location('/' + data.true_id);
+					$rootScope.set_location_thread(data.true_id);
 				})
 				.error(function (data, status, headers, config)
 				{
@@ -175,8 +189,10 @@
 		$rootScope.set_viewmode('catalog');
 
 	}])
-	.controller('FullThreadController', ["$http", "$rootScope", "$scope", "$route", function($http, $rootScope, $scope, $location){
+	.controller('FullThreadController', ["$http", "$rootScope", "$scope", "$route", "$location", "$routeParams", function($http, $rootScope, $scope, $location, $route, $routeParams){
 		$rootScope.set_viewmode('thread');
+		$rootScope.curthread_id = $routeParams.thread_id;
+		console.log("current thread ID noted as:", $routeParams.thread_id)
 
 	}])
 	.directive("nodechanHeader", function() {
@@ -252,9 +268,32 @@
 		return {
 			restrict: 'E',
 			templateUrl: "nodechan_reply_form.html",
-			controller:function(){
+			controller: ['$rootScope', '$cookies', function($rootScope, $cookies){
 
-			}
+				$rootScope.reset_cookie_user = function(){
+
+					console.log('Resetting user cookie');
+					$cookies.user = {
+						name:""
+					}
+				}
+
+				$rootScope.cookie_set_postname = function(new_name){
+					if ($cookies.user == undefined) $rootScope.reset_cookie_user();
+
+					console.log("Current cookie name is:");
+					console.log($cookies.user.name);
+					console.log("New cookie name is:");
+					console.log(new_name);
+					$cookies.user.name=new_name;
+				}
+
+				$rootScope.cookie_get_postname = function(){
+					if ($cookies.user == undefined) $rootScope.reset_cookie_user();
+
+					return $cookies.user.name;
+				}
+			}]
 		};
 	})
 	.directive("modFooter", function() {

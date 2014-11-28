@@ -207,7 +207,7 @@ exports.posts = function(req, res, next) {
 	}
 }
 
-exports.post_op = function(req, res, next) {
+exports.post_thread = function(req, res, next) {
 
 	//var ip = req.headers['x-forwarded-for'] || req.connection.remoteAddress;
 	var ip = req.ip;
