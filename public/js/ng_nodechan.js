@@ -346,7 +346,8 @@
 
 				$scope.test_post=$scope.post.body.replace(/\n/g, '<br>');
 				$scope.parse_post_body = function(post_body){
-					return post_body.replace(/\n/g, '<br>');
+					return post_body.replace(/\n/g, '<br>').replace('\>\>op', '<a href="#op_'+$rootScope.curthread_id+'">>>op</a>');
+				//var temp_url = mytext.replace(/(?:http:\/\/|https:\/\/)?(?:www\.)?(?:youtube\.com|youtu\.be)\/(?:watch\?v=)?(.+)/g, 'https://www.youtube.com/embed/$1');
 					//return '<p class="body">'+post_body.replace(/\n/g, '<br>')+'</p>';
 				}
 			}]
