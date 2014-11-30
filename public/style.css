@@ -223,7 +223,16 @@ img.banner,img.board_image {
 .op-image {
   display: block;
   float: left;
-  width:250px;
+  width: 250px;
+  margin: 5px 10px 10px 0px;
+  border: none;
+}
+
+.op-embed {
+  display: block;
+  float: left;
+  width: 250px;
+  height: 200px;
   margin: 5px 10px 10px 0px;
   border: none;
 }
