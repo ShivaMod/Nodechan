@@ -49,6 +49,8 @@
 		$rootScope.get_threads = function(){
 			console.log("returning threadlist:");
 			console.log($rootScope.threads);
+
+			$rootScope.done_loading=true;
 			return $rootScope.threads;
 		}
 
@@ -245,6 +247,7 @@
 				console.log(data);
 
 				$rootScope.threads=[data];
+				$rootScope.done_loading=true;
 				//^This is done for a good reason
 				//this.op=data.op;
 				//this.posts=data.posts;
@@ -358,7 +361,7 @@
 			templateUrl: "nodechan_post_reply.html",
 			controller:['$scope', '$rootScope', '_', function($scope, $rootScope, _){
 
-				$scope.test_post=$scope.post.body.replace(/(>+)(.+)(\s)/g, '<a href="/#/'+$scope.thread.op.true_id+'#$2">>>$2</a>$3').replace(/\n/g, '<br>');
+				$scope.test_post=$scope.post.body.replace(/(>+)(.+)(\s*)/g, '<a href="/#/'+$scope.thread.op.true_id+'#$2">>>$2</a>$3').replace(/\n/g, '<br>');
 				//It would be nice to allow linking to posts in other threads, but maybe some other time...
 				$scope.parse_post_body = function(post_body){
 					var tempy= post_body.replace(/\n/g, '<br>')
