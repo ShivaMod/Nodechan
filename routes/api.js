@@ -52,6 +52,74 @@ Model_thread_op.remove({}, function(err) {
 });
 */
 
+
+
+//
+// Update existing threads
+var reparse_values=true;
+if (reparse_values){
+
+	Model_thread_op.find().sort({last_reply: 'desc'}).exec(function (err, db_threads) {
+		if (err) {
+			console.error(err);
+			done(req, res, err);
+		} else {
+			console.log(db_threads);
+
+			for (var i=0; i<db_threads.length; i++){
+				var curthread_id=db_threads[i].true_id;
+				//console.log("curthread_id is:");
+				//console.log(curthread_id);
+				var query = Model_post.find({ thread_id: curthread_id }).sort({date: 'desc'}).exec(function(err_inner, db_posts){
+					if (err_inner) {
+						console.error(err_inner);
+						return [];
+					}
+					if (db_posts == undefined) db_posts=[];
+
+					if (db_posts.length!=0){
+
+						var inner_reply_count=0, inner_file_count=0, curthread_id=db_posts[0].thread_id;
+
+						for (var i = db_threads.length - 1; i >= 0; i--) {
+							if (db_threads[i].true_id==curthread_id){
+								inner_file_count=db_threads[i].files.length;
+								break;
+							}
+						};
+
+						for (var i = db_posts.length - 1; i >= 0; i--) {
+							inner_reply_count=inner_reply_count+1;
+							inner_file_count=inner_file_count+db_posts[i].files.length;
+						};
+
+						console.log("Posts in this thread are:");
+						console.log(db_posts);
+
+						Model_thread_op.findOneAndUpdate({ true_id: curthread_id }, { $set: {total_replies: inner_reply_count, total_files: inner_file_count }}, {upsert: true}, function(err, usl_thread){
+
+							if (err) {
+								console.error(err);
+								console.error(usl_thread);
+							} else {
+								console.log(usl_thread);
+							}
+						});
+					}
+
+				});
+				query.onReject(function (reason) {
+					console.log(reason);
+					return [];
+					//done(req, res, []);
+				});
+			}
+		}
+	});
+}
+//
+
+
 	
 var done = function(req, res, doc) {
 	res.format({
@@ -88,7 +156,7 @@ exports.threadlist = function(req, res, next) {
 				//console.log("curthread_id is:");
 				//console.log(curthread_id);
 				var query = Model_post.find({ thread_id: curthread_id }).limit(5).sort({date: 'desc'}).exec(function(err_inner, db_posts){
-					console.log("threadlist loading, currently on:", curthread_id);
+					//console.log("threadlist loading, currently on:", curthread_id);
 					if (err_inner) {
 						console.error(err_inner);
 						return [];
@@ -105,6 +173,7 @@ exports.threadlist = function(req, res, next) {
 					//done(req, res, []);
 				});
 				promise_list.push(query);
+				//^TODO::This does not guarantee that post lists will be put here in the same order they were queried. This is pretty serious
 			}
 
 			Q.all(promise_list).then(function(){
