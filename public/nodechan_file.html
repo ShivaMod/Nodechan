@@ -20,11 +20,13 @@
 	This break fixes things for a single posted image
 	-->
 
-	<div ng-model="thisfile.class" class="clickable" ng-click="expandme=!expandme">
+	<div ng-model="thisfile.class" class="clickable" ng-click="media_click()">
 		<span ng-hide="true">{{thisfile.class = ((expand_all || this_thread.expand_all) ? 'full-image' :(expandme ? 'full-image' : (op_post ? 'op-image' : 'post-image' )))}}</span>
 
 		<img ng-if='!file_meta.embed' ng-src="{{file}}" ng-class="thisfile.class"></img>
-		<iframe ng-if='file_meta.embed' ng-src="{{file_meta.link}}" frameborder="0" ng-class="thisfile.class" webkitallowfullscreen mozallowfullscreen allowfullscreen ></iframe>
+
+			<img ng-if="file_meta.embed && file_meta.embed_hide" ng-class="board_id+' '+thread-image+' '+thisfile.class" ng-src="{{parse_youtube_preview(thread.op.files[0])}}"></img>
+			<iframe ng-if="file_meta.embed" ng-hide="file_meta.embed_hide" ng-src="{{file_meta.link}}" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
 	</div>
 	<!--
 	<a href="{{file}}" target="_blank"  ng-model="thisfile.class"><img ng-src="{{file}}" ng-class="thisfile.class" ng-click="expandme=!expandme"><span ng-hide="true">{{thisfile.class = (expand_all ? 'full-image' : (expandme ? 'full-image' : (op_post ? 'op-image' : 'post-image')))}}</span></img></a>

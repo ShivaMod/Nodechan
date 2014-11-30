@@ -93,9 +93,14 @@
 			//$anchorScroll();
 		};
 
+		$rootScope.parse_youtube_preview = function(youtube_link) {
+				return youtube_link.replace(/(?:http:\/\/|https:\/\/)?(?:www\.)?(?:youtube\.com|youtu\.be)\/(?:watch\?v=)?(.+)\?(.+)/g, 'https://img.youtube.com/vi/$1/sddefault.jpg');
+				//file_meta.link = $sce.trustAsResourceUrl(temp_url);
+		}
+
 		$rootScope.parse_Link = function(mytext) {
 
-			var file_meta={'link_type':'', 'embed':false, 'link':''};
+			var file_meta={'link_type':'', 'embed':false, 'embed_hide':true, 'link':''};
 			var temp_url = '';
 
 			if (_.str.contains(mytext, 'youtu.be') || _.str.contains(mytext, 'youtube.com')) {
@@ -113,6 +118,7 @@
 
 				file_meta.link_type='vimeo';
 				file_meta.embed=true;
+				file_meta.embed_hide=false;
 				console.log(mytext);
 				temp_url = mytext.replace(/(?:http:\/\/|https:\/\/)?(?:www\.)?(?:vimeo\.com)\/(.+)/g, '//player.vimeo.com/video/$1');
 				file_meta.link = $sce.trustAsResourceUrl(temp_url);
@@ -364,6 +370,15 @@
 			controller:['$rootScope', '$scope', '_', '$sce', function($rootScope, $scope, _, $sce){
 
 				$scope.file_meta = $rootScope.parse_Link($scope.file);
+
+				$scope.media_click = function(){
+					console.log("I'm a clickin!");
+					if ($scope.file_meta.embed_hide) {
+						$scope.file_meta.embed_hide = false;
+					} else{
+						$scope.expandme=!$scope.expandme;
+					}
+				}
 
 				-->
 				//$scope.parsed_link = '<iframe width="560" height="315" src="//www.youtube.com/embed/7E9lt-b3Jtw" frameborder="0" allowfullscreen></iframe>';

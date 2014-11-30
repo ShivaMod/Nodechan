@@ -7,7 +7,8 @@
 			<!--
 			<img src="https://media.8chan.co/{{board.true_id}}/thumb/1414297858386.png" id="img-{{thread.files[0].link}}" data-subject="Post your Chinkpad" data-name="Anonymous" data-muhdifference="" data-last-reply="" data-last-subject="" data-last-name="" data-last-difference="" class="{{board_id}} thread-image" title="Nov 24 00:28">
 			-->
-			<iframe ng-if='file_meta.embed' width="140" height="105" ng-src="{{file_meta.link}}" frameborder="0" allowfullscreen ></iframe>
+			<img ng-if="file_meta.embed && (file_meta.link_type=='youtube')" class="{{board_id}} thread-image" ng-src="{{parse_youtube_preview(thread.op.files[0])}}"></img>
+			<iframe ng-if="file_meta.embed && !(file_meta.link_type=='youtube')" width="140" height="105" ng-src="{{file_meta.link}}" frameborder="0" allowfullscreen ></iframe>
 		</a>
 		<div class="replies">
 			<strong>R: {{thread.op.replies}} / I: {{thread.op.files.length}}</strong>
