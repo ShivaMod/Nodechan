@@ -371,15 +371,6 @@
 
 				$scope.file_meta = $rootScope.parse_Link($scope.file);
 
-				$scope.media_click = function(){
-					console.log("I'm a clickin!");
-					if ($scope.file_meta.embed_hide) {
-						$scope.file_meta.embed_hide = false;
-					} else{
-						$scope.expandme=!$scope.expandme;
-					}
-				}
-
 				-->
 				//$scope.parsed_link = '<iframe width="560" height="315" src="//www.youtube.com/embed/7E9lt-b3Jtw" frameborder="0" allowfullscreen></iframe>';
 			}],

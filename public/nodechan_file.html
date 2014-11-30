@@ -20,8 +20,8 @@
 	This break fixes things for a single posted image
 	-->
 
-	<div ng-model="thisfile.class" class="clickable" ng-click="media_click()">
-		<span ng-hide="true">{{thisfile.class = ((expand_all || this_thread.expand_all) ? 'full-image' :(expandme ? 'full-image' : (op_post ? 'op-image' : 'post-image' )))}}</span>
+	<div ng-model="thisfile.class" class="clickable" ng-click="(file_meta.embed_hide ? file_meta.embed_hide=false : (expandme=!expandme))">
+		<span ng-hide="false">{{thisfile.class = ((expand_all || this_thread.expand_all) ? 'full-image' :(expandme ? 'full-image' : (op_post ? 'op-image' : 'post-image' )))}}</span>
 
 		<img ng-if='!file_meta.embed' ng-src="{{file}}" ng-class="thisfile.class"></img>
 
