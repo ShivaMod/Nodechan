@@ -101,7 +101,7 @@
 			if (match&&match[7].length==11){
 				video_id = match[7];
 			}
-			return $sce.trustAsResourceUrl('https://img.youtube.com/vi/'+video_id+'/sddefault.jpg');
+			return $sce.trustAsResourceUrl('https://img.youtube.com/vi/'+video_id+'/default.jpg');
 		}
 
 		$rootScope.parse_Link = function(mytext) {
