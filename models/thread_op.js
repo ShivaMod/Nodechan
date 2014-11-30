@@ -5,8 +5,8 @@ var schema_thread_op = new mongoose.Schema({
 	true_id: Number,					// Post ID
 	board: String,						// Board posted on
 	date: Date,						// Post Date
+	
 	last_reply: Date,					// Last reply Date
-
 	total_replies: { type: Number, default: 0 },		// Total posts in thread
 	total_files: { type: Number, default: 0 },		// Total media linked in thread
 

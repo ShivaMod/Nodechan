@@ -73,7 +73,7 @@ exports.threadlist = function(req, res, next) {
 
 	//console.log("request is:");
 	//console.log(req.params);
-	Model_thread_op.find().sort({date: 'desc'}).exec(function (err, db_threads) {
+	Model_thread_op.find().sort({last_reply: 'desc'}).exec(function (err, db_threads) {
 		if (err) {
 			console.error(err);
 			done(req, res, err);
@@ -88,7 +88,7 @@ exports.threadlist = function(req, res, next) {
 				//console.log("curthread_id is:");
 				//console.log(curthread_id);
 				var query = Model_post.find({ thread_id: curthread_id }).limit(5).sort({date: 'desc'}).exec(function(err_inner, db_posts){
-					console.log(curthread_id);
+					console.log("threadlist loading, currently on:", curthread_id);
 					if (err_inner) {
 						console.error(err_inner);
 						return [];
@@ -96,7 +96,7 @@ exports.threadlist = function(req, res, next) {
 					if (db_posts == undefined) db_posts=[];
 					//else if (db_posts[0]== undefined) db_posts=[];
 
-					console.log(db_posts);
+					//console.log(db_posts);
 					return db_posts.reverse();
 				});
 				query.onReject(function (reason) {
@@ -148,8 +148,8 @@ exports.thread = function(req, res, next) {
 
 					var temp_thread = {"op":db_thread,"posts": db_posts};
 				}
-				console.log("db_posts are:");
-				console.log(db_posts);
+				//console.log("db_posts are:");
+				//console.log(db_posts);
 				
 				//if (db_posts[0]== undefined) db_posts=[];
 				//console.log("new thread is:", temp_thread);
@@ -201,7 +201,7 @@ exports.posts = function(req, res, next) {
 			}
 			if (db_posts[0]== undefined) db_posts=[];
 			
-			console.log(db_posts);
+			//console.log(db_posts);
 			done(req, res, db_posts);
 		});
 	}
@@ -216,17 +216,19 @@ exports.post_thread = function(req, res, next) {
 
 	//return;
 
+	var new_files = (req.query.files == [""]) ? [] : req.query.files;
+	//TODO: fix multifile upload
 	var instance_thread_op = new Model_thread_op({
 		board: 'tech',					// Board posted on
 		date: new Date(),				// Post Date
 		last_reply: new Date(),				// Last reply Date
 
 		total_replies: 0,				// Total posts in thread
-		total_files: req.query.files.length,		// Total media linked in thread
+		total_files: new_files.length,			// Total media linked in thread
 
 		author: req.ip,					// Author's IP TODO::consider checking against proxies
 		name: req.query.name,				// Poster Name
-		files: req.query.files,				// Post Media
+		files: new_files,				// Post Media
 
 		subject: req.query.subject,			// Poster IP
 		body: req.query.body				// Post body
@@ -235,6 +237,7 @@ exports.post_thread = function(req, res, next) {
 		// saved!
 	})
 
+	console.log("posting thread:");
 	console.log(instance_thread_op);
 
 	instance_thread_op.save(function (err, instance_thread_op) {
@@ -284,7 +287,18 @@ exports.post_reply = function(req, res, next) {
 			console.error(err);
 			done(req, res, err);
 		} else {
-			done(req, res, instance_post);
+			Model_thread_op.findOneAndUpdate({ true_id: req.query.thread_id }, { $inc: { total_replies: 1, total_files: new_files.length}, $set: {last_reply: new Date() }}, {upsert: true}, function(err, usl_thread){
+
+				console.log("length of new_files is:", new_files.length)
+				if (err) {
+					console.error(err);
+					console.error(usl_thread);
+					done(req, res, err);
+				} else {
+					var reply_submit_report={true_id: instance_post.true_id}
+					done(req, res, instance_post);
+				}
+			});
 		}
 	});
 
