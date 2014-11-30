@@ -97,7 +97,7 @@ if (reparse_values){
 								var inner_files=db_threads[i].files;
 								console.log("\n\n\n\n\nfile list length is:");
 								console.log(inner_files.length);
-								inner_file_count=(inner_files[inner_files.length-1]>settings.max_post_files) ? 1 : inner_files.length;
+								inner_file_count=(inner_files.length>settings.max_post_files) ? 1 : inner_files.length;
 								break;
 							}
 						};
@@ -300,7 +300,7 @@ exports.post_thread = function(req, res, next) {
 	//return;
 
 	var new_files = (req.query.files == [""]) ? [] : req.query.files;
-	var file_num=(new_files[new_files.length-1]>settings.max_post_files) ? 1 : new_files.length;
+	var file_num=(new_files.length>settings.max_post_files) ? 1 : new_files.length;
 
 	console.log("for this new thread, there are this many new files:");
 	console.log(file_num);
