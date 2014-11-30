@@ -11,7 +11,7 @@
 	<!--  Chan Header  -->
 
 	<div>
-	<h1><a ng-click="set_location('/')" class="clickable">/{{board_id}}/</a></h1>
+	<h1><a href="/" class="clickable">/{{board_id}}/</a></h1>
 	<!--
 	<a id="favorite-star" href="" data-active="false">★</a>
 
@@ -20,9 +20,10 @@
 	</div>
 	<!-- TODO -->
 	<div class="subtitle">
-		<i ng-click="set_location((viewmode=='catalog' ? '/' : '/catalog'))"ng-class= "'clickable '+(viewmode=='catalog' ? 'ion-navicon' : 'ion-grid')"></i>
+		<a href="/"><i ng-if="(viewmode=='catalog')" class="clickable icon ion-navicon"></i></a>
+		<a href="/catalog"><i ng-if="!(viewmode=='catalog')" class="clickable icon ion-grid"></i></a>
 		
-		<i ng-click="gotoBottom()" id="ctrl-jump-bottom" class="clickable icon ion-arrow-down-a"></i>
+		<a href="#footer_position"><i id="ctrl-jump-bottom" class="clickable icon ion-arrow-down-a"></i></a>
 
 		<i ng-init="expand_all=false" ng-click="expand_all=!expand_all" class="clickable icon ion-arrow-resize" id="expand-all-images" ng-hide="viewmode=='catalog'"></i>
 		<!--

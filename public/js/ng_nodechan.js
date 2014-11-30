@@ -79,15 +79,6 @@
 			//console.log($rootScope.viewmode);
 		}
 
-		$rootScope.gotoBottom = function() {
-			// set the location.hash to the id of
-			// the element you wish to scroll to.
-			$location.hash('footer_position');
-
-			// call $anchorScroll()
-			//$anchorScroll();
-		};
-
 		$rootScope.gotoTop = function() {
 			// set the location.hash to the id of
 			// the element you wish to scroll to.
