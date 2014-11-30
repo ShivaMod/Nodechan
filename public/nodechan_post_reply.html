@@ -6,7 +6,7 @@
 		<!--
 		<input type="checkbox" class="delete" name="delete_{{post.true_id}}" id="delete_{{post.true_id}}">
 		-->
-		<a class="hide-link clickable" ng-click="post.nodehidden = !post.nodehidden">[{{post.nodehidden ? "+" : "-"}}]</a>
+		<a class="hide-link clickable" ng-click="post.nodehidden = !post.nodehidden"><i ng-class="'icon '+(ost.nodehidden ? 'ion-plus-circled' : 'ion-minus-circled')"></i></a>
 
 		<label for="delete_{{post.true_id}}">
 			<a class="email" href="mailto:{{post.email}}"></a>
@@ -37,7 +37,7 @@
 	<!--
 	-->
 	<div ng-hide="post.nodehidden">
-		<div class="files" ng-if="post.files.length > 0" ng-hide="this_thread.hide_all">
+		<div class="files" ng-if="post.files.length > 0">
 			<nodechan-file ng-repeat="file in post.files"></nodechan-file>
 		</div>
 		<p ng-bind-html='test_post'></p>

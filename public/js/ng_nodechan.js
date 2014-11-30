@@ -19,8 +19,8 @@
 		$scope.page_hash = $location.hash();
 		$scope.archived=($scope.live_host != $scope.page_host);
 
-		$scope.board_id="tech";
-		$scope.board_name="The Technology Board";
+		$scope.board_id="boatdev";
+		$scope.board_name="Someday we'll sail away";
 		$scope.viewmode_last='';
 		$scope.viewmode='';
 
@@ -282,7 +282,6 @@
 	.controller('FullThreadController', ["$http", "$rootScope", "$scope", "$route", "$location", "$routeParams", function($http, $rootScope, $scope, $location, $route, $routeParams){
 		$rootScope.set_viewmode('thread');
 		$rootScope.curthread_id = $routeParams.thread_id;
-		$scope.this_thread={'hide_all':false};
 		console.log("current thread ID noted as:", $routeParams.thread_id)
 
 	}])

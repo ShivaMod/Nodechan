@@ -10,21 +10,21 @@
 	<!--  Chan Header  -->
 
 	<div>
-	<h1><a ng-click="set_location('/')" class="clickable">/{{board_id}}/</a><a id="favorite-star" href="" data-active="false">★</a></h1>
+	<h1><a ng-click="set_location('/')" class="clickable">/{{board_id}}/</a></h1>
 	<!--
+	<a id="favorite-star" href="" data-active="false">★</a>
+
 	<h1>Home -> (<a ng-href="" ng-click="set_location(((viewmode == 'board') ? '/catalog' : '/'))">/{{board_id}}/</a>)<a id="favorite-star" href="" data-active="false">★</a></h1>
 	-->
 	</div>
 	<!-- TODO -->
 	<div class="subtitle">
-		<p>
-			<a ng-click="set_location((viewmode=='catalog' ? '/' : '/catalog'))" class="clickable">[{{viewmode=='catalog' ? "Board Home" : "Catalog"}}]</a>
-			<a ng-click="gotoBottom()" class="unimportant clickable" id="ctrl-jump-bottom">[Jump to bottom]</a>
-		</p>
-		<p>
-			<a ng-init="hide_all=false" ng-click="hide_all=!hide_all" class="unimportant clickable" id="hide-all-images" ng-hide="viewmode=='catalog'">[{{hide_all ? "Show" : "Hide all"}} media]</a>
-			<a ng-init="expand_all=false" ng-click="expand_all=!expand_all" class="unimportant clickable" id="expand-all-images" ng-hide="viewmode=='catalog'">[{{expand_all ? "Normal size" : "Expand all"}} media]</a>
-		</p>
+		View: 
+		<i ng-click="set_location((viewmode=='catalog' ? '/' : '/catalog'))"ng-class= "'clickable '+(viewmode=='catalog' ? 'ion-navicon' : 'ion-grid')"></i>
+		
+		<i ng-click="gotoBottom()" id="ctrl-jump-bottom" class="clickable icon ion-arrow-down-a"></i>
+
+		<i ng-init="expand_all=false" ng-click="expand_all=!expand_all" class="clickable icon ion-arrow-resize" id="expand-all-images" ng-hide="viewmode=='catalog'"></i>
 		<!--
 		<p><a ng-click="set_location('/catalog')" ng-hide="archived" ng-if="viewmode!='catalog'">Catalog</a></p>
 		-->

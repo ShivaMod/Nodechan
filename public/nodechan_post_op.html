@@ -1,7 +1,7 @@
 
 <p class="intro" id="op_{{thread.op.true_id}}">
 
-	<a ng-if="viewmode=='board'" class="hide-link clickable" ng-click="thread.nodehidden = !thread.nodehidden">[{{thread.nodehidden ? "+" : "-"}}]</a>
+	<a ng-if="viewmode=='board'" class="hide-link clickable" ng-click="thread.nodehidden = !thread.nodehidden"><i ng-class="'icon '+(thread.nodehidden ? 'ion-plus-circled' : 'ion-minus-circled')"></i></a>
 	<!--
 	<input type="checkbox" class="delete" name="delete_{{thread.op.true_id}}" id="delete_{{thread.op.true_id}}">
 	<label for="delete_{{thread.op.true_id}}">
@@ -22,16 +22,15 @@
 	add to the above tag: onclick="citeReply({{thread.op.true_id}})"
 	href="#q{{thread.op.true_id}}"
 	-->
-	<a class="clickable" ng-click="set_location_thread(thread.op.true_id)" ng-if="viewmode=='board'">[View Thread]</a>
-	<a class="clickable" ng-click="this_thread.hide_all=!(this_thread.hide_all)">[{{this_thread.hide_all ? "Show" : "Hide"}} Media]</a>
-	<a class="clickable" ng-click="this_thread.expand_all=!(this_thread.expand_all)">[{{this_thread.expand_all ? "Normal" : "Expand"}} Media]</a>
+	<i class="clickable icon ion-more" ng-click="set_location_thread(thread.op.true_id)" ng-if="viewmode=='board'"></i>
+	<a class="clickable" ng-click="this_thread.expand_all=!(this_thread.expand_all)"><i class="icon ion-arrow-resize"></i></a>
 
 </p>
 
 
 <div class="post op post_anchor" ng-hide="thread.nodehidden">
 
-	<div class="files" ng-if="thread.op.files.length >= 0" ng-hide="this_thread.hide_all">
+	<div class="files" ng-if="thread.op.files.length >= 0">
 		<nodechan-file ng-repeat="file in thread.op.files" ng-init="op_post=true"></nodechan-file>
 	</div>
 

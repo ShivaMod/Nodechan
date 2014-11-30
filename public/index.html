@@ -3,6 +3,7 @@
 	<head>
 		<meta charset="UTF-8">
 		<link rel="stylesheet" href="/style.css"></link>
+		<link rel="stylesheet" href="/css/ionicons.min.css"></link>
 		<script type="text/javascript" src="/js/lib/underscore-min.js"></script>
 		<script type="text/javascript" src="/js/lib/underscore.string.js"></script>
 		<script type="text/javascript" src="/js/lib/angular.min.js"></script>
@@ -26,6 +27,8 @@
 		<reply-form></reply-form>
 
 		<footer id="footer_position"></footer>
-		<a ng-click="gotoTop()" class="unimportant clickable" id="ctrl-jump-top">[Jump to top]</a>
+		<div>
+			<i ng-click="gotoTop()" style="text-align: center; margin-left:auto; margin-right:auto;" id="ctrl-jump-top" class="clickable icon ion-arrow-up-a"></i>
+		</div>
 	</body>
 </html>

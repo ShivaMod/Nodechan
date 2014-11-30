@@ -68,4 +68,4 @@
 		<button type="submit" style="margin-left: 0px; bottom: 0px; position: fixed;" ng-disabled="(post.$invalid || post_form.sending)" ng-if="viewmode=='thread'" class="text-center" ng-hide="post_form.nodehidden">Create New Reply</button>
 	</form>
 </div>
-	<a class="hide-link clickable" style="right: 10px; bottom: 0px; position: fixed;" ng-click="post_form.nodehidden = !post_form.nodehidden">[{{post_form.nodehidden ? "+" : "-"}}]</a>
+	<i ng-class="'hide-link clickable icon '+(post_form.nodehidden ? 'ion-plus-circled' : 'ion-minus-circled')" style="right: 10px; bottom: 0px; position: fixed;" ng-click="post_form.nodehidden = !post_form.nodehidden" ng-if="viewmode=='board'"></i>
