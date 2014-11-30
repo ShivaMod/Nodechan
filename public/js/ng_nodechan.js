@@ -101,7 +101,7 @@
 			if (match&&match[7].length==11){
 				video_id = match[7];
 			}
-			return $sce.trustAsResourceUrl('https://img.youtube.com/vi/'+video_id+'/default.jpg');
+			return $sce.trustAsResourceUrl('https://img.youtube.com/vi/'+video_id+'/0.jpg');	//change to '/default.jpg' if this ever breaks
 		}
 
 		$rootScope.parse_Link = function(mytext) {
@@ -227,6 +227,8 @@
 
 				$rootScope.threads=root_data;
 				$rootScope.viewmode='board';
+
+				$rootScope.done_loading=true;
 				return "success";
 			}
 		);

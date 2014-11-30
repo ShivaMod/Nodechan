@@ -22,7 +22,9 @@
 
 		<nodechan-header></nodechan-header>
 
-		<ng-view onload></ng-view>
+		<i class='icon ion-loading-b' ng-hide='done_loading'></i>
+
+		<ng-view onload ng-hide='!done_loading'></ng-view>
 
 		<reply-form></reply-form>
 
