@@ -21,7 +21,7 @@
 	-->
 
 	<div ng-model="thisfile.class" class="clickable" ng-click="(file_meta.embed_hide ? file_meta.embed_hide=false : (expandme=!expandme))">
-		<span ng-hide="true">{{thisfile.class = (expand_all || this_thread.expand_all || expandme ? 'full-image' : (op_post ? 'op-image' : 'post-image'))}}</span>
+		<span ng-hide="debug">{{thisfile.class = (expand_all || this_thread.expand_all || expandme ? 'full-image' : (op_post ? 'op-image' : 'post-image'))}}</span>
 		{{file_meta.embed_hide}}
 
 		<img ng-if='!file_meta.embed' ng-src="{{file}}" ng-class="thisfile.class"></img>
