@@ -155,7 +155,7 @@ exports.threadlist = function(req, res, next) {
 				var curthread_id=db_threads[i].true_id;
 				//console.log("curthread_id is:");
 				//console.log(curthread_id);
-				var query = Model_post.find({ thread_id: curthread_id }).limit(5).sort({date: 'desc'}).exec(function(err_inner, db_posts){
+				var query = Model_post.find({ thread_id: curthread_id }).limit(3).sort({date: 'desc'}).exec(function(err_inner, db_posts){
 					//console.log("threadlist loading, currently on:", curthread_id);
 					if (err_inner) {
 						console.error(err_inner);
