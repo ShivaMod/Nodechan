@@ -13,12 +13,11 @@ body {
 }
 
 a{
-  color: #8484aC;
+  color: #CC9933;
 }
 
-a,a:visited {
+a:visited {
   text-decoration: underline;
-  color: #CC9933;
 }
 
 a:hover,p.intro a.post_no:hover {
@@ -81,7 +80,7 @@ header div.subtitle,h1 {
 }
 
 header div.subtitle {
-  font-size: 8pt;
+  font-size: 14pt;
 }
 
 form {
@@ -994,6 +993,7 @@ pre {
 
 .clickable {
   cursor: pointer;
+  color: #CC9933;
 }
 
 .poster_id {
