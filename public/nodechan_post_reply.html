@@ -6,7 +6,7 @@
 		<!--
 		<input type="checkbox" class="delete" name="delete_{{post.true_id}}" id="delete_{{post.true_id}}">
 		-->
-		<a class="hide-link clickable" ng-click="post.nodehidden = !post.nodehidden"><i ng-class="'icon '+(ost.nodehidden ? 'ion-plus-circled' : 'ion-minus-circled')"></i></a>
+		<a class="hide-link clickable" ng-click="post.nodehidden = !post.nodehidden"><i ng-class="'icon '+(post.nodehidden ? 'ion-plus-circled' : 'ion-minus-circled')"></i></a>
 
 		<label for="delete_{{post.true_id}}">
 			<a class="email" href="mailto:{{post.email}}"></a>
