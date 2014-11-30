@@ -28,7 +28,7 @@
 		<div ng-if="file_meta.embed && file_meta.embed_hide"><img ng-class="board_id+' thread-image '+(op_post ? 'op-image' : 'post-image')" ng-src="{{parse_youtube_preview(file)}}"></img>
 		<i class="icon ion-social-youtube" style="position:absolute; text-align:center; margin: {{op_post ? '-110px 110px' : '35px -105px' }}; font-size:40px; color:red;"></i></div>
 
-		<iframe ng-if="file_meta.embed" ng-hide="file_meta.embed_hide" class="{{board_id+' '+(op_post ? 'op-embed' : 'post-image')}}" ng-src="{{file_meta.link}}" style="{{op-post ? 'height: 300px;' : ' '}}" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
+		<iframe ng-if="file_meta.embed && !(file_meta.embed_hide)" class="{{board_id+' '+(op_post ? 'op-embed' : 'post-image')}}" ng-src="{{file_meta.link}}" style="{{op-post ? 'height: 300px;' : ' '}}" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
 	</div>
 	<!--
 	<a href="{{file}}" target="_blank"  ng-model="thisfile.class"><img ng-src="{{file}}" ng-class="thisfile.class" ng-click="expandme=!expandme"><span ng-hide="true">{{thisfile.class = (expand_all ? 'full-image' : (expandme ? 'full-image' : (op_post ? 'op-image' : 'post-image')))}}</span></img></a>
