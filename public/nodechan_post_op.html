@@ -22,7 +22,6 @@
 	add to the above tag: onclick="citeReply({{thread.op.true_id}})"
 	href="#q{{thread.op.true_id}}"
 	-->
-	<i class="clickable icon ion-more" ng-click="set_location_thread(thread.op.true_id)" ng-if="viewmode=='board'"></i>
 	<a class="clickable" ng-click="this_thread.expand_all=!(this_thread.expand_all)"><i class="icon ion-arrow-resize"></i></a>
 
 </p>
@@ -36,4 +35,6 @@
 
 	<div class="body">{{thread.op.body}}</div>
 	<div class="post_modified"></div>
+	<br>
+	<a class="clickable" ng-click="set_location_thread(thread.op.true_id)" ng-if="viewmode=='board'"><span ng-if="thread.op.total_replies > preview_reply_num">{{thread.op.total_replies - preview_reply_num}} hidden replies - </span><i class="ion-chatbubble-working"></i> View Thread</a>
 </div>
