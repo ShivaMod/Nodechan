@@ -55,6 +55,16 @@ Model_thread_op.remove({}, function(err) {
 
 
 //
+//Aw Yeah Mr. Krabs
+
+var settings={max_post_files:5};
+console.log("\n\n\n\n\nSettings are:");
+console.log(settings);
+//
+
+
+
+//
 // Update existing threads
 var reparse_values=true;
 if (reparse_values){
@@ -83,7 +93,11 @@ if (reparse_values){
 
 						for (var i = db_threads.length - 1; i >= 0; i--) {
 							if (db_threads[i].true_id==curthread_id){
-								inner_file_count=db_threads[i].files.length;
+
+								var inner_files=db_threads[i].files;
+								console.log("\n\n\n\n\nfile list length is:");
+								console.log(inner_files.length);
+								inner_file_count=(inner_files[inner_files.length-1]>settings.max_post_files) ? 1 : inner_files.length;
 								break;
 							}
 						};
@@ -93,8 +107,8 @@ if (reparse_values){
 							inner_file_count=inner_file_count+db_posts[i].files.length;
 						};
 
-						console.log("Posts in this thread are:");
-						console.log(db_posts);
+						//console.log("Posts in this thread are:");
+						//console.log(db_posts);
 
 						Model_thread_op.findOneAndUpdate({ true_id: curthread_id }, { $set: {total_replies: inner_reply_count, total_files: inner_file_count }}, {upsert: true}, function(err, usl_thread){
 
@@ -102,7 +116,7 @@ if (reparse_values){
 								console.error(err);
 								console.error(usl_thread);
 							} else {
-								console.log(usl_thread);
+								//console.log(usl_thread);
 							}
 						});
 					}
@@ -146,7 +160,7 @@ exports.threadlist = function(req, res, next) {
 			console.error(err);
 			done(req, res, err);
 		} else {
-			console.log(db_threads);
+			//console.log(db_threads);
 			//console.log(db_threads[0].true_id);
 			var new_board=[]
 			var promise_list=[];
@@ -286,6 +300,10 @@ exports.post_thread = function(req, res, next) {
 	//return;
 
 	var new_files = (req.query.files == [""]) ? [] : req.query.files;
+	var file_num=(new_files[new_files.length-1]>settings.max_post_files) ? 1 : new_files.length;
+
+	console.log("for this new thread, there are this many new files:");
+	console.log(file_num);
 	//TODO: fix multifile upload
 	var instance_thread_op = new Model_thread_op({
 		board: 'tech',					// Board posted on
@@ -293,7 +311,7 @@ exports.post_thread = function(req, res, next) {
 		last_reply: new Date(),				// Last reply Date
 
 		total_replies: 0,				// Total posts in thread
-		total_files: new_files.length,			// Total media linked in thread
+		total_files: file_num,				// Total media linked in thread
 
 		author: req.ip,					// Author's IP TODO::consider checking against proxies
 		name: req.query.name,				// Poster Name
@@ -333,6 +351,7 @@ exports.post_reply = function(req, res, next) {
 	//return;
 
 	var new_files = (req.query.files == [""]) ? [] : req.query.files;
+	var new_files_num=(new_files[new_files.length-1]==undefined) ? 1 : new_files.length;
 	//TODO: fix multifile upload
 	var instance_post = new Model_post({
 		thread_id: req.query.thread_id,			// Board posted on
@@ -356,7 +375,7 @@ exports.post_reply = function(req, res, next) {
 			console.error(err);
 			done(req, res, err);
 		} else {
-			Model_thread_op.findOneAndUpdate({ true_id: req.query.thread_id }, { $inc: { total_replies: 1, total_files: new_files.length}, $set: {last_reply: new Date() }}, {upsert: true}, function(err, usl_thread){
+			Model_thread_op.findOneAndUpdate({ true_id: req.query.thread_id }, { $inc: { total_replies: 1, total_files: new_files_num}, $set: {last_reply: new Date() }}, {upsert: true}, function(err, usl_thread){
 
 				console.log("length of new_files is:", new_files.length)
 				if (err) {
