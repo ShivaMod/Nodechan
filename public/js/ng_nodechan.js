@@ -356,13 +356,19 @@
 		return {
 			restrict: 'E',
 			templateUrl: "nodechan_post_reply.html",
-			controller:['$scope', '_', function($scope, _){
+			controller:['$scope', '$rootScope', '_', function($scope, $rootScope, _){
 
-				$scope.test_post=$scope.post.body.replace(/\n/g, '<br>');
+				$scope.test_post=$scope.post.body.replace(/\n/g, '<br>').replace(/(?:\>\>op)/g, '<a href="/#/'+$scope.thread.op.true_id+'#op_'+$scope.thread.op.true_id+'">>>op</a> ');
 				$scope.parse_post_body = function(post_body){
-					return post_body.replace(/\n/g, '<br>').replace('\>\>op', '<a href="#op_'+$rootScope.curthread_id+'">>>op</a>');
+					var tempy= post_body.replace(/\n/g, '<br>')
+					console.log("This is tempy");
+					console.log(tempy);
+
+					tempy = tempy.replace(/(?:\>\>op)/g, '<a href="#op_'+$rootScope.curthread_id+'">>>op</a> ');
 				//var temp_url = mytext.replace(/(?:http:\/\/|https:\/\/)?(?:www\.)?(?:youtube\.com|youtu\.be)\/(?:watch\?v=)?(.+)/g, 'https://www.youtube.com/embed/$1');
 					//return '<p class="body">'+post_body.replace(/\n/g, '<br>')+'</p>';
+					console.log(tempy);
+					return tempy;
 				}
 			}]
 		};
