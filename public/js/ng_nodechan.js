@@ -21,7 +21,7 @@
 
 		$scope.board_id="boatdev";
 		$scope.board_name="Someday we'll sail away";
-		$rootScope.preview_reply_num = 5;
+		$rootScope.preview_reply_num = 3;
 		$scope.debug=false;
 		$scope.viewmode_last='';
 		$scope.viewmode='';
