@@ -94,19 +94,20 @@
 		};
 
 		$rootScope.parse_youtube_preview = function(youtube_link) {
-				return youtube_link.replace(/(?:http:\/\/|https:\/\/)?(?:www\.)?(?:youtube\.com|youtu\.be)\/(?:watch\?v=)?(.+)\?(.+)/g, 'https://img.youtube.com/vi/$1/sddefault.jpg');
+				return youtube_link.replace(/(?:http:\/\/|https:\/\/)?(?:www\.)?(?:youtube\.com|youtu\.be)\/(?:watch\?v=)?(.+)/g, 'https://img.youtube.com/vi/$1/sddefault.jpg?');
 				//file_meta.link = $sce.trustAsResourceUrl(temp_url);
 		}
 
 		$rootScope.parse_Link = function(mytext) {
 
-			var file_meta={'link_type':'', 'embed':false, 'embed_hide':true, 'link':''};
+			var file_meta={'link_type':'', 'embed':false, 'embed_hide':false, 'link':''};
 			var temp_url = '';
 
 			if (_.str.contains(mytext, 'youtu.be') || _.str.contains(mytext, 'youtube.com')) {
 
 				file_meta.link_type='youtube';
 				file_meta.embed=true;
+				file_meta.embed_hide=true;
 				console.log(mytext);
 				temp_url = mytext.replace(/(?:http:\/\/|https:\/\/)?(?:www\.)?(?:youtube\.com|youtu\.be)\/(?:watch\?v=)?(.+)/g, 'https://www.youtube.com/embed/$1');
 				file_meta.link = $sce.trustAsResourceUrl(temp_url);
@@ -118,7 +119,6 @@
 
 				file_meta.link_type='vimeo';
 				file_meta.embed=true;
-				file_meta.embed_hide=false;
 				console.log(mytext);
 				temp_url = mytext.replace(/(?:http:\/\/|https:\/\/)?(?:www\.)?(?:vimeo\.com)\/(.+)/g, '//player.vimeo.com/video/$1');
 				file_meta.link = $sce.trustAsResourceUrl(temp_url);

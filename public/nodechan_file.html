@@ -25,7 +25,7 @@
 
 		<img ng-if='!file_meta.embed' ng-src="{{file}}" ng-class="thisfile.class"></img>
 
-			<img ng-if="file_meta.embed && file_meta.embed_hide" ng-class="board_id+' '+thread-image+' '+thisfile.class" ng-src="{{parse_youtube_preview(thread.op.files[0])}}"></img>
+			<img ng-if="file_meta.embed && file_meta.embed_hide" ng-class="board_id+' thread-image '+thisfile.class" ng-src="{{parse_youtube_preview(file)}}"></img>
 			<iframe ng-if="file_meta.embed" ng-hide="file_meta.embed_hide" ng-src="{{file_meta.link}}" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
 	</div>
 	<!--
