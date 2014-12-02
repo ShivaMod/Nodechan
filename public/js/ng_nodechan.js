@@ -79,10 +79,10 @@
 			//console.log($rootScope.viewmode);
 		}
 
-		$rootScope.gotoTop = function() {
+		$rootScope.gotoHash = function(myhash) {
 			// set the location.hash to the id of
 			// the element you wish to scroll to.
-			$location.hash('header_position');
+			$location.hash(myhash);
 
 			// call $anchorScroll()
 			//$anchorScroll();

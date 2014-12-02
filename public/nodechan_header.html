@@ -23,7 +23,7 @@
 		<a href="/#/"><i ng-if="(viewmode=='catalog')" class="clickable icon ion-navicon"></i></a>
 		<a href="/#/catalog"><i ng-if="!(viewmode=='catalog')" class="clickable icon ion-grid"></i></a>
 		
-		<a href="#footer_position"><i id="ctrl-jump-bottom" class="clickable icon ion-arrow-down-a"></i></a>
+		<a ng-click="gotoHash('footer_position')"><i id="ctrl-jump-bottom" class="clickable icon ion-arrow-down-a"></i></a>
 
 		<i ng-init="expand_all=false" ng-click="expand_all=!expand_all" class="clickable icon ion-arrow-resize" id="expand-all-images" ng-hide="viewmode=='catalog'"></i>
 		<!--
