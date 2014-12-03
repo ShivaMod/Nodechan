@@ -29,7 +29,7 @@
 					<label for="spoiler">Spoiler Image</label>
 					-->
 
-					<input type="text" name="name" placeholder="Name" maxlength="35" autocomplete="off" ng-model="post_form.name">
+					<input type="text" name="name" placeholder="Name" maxlength="35" autocomplete="off" ng-model="post_form.name" ng-init="post_form.name=cookie_form.name">
 					<br>
 					<!-- TODO:dtad: remember name from last post -->
 					<!--

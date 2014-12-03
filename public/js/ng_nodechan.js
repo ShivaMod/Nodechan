@@ -10,7 +10,7 @@
 	});
 
 	var app = angular.module('ng_nodechan', ['ngRoute', 'ngCookies', 'ngSanitize', 'underscore']);
-	var chantroll = app.controller('ChanController', ["$location", '$sce', "$http", "$rootScope", "$scope", "$route", "$routeParams", function($location, $sce, $http, $rootScope, $scope, $route, $routeParams) {
+	var chantroll = app.controller('ChanController', ["$location", '$cookieStore', '$sce', "$http", "$rootScope", "$scope", "$route", "$routeParams", function($location, $cookieStore, $sce, $http, $rootScope, $scope, $route, $routeParams) {
 
 		$scope.live_host="nodechan.herokuapp.com";
 		$scope.page_location=$location.absUrl();
@@ -27,6 +27,36 @@
 		$scope.viewmode='';
 
 		$rootScope.threads=[];
+
+		// Removing a cookie
+		//$cookieStore.remove('ck_nodechan_hidden');
+		// Get cookie
+		$rootScope.cookie_hidden = $cookieStore.get('ck_nodechan_hidden');
+
+		if ($rootScope.cookie_hidden==undefined){
+
+			$rootScope.cookie_hidden = {'threads': {}, 'posts': {}};
+			// Put cookie
+			$cookieStore.put('ck_nodechan_hidden', $rootScope.cookie_hidden);
+			//TODO::each board should have its own cookie
+			console.log("Cookie hidden test:");
+			console.log($rootScope.cookie_hidden);
+		}
+
+		// Get cookie
+		$rootScope.cookie_form = $cookieStore.get('ck_nodechan_form');
+			console.log("Cookie form test:");
+			console.log($rootScope.cookie_form);
+
+		if ($rootScope.cookie_form==undefined){
+
+			$rootScope.cookie_form = {'name': ''};
+			// Put cookie
+			$cookieStore.put('ck_nodechan_form', $rootScope.cookie_form);
+			//TODO::each board should have its own cookie
+			console.log("Cookie form test:");
+			console.log($rootScope.cookie_form);
+		}
 
 		$rootScope.refresh_threadlist = function(){
 			//$location.url('/');
@@ -202,6 +232,10 @@
 				});
 			}
 			//var temp_name=post_form.name;
+			$rootScope.cookie_form.name=post_form.name;
+			$cookieStore.put('ck_nodechan_form', $rootScope.cookie_form);
+
+			//
 			post_form.subject="";
 			post_form.files=[''];
 			post_form.body="";
@@ -353,6 +387,7 @@
 			controller:['$scope', '$rootScope', '_', function($scope, $rootScope, _){
 
 				$scope.test_post=$scope.post.body.replace(/(>+)([0-9]+)(\s*)/g, '<a class="clickable" href="/#/'+$scope.thread.op.true_id+'#$2">>>$2</a>$3').replace(/(>+)(op)(\s*)/g, '<a class="clickable" href="/#/'+$scope.thread.op.true_id+'#$2">>>$2</a>$3').replace(/(\n\n+)/g, '<br><br>').replace(/\n/g, '<br>');
+
 				//It would be nice to allow linking to posts in other threads, but maybe some other time...
 				$scope.parse_post_body = function(post_body){
 					var tempy= post_body.replace(/\n/g, '<br>')
@@ -396,6 +431,24 @@
 			restrict: 'E',
 			templateUrl: "nodechan_reply_form.html",
 			controller: ['$rootScope', '$cookies', function($rootScope, $cookies){
+
+				window.onbeforeunload = function (event) {
+
+					$rootScope.cookie_form.name = $cookies.user.name;
+					$cookieStore.put('ck_nodechan_form', $rootScope.cookie_form);
+					console.log("cookie saved");
+
+					/*
+					var message = 'Sure you want to leave?';
+					if (typeof event == 'undefined') {
+						event = window.event;
+					}
+					if (event) {
+						event.returnValue = message;
+					}
+					return message;
+					*/
+				}
 
 				$rootScope.reset_cookie_user = function(){
 
