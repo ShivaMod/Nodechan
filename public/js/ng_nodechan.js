@@ -39,7 +39,6 @@
 			localStorageService.set('ck_nodechan_hidden', $rootScope.cookie_hidden);
 			console.log("hidden cookie saved");
 
-			$rootScope.cookie_form.name = $cookies.name;
 			//$cookieStore.put('ck_nodechan_form', $rootScope.cookie_form);
 			localStorageService.set('ck_nodechan_form', $rootScope.cookie_form);
 			console.log("form cookie saved");
@@ -449,7 +448,6 @@
 			templateUrl: "nodechan_reply_form.html",
 			controller: ['$rootScope', '$cookies', 'localStorageService', function($rootScope, $cookies, localStorageService){
 
-				if ($cookies.name===undefined)$cookies.name="";
 				//$rootScope.cookie_form={'name':$cookies.name};
 
 				$rootScope.get_cookie_name = function(){
@@ -458,7 +456,7 @@
 					console.log("cookieform is:");
 					console.log($rootScope.cookie_form);
 					if (!($rootScope.cookie_form)){
-						$rootScope.cookie_form={'name':$cookies.name};
+						$rootScope.cookie_form={'name':''};
 					}
 					return $rootScope.cookie_form.name;
 				}
