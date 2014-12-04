@@ -9,8 +9,8 @@
 		return window._;
 	});
 
-	var app = angular.module('ng_nodechan', ['ngRoute', 'ngCookies', 'ngSanitize', 'underscore']);
-	var chantroll = app.controller('ChanController', ["$location", '$cookieStore', '$sce', "$http", "$rootScope", "$scope", "$route", "$routeParams", function($location, $cookieStore, $sce, $http, $rootScope, $scope, $route, $routeParams) {
+	var app = angular.module('ng_nodechan', ['ngRoute', 'ngCookies', 'ngSanitize', 'underscore', 'LocalStorageModule']);
+	var chantroll = app.controller('ChanController', ["$location", "$cookies", "$cookieStore", "localStorageService", '$sce', "$http", "$rootScope", "$scope", "$route", "$routeParams", function($location, $cookies, $cookieStore, localStorageService, $sce, $http, $rootScope, $scope, $route, $routeParams) {
 
 		$scope.live_host="nodechan.herokuapp.com";
 		$scope.page_location=$location.absUrl();
@@ -28,34 +28,32 @@
 
 		$rootScope.threads=[];
 
-		// Removing a cookie
-		//$cookieStore.remove('ck_nodechan_hidden');
-		// Get cookie
-		$rootScope.cookie_hidden = $cookieStore.get('ck_nodechan_hidden');
+		$rootScope.cookie_hidden={'threads':{}, 'posts':{}};
 
-		if ($rootScope.cookie_hidden==undefined){
+		console.log("formcookie");
+		console.log(localStorageService.get('ck_nodechan_form'));
 
-			$rootScope.cookie_hidden = {'threads': {}, 'posts': {}};
-			// Put cookie
-			$cookieStore.put('ck_nodechan_hidden', $rootScope.cookie_hidden);
-			//TODO::each board should have its own cookie
-			console.log("Cookie hidden test:");
-			console.log($rootScope.cookie_hidden);
-		}
+		window.onbeforeunload = function (event) {
 
-		// Get cookie
-		$rootScope.cookie_form = $cookieStore.get('ck_nodechan_form');
-			console.log("Cookie form test:");
-			console.log($rootScope.cookie_form);
+			//$cookieStore.put('ck_nodechan_hidden', $rootScope.cookie_hidden);
+			localStorageService.set('ck_nodechan_hidden', $rootScope.cookie_hidden);
+			console.log("hidden cookie saved");
 
-		if ($rootScope.cookie_form==undefined){
+			$rootScope.cookie_form.name = $cookies.name;
+			//$cookieStore.put('ck_nodechan_form', $rootScope.cookie_form);
+			localStorageService.set('ck_nodechan_form', $rootScope.cookie_form);
+			console.log("form cookie saved");
 
-			$rootScope.cookie_form = {'name': ''};
-			// Put cookie
-			$cookieStore.put('ck_nodechan_form', $rootScope.cookie_form);
-			//TODO::each board should have its own cookie
-			console.log("Cookie form test:");
-			console.log($rootScope.cookie_form);
+			/*
+			var message = 'Sure you want to leave?';
+			if (typeof event == 'undefined') {
+				event = window.event;
+			}
+			if (event) {
+				event.returnValue = message;
+			}
+			return message;
+			*/
 		}
 
 		$rootScope.refresh_threadlist = function(){
@@ -233,7 +231,9 @@
 			}
 			//var temp_name=post_form.name;
 			$rootScope.cookie_form.name=post_form.name;
-			$cookieStore.put('ck_nodechan_form', $rootScope.cookie_form);
+			//$cookieStore.put('ck_nodechan_form', $rootScope.cookie_form);
+			console.log("name is:", $rootScope.cookie_form.name);
+			localStorageService.set('ck_nodechan_form', $rootScope.cookie_form);
 
 			//
 			post_form.subject="";
@@ -281,6 +281,17 @@
 		);
 	};
 
+	app.config(function (localStorageServiceProvider) {
+		localStorageServiceProvider
+			.setPrefix('nodeChan');
+		//localStorageServiceProvider
+			//.setStorageCookie(45, '/');			// Days to live
+		localStorageServiceProvider
+			.setStorageCookieDomain((window.location.hostname=='localhost' ? '' : window.location.hostname));
+  localStorageServiceProvider
+    .setNotify(true, true);
+	});
+
 	app.config(function($routeProvider){
 
 		//
@@ -314,6 +325,18 @@
 		})
 		//
 	})
+	.directive("nodechanCrown", function() {
+		return {
+			restrict: 'E',
+			templateUrl: "nodechan_crown.html"
+		};
+	})
+	.directive("nodechanHeader", function() {
+		return {
+			restrict: 'E',
+			templateUrl: "nodechan_header.html"
+		};
+	})
 	.controller('BoardListController', ["$http", "$rootScope", "$scope", "$route", function($http, $rootScope, $scope, $location){
 		$rootScope.set_viewmode('board');
 
@@ -327,13 +350,7 @@
 		$rootScope.curthread_id = $routeParams.thread_id;
 		console.log("current thread ID noted as:", $routeParams.thread_id)
 
-	}])
-	.directive("nodechanHeader", function() {
-		return {
-			restrict: 'E',
-			templateUrl: "nodechan_header.html"
-		};
-	});
+	}]);
 	/*
 	app.directive('fullThread', function(thread_error){
 		return_object={
@@ -430,24 +447,17 @@
 		return {
 			restrict: 'E',
 			templateUrl: "nodechan_reply_form.html",
-			controller: ['$rootScope', '$cookies', function($rootScope, $cookies){
+			controller: ['$rootScope', '$cookies', 'localStorageService', function($rootScope, $cookies, localStorageService){
 
-				window.onbeforeunload = function (event) {
+				if ($cookies.name===undefined)$cookies.name="";
+				//$rootScope.cookie_form={'name':$cookies.name};
 
-					$rootScope.cookie_form.name = $cookies.user.name;
-					$cookieStore.put('ck_nodechan_form', $rootScope.cookie_form);
-					console.log("cookie saved");
+				$rootScope.get_cookie_name = function(){
 
-					/*
-					var message = 'Sure you want to leave?';
-					if (typeof event == 'undefined') {
-						event = window.event;
-					}
-					if (event) {
-						event.returnValue = message;
-					}
-					return message;
-					*/
+					$rootScope.cookie_form=localStorageService.get('ck_nodechan_form');
+					console.log("cookieform is:");
+					console.log($rootScope.cookie_form);
+					return $rootScope.cookie_form.name;
 				}
 
 				$rootScope.reset_cookie_user = function(){
@@ -456,6 +466,7 @@
 					$cookies.user = {
 						name:""
 					}
+					//TODO:: no more $cookies
 				}
 
 				$rootScope.cookie_set_postname = function(new_name){
@@ -466,6 +477,7 @@
 					console.log("New cookie name is:");
 					console.log(new_name);
 					$cookies.user.name=new_name;
+					//TODO:: no more $cookies
 				}
 
 				$rootScope.cookie_get_postname = function(){
