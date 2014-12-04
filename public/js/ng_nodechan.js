@@ -457,6 +457,9 @@
 					$rootScope.cookie_form=localStorageService.get('ck_nodechan_form');
 					console.log("cookieform is:");
 					console.log($rootScope.cookie_form);
+					if (!($rootScope.cookie_form)){
+						$rootScope.cookie_form={'name':$cookies.name};
+					}
 					return $rootScope.cookie_form.name;
 				}
 
