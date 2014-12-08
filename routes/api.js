@@ -66,7 +66,7 @@ console.log(settings);
 
 //
 // reassign board_id's
-var reassign_board=true;
+var reassign_board=false;
 if (reassign_board){
 
 	Model_thread_op.update({}, {board:'boatdev'}, { multi: true }, function(err, numberAffected, raw) {

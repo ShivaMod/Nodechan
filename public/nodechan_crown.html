@@ -35,7 +35,19 @@ boardlist
 		/ <a href="http://pone{{get_sub_suffix()}}">pone</a>
 		]
 	</span>
-	<a href="javascript:void(0)" title="Options" style="float: right;">[Options]</a>
+
+	<div style="float: right;">
+
+		<i ng-init="expand_all=false" ng-click="expand_all=!expand_all" class="clickable icon ion-arrow-resize" id="expand-all-images" ng-hide="viewmode=='catalog'"></i>
+		
+		<a ng-click="gotoHash('footer_position')">
+			<i id="ctrl-jump-bottom" class="clickable icon ion-arrow-down-a"></i></a>
+
+		<i ng-click="gotoHash('header_position')" style="text-align: center; margin-left:auto; margin-right:auto;" id="ctrl-jump-top" class="clickable icon ion-arrow-up-a"></i>
+
+		<a href="javascript:void(0)" title="Options">[Options]</a>
+		
+	</div>
 	<span class="favorite-boards"></span>
 	<span>
 	[
