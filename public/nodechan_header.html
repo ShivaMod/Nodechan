@@ -9,34 +9,21 @@
 	<img src="http://fat.gfycat.com/ActualFeistyBettong.gif">
 	-->
 	<!--  Chan Header  -->
-
-	<div>
-	<h1><a href="/#/" class="clickable">/{{board_id}}/</a></h1>
-	<!--
-	<a id="favorite-star" href="" data-active="false">★</a>
-
-	<h1>Home -> (<a ng-href="" ng-click="set_location(((viewmode == 'board') ? '/catalog' : '/'))">/{{board_id}}/</a>)<a id="favorite-star" href="" data-active="false">★</a></h1>
-	-->
-	</div>
+	<h1>
+		<a href="/#/" class="clickable">/{{get_sub()}}/</a>
+		<a id="favorite-star">★</a>
+	</h1>
 	<!-- TODO -->
 	<div class="subtitle">
-		<a href="/#/"><i ng-if="(viewmode=='catalog')" class="clickable icon ion-navicon"></i></a>
-		<a href="/#/catalog"><i ng-if="!(viewmode=='catalog')" class="clickable icon ion-grid"></i></a>
+		<a ng-href="{{(viewmode=='catalog') ? '/#/' : '/#/catalog'}}">
+			<i ng-class="'clickable icon ' + ((viewmode=='catalog') ? 'ion-navicon' : 'ion-grid')"></i></a>
 		
-		<a ng-click="gotoHash('footer_position')"><i id="ctrl-jump-bottom" class="clickable icon ion-arrow-down-a"></i></a>
+		<a ng-click="gotoHash('footer_position')">
+			<i id="ctrl-jump-bottom" class="clickable icon ion-arrow-down-a"></i></a>
 
 		<i ng-init="expand_all=false" ng-click="expand_all=!expand_all" class="clickable icon ion-arrow-resize" id="expand-all-images" ng-hide="viewmode=='catalog'"></i>
-		<!--
-		<p><a ng-click="set_location('/catalog')" ng-hide="archived" ng-if="viewmode!='catalog'">Catalog</a></p>
-		-->
 	</div>
 </header>
-<!-- -->
-<!--
-<div id="treeview">
-	<a class="unimportant" href="javascript:void(0)">Tree view</a>
-</div>
--->
 
 <hr>
 	<div class="blotter">When creating a post, you can enter youtube and vimeo links in the 'Media URL' field.</div>

@@ -19,7 +19,6 @@
 		$scope.page_hash = $location.hash();
 		$scope.archived=($scope.live_host != $scope.page_host);
 
-		$scope.board_id="boatdev";
 		$scope.board_name="Someday we'll sail away";
 		$rootScope.preview_reply_num = 3;
 		$scope.debug=false;
@@ -32,6 +31,23 @@
 
 		console.log("formcookie");
 		console.log(localStorageService.get('ck_nodechan_form'));
+
+		$rootScope.get_dom=function(){
+			return $location.host().replace(/(http:\/\/)?(([^.]+)\.)?(vchan|vectorchan)\.com/, '$4');
+		}
+
+		$rootScope.get_sub=function(){
+			return $location.host().replace(/(http:\/\/)?(([^.]+)\.)?(vchan|vectorchan)\.com/, '$3');
+		}
+
+		$rootScope.get_sub_suffix=function(){
+			if ($rootScope.get_dom()=='vchan'){
+				return '.'+$rootScope.get_dom()+'.com:5000';
+			}else{
+				return '.'+$rootScope.get_dom()+'.com';
+			}
+		}
+
 
 		window.onbeforeunload = function (event) {
 
@@ -55,10 +71,19 @@
 			*/
 		}
 
-		$rootScope.refresh_threadlist = function(){
+		$rootScope.refresh_boardlist = function(){
 			//$location.url('/');
 			console.log("something is HAPPENING with the board");
-			$http.get('/json/threadlist.json')
+			console.log($rootScope.get_dom());
+
+			var config = {
+				params: {
+					board_id: get_dom(),
+					since_date: undefined
+				}
+			};
+
+			$http.get('/json/boardlist.json', config)
 				.success(function(root_data){
 					console.log("data received");
 					console.log(root_data);
@@ -74,7 +99,7 @@
 		}
 
 		$rootScope.get_threads = function(){
-			console.log("returning threadlist:");
+			console.log("returning boardlist:");
 			console.log($rootScope.threads);
 
 			$rootScope.done_loading=true;
@@ -208,6 +233,7 @@
 				var config = {
 					params: {
 						name: post_form.name,
+						board_id: $rootScope.get_sub(),
 						subject: post_form.subject,
 						files: post_form.files,
 						body: post_form.body,
@@ -246,8 +272,17 @@
 	}]);
 
 	chantroll.load_board = function($rootScope, $http){
-		console.log("something is HAPPENING with the board");
-		return $http.get('/json/threadlist.json')
+		console.log("something is HAPPENING with the board, fetching");
+		console.log($rootScope.get_sub());
+
+		var config = {
+			params: {
+				board_id: $rootScope.get_sub(),
+				since_date: undefined
+			}
+		};
+
+		return $http.get('/json/boardlist.json', config)
 			.success(function(root_data){
 				console.log("data received");
 				console.log(root_data);

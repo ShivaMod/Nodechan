@@ -65,8 +65,26 @@ console.log(settings);
 
 
 //
+// reassign board_id's
+var reassign_board=true;
+if (reassign_board){
+
+	Model_thread_op.update({}, {board:'boatdev'}, { multi: true }, function(err, numberAffected, raw) {
+		if (err) {
+			console.error(err);
+			done(req, res, err);
+		} else {
+			console.log("Board IDs reassigned.");
+			console.log('The number of updated documents was %d', numberAffected);
+			console.log('The raw response from Mongo was ', raw);
+		}
+
+	});
+
+}
+
 // Update existing threads
-var reparse_values=true;
+var reparse_values=false;
 if (reparse_values){
 
 	Model_thread_op.find().sort({last_reply: 'desc'}).exec(function (err, db_threads) {
@@ -151,11 +169,25 @@ var done = function(req, res, doc) {
  * Nodechan API
  */
 
-exports.threadlist = function(req, res, next) {
+exports.boardlist = function(req, res, next) {
 
 	//console.log("request is:");
 	//console.log(req.params);
-	Model_thread_op.find().sort({last_reply: 'desc'}).exec(function (err, db_threads) {
+	//console.log(req.params);
+	var find_obj={board:req.query.board_id};
+
+	if (req.query.since_date) find_obj.since_date=req.query.since_date;
+
+	console.log(req.query);
+
+	console.log(find_obj);
+
+	if (find_obj.board===undefined){
+		console.log("board ID undefined, quitting");
+		return;
+	}
+
+	Model_thread_op.find(find_obj).sort({last_reply: 'desc'}).exec(function (err, db_threads) {
 		if (err) {
 			console.error(err);
 			done(req, res, err);
@@ -166,11 +198,14 @@ exports.threadlist = function(req, res, next) {
 			var promise_list=[];
 
 			for (var i=0; i<db_threads.length; i++){
+
+				console.log(db_threads[i].board);
+
 				var curthread_id=db_threads[i].true_id;
 				//console.log("curthread_id is:");
 				//console.log(curthread_id);
 				var query = Model_post.find({ thread_id: curthread_id }).limit(3).sort({date: 'desc'}).exec(function(err_inner, db_posts){
-					//console.log("threadlist loading, currently on:", curthread_id);
+					//console.log("boardlist loading, currently on:", curthread_id);
 					if (err_inner) {
 						console.error(err_inner);
 						return [];
@@ -306,7 +341,7 @@ exports.post_thread = function(req, res, next) {
 	console.log(file_num);
 	//TODO: fix multifile upload
 	var instance_thread_op = new Model_thread_op({
-		board: 'tech',					// Board posted on
+		board: req.query.board_id,			// Board posted on
 		date: new Date(),				// Post Date
 		last_reply: new Date(),				// Last reply Date
 
