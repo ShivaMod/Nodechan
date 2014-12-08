@@ -13,16 +13,13 @@
 	</label>
 	&nbsp;
 	<a class="post_no" ng-click="set_location_thread(thread.op.true_id)">Thread No. {{thread.op.true_id}}</a>
+	<i class="icon ion-quote"></i>
+	<i class="icon ion-link"></i>
 	<!-- add to the above tag:
 	<a class="post_no" id="post_no_{{thread.op.true_id}}" href="/#/?t={{thread.op.true_id}}">No.</a>
 
 	onclick="highlightReply({{thread.op.true_id}})" 
 	TODO: make 'quote' work properly-->
-	<!--
-	add to the above tag: onclick="citeReply({{thread.op.true_id}})"
-	href="#q{{thread.op.true_id}}"
-	-->
-	<a class="clickable" ng-click="this_thread.expand_all=!(this_thread.expand_all)"><i class="icon ion-arrow-resize"></i></a>
 
 </p>
 

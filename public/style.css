@@ -2,7 +2,7 @@ body {
   background: #000000;
   color: grey;
   font-family: arial,helvetica,sans-serif;
-  font-size: 10pt;
+  font-size: 12pt;
   margin: 0 4px;
   padding-left: 4px;
   padding-right: 4px;
@@ -70,7 +70,7 @@ header {
 h1 {
   font-family: tahoma;
   letter-spacing: -2px;
-  font-size: 20pt;
+  font-size: 24pt;
   margin: 0;
 }
 
@@ -543,7 +543,7 @@ hr {
 
 div.crown {
   color: #89A;
-  font-size: 9pt;
+  font-size: 12pt;
   margin-top: 3px;
 }
 
@@ -650,6 +650,7 @@ span.toolong {
 
 div.blotter {
   color: red;
+  font-size: 12pt;
   font-weight: bold;
   text-align: center;
 }
