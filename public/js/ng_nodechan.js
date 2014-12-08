@@ -55,7 +55,7 @@
 				//.replace(/(?:\>\>op)/gi, '<a href="#op_'+thread_id+'">>>op</a> ')
 				.replace(/(>>+)([0-9]+)(\s*)/g, '<a class="clickable" href="/#/'+thread_id+'#$2">&zwnj;>&zwnj;>$2</a> $3')
 				.replace(/(>>+op)(\s*)/gi, '<a class="clickable" href="/#/'+thread_id+'#op">&zwnj;>&zwnj;>op</a> $2')
-				.replace(/(>>+)((?!op).*)(\n)/gi, "<span class='quote'>&zwnj;>&zwnj;>$2</span>")
+				.replace(/(>>+)((?!op).*)(\n)/gi, "<span class='quote'>&zwnj;>&zwnj;>$2</span><br>")
 				.replace(/(\n\n+)/g, '<br><br>')
 				.replace(/\n/g, '<br>')
 				.replace(/\[b\](.*?)\[\/b\]/gmi, '<strong>$1</strong>')
