@@ -52,13 +52,14 @@
 		//var temp_url = mytext.replace(/(?:http:\/\/|https:\/\/)?(?:www\.)?(?:youtube\.com|youtu\.be)\/(?:watch\?v=)?(.+)/g, 'https://www.youtube.com/embed/$1');
 			//return '<p class="body">'+post_body.replace(/\n/g, '<br>')+'</p>';
 			return post_body
-				//.replace(/(?:\>\>op)/g, '<a href="#op_'+thread_id+'">>>op</a> ')
-				.replace(/(>+)([0-9]+)(\s*)/g, '<a class="clickable" href="/#/'+thread_id+'#$2">>>$2</a>$3')
-				.replace(/(>+)(op)(\s*)/g, '<a class="clickable" href="/#/'+thread_id+'#$2">>>$2</a>$3')
+				//.replace(/(?:\>\>op)/gi, '<a href="#op_'+thread_id+'">>>op</a> ')
+				.replace(/(>>+)([0-9]+)(\s*)/g, '<a class="clickable" href="/#/'+thread_id+'#$2">&zwnj;>&zwnj;>$2</a> $3')
+				.replace(/(>>+op)(\s*)/gi, '<a class="clickable" href="/#/'+thread_id+'#op">&zwnj;>&zwnj;>op</a> $2')
+				.replace(/(>>+)((?!op).*)(\n)/gi, "<span class='quote'>&zwnj;>&zwnj;>$2</span>")
 				.replace(/(\n\n+)/g, '<br><br>')
 				.replace(/\n/g, '<br>')
-				.replace(/\[b\](.*)\[\/b\]/g, '<strong>$1</strong>')
-				.replace(/\[i\](.*)\[\/i\]/g, '<em>$1</em>');
+				.replace(/\[b\](.*?)\[\/b\]/gmi, '<strong>$1</strong>')
+				.replace(/\[i\](.*?)\[\/i\]/gmi, '<em>$1</em>');
 		}
 
 
