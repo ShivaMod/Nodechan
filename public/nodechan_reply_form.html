@@ -31,18 +31,19 @@
 
 					<input type="text" name="name" placeholder="Name" maxlength="35" autocomplete="off" ng-model="post_form.name" ng-init="post_form.name=cookie_form.name">
 					<br>
-					<!-- TODO:dtad: remember name from last post -->
-					<!--
-					<div style="display:none">
-						<input type="text" name="name" value="">
-					</div>
-					-->
 
 				<textarea name="body" id="body"  rows="5" cols="46"  ng-model="post_form.body" required></textarea>
 				<br>
 
-					<input type="url" id="file" name="file" placeholder="Media URL" size="46" ng-model="post_form.files[0]" required ng-if="viewmode!='thread'">
-					<input type="url" id="file" name="file" placeholder="Media URL" size="46" ng-model="post_form.files[0]" ng-if="viewmode=='thread'">
+					<input type="url" id="file" name="file" placeholder="Media URL" size="46" ng-model="post_form.files[0]" ngRequired="viewmode!='thread'">
+					<br>
+					<input type="url" id="file" name="file" placeholder="Media URL" size="46" ng-model="post_form.files[1]">
+					<br>
+					<input type="url" id="file" name="file" placeholder="Media URL" size="46" ng-model="post_form.files[2]">
+					<br>
+					<input type="url" id="file" name="file" placeholder="Media URL" size="46" ng-model="post_form.files[3]">
+					<br>
+					<input type="url" id="file" name="file" placeholder="Media URL" size="46" ng-model="post_form.files[4]">
 					<br>
 					<!--
 
