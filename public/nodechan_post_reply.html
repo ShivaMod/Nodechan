@@ -11,7 +11,7 @@
 		<label for="delete_{{post.true_id}}">
 			<a class="email" href="mailto:{{post.email}}"></a>
 			<span class="subject">{{post.subject}}</span><span ng-if="post.subject!='' && post.subject!=undefined"> -</span>
-			<span class="name">{{(post.name!=undefined) ? post.name : "Anonymous"}}</span>
+			<span class="name">{{(post.name) ? post.name : "Anonymous"}}</span>
 			&nbsp;
 			<time datetime="{{post.date}}" data-local="true">{{ post.date | date : format : timezone}}</time>
 		</label>
@@ -40,7 +40,7 @@
 		<div class="files" ng-if="post.files.length > 0">
 			<nodechan-file ng-repeat="file in post.files"></nodechan-file>
 		</div>
-		<p ng-bind-html='test_post'></p>
+		<p ng-bind-html="parse_post_body(thread.op.true_id, post.body)"></p>
 	</div>
 	<div class="post_modified"></div>
 </div>

@@ -7,7 +7,7 @@
 	<label for="delete_{{thread.op.true_id}}">
 	-->
 	<span class="subject">{{thread.op.subject}}</span> -
-	<span class="name">{{(thread.op.name!=undefined) ? thread.op.name : "Anonymous"}}</span>
+	<span class="name">{{(thread.op.name) ? thread.op.name : "Anonymous"}}</span>
 	&nbsp;
 	<time datetime="{{thread.op.date}}" data-local="true">{{ thread.op.date | date : format : timezone}}</time>
 	</label>
@@ -33,7 +33,7 @@
 		<nodechan-file ng-repeat="file in thread.op.files" ng-init="op_post=true"></nodechan-file>
 	</div>
 
-	<div class="body">{{thread.op.body}}</div>
+	<div class="body" ng-bind-html="parse_post_body(thread.op.true_id, thread.op.body)"></div>
 	<div class="post_modified"></div>
 	<br>
 	<a class="clickable" ng-click="set_location_thread(thread.op.true_id)" ng-if="viewmode=='board'"><span ng-if="thread.op.total_replies > preview_reply_num">{{thread.op.total_replies - preview_reply_num}} hidden replies - </span>View Thread <i class="icon ion-chatboxes"></i></a>

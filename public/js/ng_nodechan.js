@@ -48,6 +48,19 @@
 			}
 		}
 
+		$rootScope.parse_post_body = function(thread_id, post_body){
+		//var temp_url = mytext.replace(/(?:http:\/\/|https:\/\/)?(?:www\.)?(?:youtube\.com|youtu\.be)\/(?:watch\?v=)?(.+)/g, 'https://www.youtube.com/embed/$1');
+			//return '<p class="body">'+post_body.replace(/\n/g, '<br>')+'</p>';
+			return post_body
+				//.replace(/(?:\>\>op)/g, '<a href="#op_'+thread_id+'">>>op</a> ')
+				.replace(/(>+)([0-9]+)(\s*)/g, '<a class="clickable" href="/#/'+thread_id+'#$2">>>$2</a>$3')
+				.replace(/(>+)(op)(\s*)/g, '<a class="clickable" href="/#/'+thread_id+'#$2">>>$2</a>$3')
+				.replace(/(\n\n+)/g, '<br><br>')
+				.replace(/\n/g, '<br>')
+				.replace(/\[b\](.*)\[\/b\]/g, '<strong>$1</strong>')
+				.replace(/\[i\](.*)\[\/i\]/g, '<em>$1</em>');
+		}
+
 
 		window.onbeforeunload = function (event) {
 
@@ -436,21 +449,6 @@
 			restrict: 'E',
 			templateUrl: "nodechan_post_reply.html",
 			controller:['$scope', '$rootScope', '_', function($scope, $rootScope, _){
-
-				$scope.test_post=$scope.post.body.replace(/(>+)([0-9]+)(\s*)/g, '<a class="clickable" href="/#/'+$scope.thread.op.true_id+'#$2">>>$2</a>$3').replace(/(>+)(op)(\s*)/g, '<a class="clickable" href="/#/'+$scope.thread.op.true_id+'#$2">>>$2</a>$3').replace(/(\n\n+)/g, '<br><br>').replace(/\n/g, '<br>');
-
-				//It would be nice to allow linking to posts in other threads, but maybe some other time...
-				$scope.parse_post_body = function(post_body){
-					var tempy= post_body.replace(/\n/g, '<br>')
-					console.log("This is tempy");
-					console.log(tempy);
-
-					tempy = tempy.replace(/(?:\>\>op)/g, '<a href="#op_'+$rootScope.curthread_id+'">>>op</a> ');
-				//var temp_url = mytext.replace(/(?:http:\/\/|https:\/\/)?(?:www\.)?(?:youtube\.com|youtu\.be)\/(?:watch\?v=)?(.+)/g, 'https://www.youtube.com/embed/$1');
-					//return '<p class="body">'+post_body.replace(/\n/g, '<br>')+'</p>';
-					console.log(tempy);
-					return tempy;
-				}
 			}]
 		};
 	})
