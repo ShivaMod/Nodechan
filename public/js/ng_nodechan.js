@@ -276,6 +276,15 @@
 
 			console.log("current viewmode is:")
 			console.log($rootScope.viewmode)
+
+			var post_files_trimmed=[];
+			for (var i = 0; i < post_form.files.length; i++) {
+				if (post_form.files[i]!=undefined && post_form.files[i]!=''){
+					post_files_trimmed.push(post_form.files[i]);
+				}
+			};
+			if (post_files_trimmed==[]) post_files_trimmed=[''];
+
 			if ($rootScope.viewmode == 'thread'){
 
 				var config = {
@@ -283,7 +292,7 @@
 						thread_id: $rootScope.curthread_id,
 						name: post_form.name,
 						subject: post_form.subject,
-						files: post_form.files,
+						files: post_files_trimmed,
 						body: post_form.body,
 					}
 				};
@@ -313,7 +322,7 @@
 						name: post_form.name,
 						board_id: $rootScope.get_sub(),
 						subject: post_form.subject,
-						files: post_form.files,
+						files: post_files_trimmed,
 						body: post_form.body,
 					}
 				};
