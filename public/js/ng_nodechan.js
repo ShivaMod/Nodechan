@@ -62,7 +62,6 @@
 				.replace(/\[i\](.*?)\[\/i\]/gmi, '<em>$1</em>');
 		}
 
-
 		window.onbeforeunload = function (event) {
 
 			//$cookieStore.put('ck_nodechan_hidden', $rootScope.cookie_hidden);
@@ -164,6 +163,25 @@
 			return $sce.trustAsResourceUrl('https://img.youtube.com/vi/'+video_id+'/0.jpg');	//change to '/default.jpg' if this ever breaks
 		}
 
+		$rootScope.parse_jquery=function(url){
+			var query_string=url.substr(url.lastIndexOf('?') + 1);	//Isolate the query options
+			var base_string=url.substr(0, url.lastIndexOf('?'));	//Isolate the url before the query
+			var query_list=query_string.split("&");					//segregate each option pair
+			var query_obj={};
+
+			console.log("Unparsed options are:");
+			console.log(query_list);
+			for (var i = 0; query_list[i] != undefined; i++) {
+				var pair = query_list[i];
+				console.log("Pair string is:");
+				console.log(pair);
+				query_obj[pair.substr(0, pair.lastIndexOf('='))]=pair.substr(pair.lastIndexOf('=') + 1);
+			}
+			console.log("Parsed options are:");
+			console.log(query_obj);
+			return query_obj;
+		}
+
 		$rootScope.parse_Link = function(mytext) {
 
 			var file_meta={'link_type':'', 'embed':false, 'embed_hide':false, 'link':''};
@@ -175,8 +193,53 @@
 				file_meta.embed=true;
 				file_meta.embed_hide=true;
 				console.log(mytext);
-				temp_url = mytext.replace(/(?:http:\/\/|https:\/\/)?(?:www\.)?(?:youtube\.com|youtu\.be)\/(?:watch\?v=)?(.+)/g, 'https://www.youtube.com/embed/$1');
+				/*
+				vid_id = mytext.replace(/(?:http:\/\/|https:\/\/)?(?:www\.)?(?:youtube\.com\/watch\?v=|youtu\.be\/)?(.+)?()/g, 'https://www.youtube.com/embed/$1?autoplay=1');
+				*/
+				
+				var video_id='';
+				var match = mytext.match(/^.*((youtu.be\/)|(v\/)|(\/u\/\w\/)|(embed\/)|(watch\?))\??v?=?([^#\&\?]*).*/);
+				if (match&&match[7].length==11){
+					video_id = match[7];
+					console.log('video id is:');
+					console.log(video_id);
+				}else{
+					console.log("OH NO this isn't a proper youtube link!");
+					return;
+				}
+
+				var query_obj=$rootScope.parse_jquery(mytext);
+
+				temp_url='https://www.youtube.com/embed/' + video_id;
+
+				if (query_obj.t != undefined) {
+					var time=query_obj.t;
+					var seconds=0;
+
+					if (time.lastIndexOf('h')!=-1){
+
+						var seconds=seconds+(parseInt(time.substr(0, time.lastIndexOf('h'))) * 60 * 60);	//convert hours to seconds
+						var time=time.substr(time.lastIndexOf('h') + 1);	//remove hours from the time string
+					}
+
+					if (time.lastIndexOf('m')!=-1){
+
+						var seconds=seconds+(parseInt(time.substr(0, time.lastIndexOf('m'))) * 60);	//convert minutes to seconds
+						var time=time.substr(time.lastIndexOf('m') + 1);	//remove minutes from the time string
+					}
+
+					if (time.lastIndexOf('s')!=-1){
+
+						var seconds=seconds+parseInt(time.substr(0, time.lastIndexOf('s')));	//add seconds
+					}
+
+					temp_url=temp_url + '?start='+seconds;
+					console.log('seconds are:');
+					console.log(seconds);
+				};
+
 				file_meta.link = $sce.trustAsResourceUrl(temp_url);
+
 				//$scope.file_meta.link = $sce.trustAsResourceUrl($scope.file);
 
 				//$scope.file = $sce.trustAsHtml($scope.file.replace(/(?:http:\/\/)?(?:www\.)?(?:youtube\.com|youtu\.be)\/(?:watch\?v=)?(.+)/g, '<iframe width="420" height="345" src="http://www.youtube.com/embed/$1" frameborder="0" allowfullscreen></iframe>'));
