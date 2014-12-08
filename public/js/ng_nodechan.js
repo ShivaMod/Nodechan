@@ -210,7 +210,8 @@
 
 				var query_obj=$rootScope.parse_jquery(mytext);
 
-				temp_url='https://www.youtube.com/embed/' + video_id;
+				temp_url='https://www.youtube.com/embed/' + video_id + '?autoplay=1';
+				//TODO:: make autoplay user configurable in options
 
 				if (query_obj.t != undefined) {
 					var time=query_obj.t;
@@ -233,7 +234,7 @@
 						var seconds=seconds+parseInt(time.substr(0, time.lastIndexOf('s')));	//add seconds
 					}
 
-					temp_url=temp_url + '?start='+seconds;
+					temp_url=temp_url + '&start='+seconds;
 					console.log('seconds are:');
 					console.log(seconds);
 				};
