@@ -27,9 +27,9 @@
 
 		<nodechan-header></nodechan-header>
 
-		<i class='icon ion-loading-b' ng-hide='done_loading'></i>
+		<i ng-style="{'opacity':(done_loading ? '0' : '1')}" class='loadable icon ion-loading-b' style="font-size: 50pt; position: fixed; top: 50%; left: 50%;"></i>
 
-		<ng-view onload ng-hide='!done_loading'></ng-view>
+		<ng-view onload></ng-view>
 
 		<reply-form></reply-form>
 

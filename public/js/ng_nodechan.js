@@ -32,6 +32,11 @@
 		console.log("formcookie");
 		console.log(localStorageService.get('ck_nodechan_form'));
 
+		$scope.$on('ngRepeatFinished', function(ngRepeatFinishedEvent) {
+			console.log('finished rendering!');
+			$rootScope.done_loading=true;
+		});
+
 		$rootScope.get_dom=function(){
 			return $location.host().replace(/(http:\/\/)?(([^.]+)\.)?(vchan|vectorchan)\.com/, '$4');
 		}
@@ -115,7 +120,6 @@
 			console.log("returning boardlist:");
 			console.log($rootScope.threads);
 
-			$rootScope.done_loading=true;
 			return $rootScope.threads;
 		}
 
@@ -377,7 +381,6 @@
 				$rootScope.threads=root_data;
 				$rootScope.viewmode='board';
 
-				$rootScope.done_loading=true;
 				return "success";
 			}
 		);
@@ -393,7 +396,6 @@
 				console.log(data);
 
 				$rootScope.threads=[data];
-				$rootScope.done_loading=true;
 				//^This is done for a good reason
 				//this.op=data.op;
 				//this.posts=data.posts;
@@ -410,7 +412,7 @@
 		localStorageServiceProvider
 			.setStorageCookieDomain((window.location.hostname=='localhost' ? '' : window.location.hostname));
   localStorageServiceProvider
-    .setNotify(true, true);
+	.setNotify(true, true);
 	});
 
 	app.config(function($routeProvider){
@@ -471,14 +473,26 @@
 		$rootScope.curthread_id = $routeParams.thread_id;
 		console.log("current thread ID noted as:", $routeParams.thread_id)
 
-	}]);
+	}])
+	.directive('onFinishRender', function ($timeout) {
+		return {
+			restrict: 'A',
+			link: function (scope, element, attr) {
+				if (scope.$last === true) {
+					$timeout(function () {
+						scope.$emit('ngRepeatFinished');
+					});
+				}
+			}
+		}
+	})
 	/*
 	app.directive('fullThread', function(thread_error){
 		return_object={
 			restrict: 'E',
 			templateUrl: "nodechan_thread.html",
-		    link: function (scope, element) {
-		    }
+			link: function (scope, element) {
+			}
 			controller:function($scope, $http, $location){
 				console.log("new thread is:");
 				console.log(this);
@@ -509,13 +523,19 @@
 				<input type="text" ng-model="yourName" placeholder="Enter a name here">
 			</div>
 	*/
-	app.directive("postOp", function() {
+	.directive("postOp", function() {
 		return {
 			restrict: 'E',
 			templateUrl: "nodechan_post_op.html",
-			controller:function(){
-				
-			}
+			controller:['$scope', '$rootScope', function($scope,$rootScope){
+
+				console.log("HABBENING");
+				console.log($scope.thread);
+				if($scope.thread.posts.length==0){
+					console.log("STILL HABBENING");
+					$rootScope.done_loading=1;
+				}
+			}]
 		};
 	})
 	.directive("postReply", function() {

@@ -16,12 +16,12 @@
 
 
 <!-- Viewmode if we're browsing a single thread -->
-<div class="thread" ng-init="thread = threads[0]">
+<div style="opacity:0" ng-style="{'opacity':(done_loading ? '1' : '0')}" class="thread loadable" ng-init="thread = threads[0]">
 	<!-- TODO::^Riskyyyyyy -->
 	<a id="{{thread.op.true_id}}" class="post_anchor"></a>
 	<post-op></post-op>
 
-	<post-reply ng-if="thread.posts != []" ng-repeat="post in thread.posts"></post-reply>
+	<post-reply on-finish-render ng-if="thread.posts != []" ng-repeat="post in thread.posts"></post-reply>
 
 	<hr>
 </div>

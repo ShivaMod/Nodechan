@@ -1,31 +1,33 @@
 
 <!-- Viewmode if we're browsing the board catalog -->
-<div class="mix theme-catalog" data-reply="{{thread.op.replies}}" data-bump="1416788920" data-time="1414297858" ng-repeat="thread in threads">
-	<div class="thread grid-li grid-size-small" ng-click="set_location_thread(thread.op.true_id)">
-		<a ng-init="file_meta=parse_Link(thread.op.files[0])">
-			<img ng-if='!file_meta.embed' ng-src="{{thread.op.files[0]}}" data-subject="{{thread.op.subject}}" data-name="{{thread.op.name}}" data-muhdifference="" data-last-reply="" data-last-subject="" data-last-name="" data-last-difference="" class="{{board_id}} thread-image" title="{{thread.op.date}}">
-			<!--
-			<img src="https://media.8chan.co/{{board.true_id}}/thumb/1414297858386.png" id="img-{{thread.files[0].link}}" data-subject="Post your Chinkpad" data-name="Anonymous" data-muhdifference="" data-last-reply="" data-last-subject="" data-last-name="" data-last-difference="" class="{{board_id}} thread-image" title="Nov 24 00:28">
-			-->
-			<img ng-if="file_meta.embed && (file_meta.link_type=='youtube')" class="{{board_id}} thread-image" ng-src="{{parse_youtube_preview(thread.op.files[0])}}"></img>
-			<iframe ng-if="file_meta.embed && !(file_meta.link_type=='youtube')" width="140" height="105" ng-src="{{file_meta.link}}" frameborder="0" allowfullscreen ></iframe>
-		</a>
-		<div class="replies">
-			<strong>R: {{thread.op.total_replies}} / M: {{thread.op.total_files}}</strong>
-				<!-- TODO:dtad: The above should eventually say 'F' instead, for files, perhaps -->
-			<p class="intro">
-				<span class="subject">{{thread.op.subject}}</span>
-			</p>{{thread.op.body}}
-			<!--
-			Example code from 8chan follows
-			Post your chinkpads. Dell Latitudes are welcome too. All other laptops can gtfo.
-			<br>
-			<span class="quote"><br>&gt; Thinkpad T60 running Arch</span><br>
-			<span class="quote">&gt; Intel Core Duo T2400 @ 1.83 GHz</span><br>
-			<span class="quote">&gt; 2GB Memory</span><br>
-			<span class="quote">&gt; Intel 945G</span><br>
-			<span class="quote">&gt; 64GB Crucial m4</span>
-			-->
+<div ng-style="{'opacity':(done_loading ? '1' : '0')}" class="loadable">
+	<div on-finish-render class="mix theme-catalog" data-reply="{{thread.op.replies}}" data-bump="1416788920" data-time="1414297858" ng-repeat="thread in threads">
+		<div class="thread grid-li grid-size-small" ng-click="set_location_thread(thread.op.true_id)">
+			<a ng-init="file_meta=parse_Link(thread.op.files[0])">
+				<img ng-if='!file_meta.embed' ng-src="{{thread.op.files[0]}}" data-subject="{{thread.op.subject}}" data-name="{{thread.op.name}}" data-muhdifference="" data-last-reply="" data-last-subject="" data-last-name="" data-last-difference="" class="{{board_id}} thread-image" title="{{thread.op.date}}">
+				<!--
+				<img src="https://media.8chan.co/{{board.true_id}}/thumb/1414297858386.png" id="img-{{thread.files[0].link}}" data-subject="Post your Chinkpad" data-name="Anonymous" data-muhdifference="" data-last-reply="" data-last-subject="" data-last-name="" data-last-difference="" class="{{board_id}} thread-image" title="Nov 24 00:28">
+				-->
+				<img ng-if="file_meta.embed && (file_meta.link_type=='youtube')" class="{{board_id}} thread-image" ng-src="{{parse_youtube_preview(thread.op.files[0])}}"></img>
+				<iframe ng-if="file_meta.embed && !(file_meta.link_type=='youtube')" width="140" height="105" ng-src="{{file_meta.link}}" frameborder="0" allowfullscreen ></iframe>
+			</a>
+			<div class="replies">
+				<strong>R: {{thread.op.total_replies}} / M: {{thread.op.total_files}}</strong>
+					<!-- TODO:dtad: The above should eventually say 'F' instead, for files, perhaps -->
+				<p class="intro">
+					<span class="subject">{{thread.op.subject}}</span>
+				</p>{{thread.op.body}}
+				<!--
+				Example code from 8chan follows
+				Post your chinkpads. Dell Latitudes are welcome too. All other laptops can gtfo.
+				<br>
+				<span class="quote"><br>&gt; Thinkpad T60 running Arch</span><br>
+				<span class="quote">&gt; Intel Core Duo T2400 @ 1.83 GHz</span><br>
+				<span class="quote">&gt; 2GB Memory</span><br>
+				<span class="quote">&gt; Intel 945G</span><br>
+				<span class="quote">&gt; 64GB Crucial m4</span>
+				-->
+			</div>
 		</div>
 	</div>
 </div>
