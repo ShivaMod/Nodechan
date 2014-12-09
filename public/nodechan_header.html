@@ -7,10 +7,11 @@
 <header id="header_position">
 	<br>
 	<h1>
-		<a class="subtitle" ng-href="{{(viewmode=='catalog') ? '/#/' : '/#/catalog'}}">
+		<a ng-href="{{(viewmode=='catalog') ? '/#/' : '/#/catalog'}}">
 		<i ng-class="'clickable icon ' + ((viewmode=='catalog') ? 'ion-navicon' : 'ion-grid')"></i></a>
 		/<a href="/#/" class="clickable">{{get_sub()}}</a>/
-		<a id="favorite-star">★</a>
+		<i class=" icon ion-star"></i>
+		<a></a>
 	</h1>
 </header>
 

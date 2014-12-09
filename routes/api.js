@@ -386,7 +386,7 @@ exports.post_reply = function(req, res, next) {
 	//return;
 
 	var new_files = (req.query.files == []) ? [] : req.query.files;
-	if (new_files==undefined)new_files=[]
+	if (new_files==undefined || new_files==[''])new_files=[]
 	else {
 		var new_files_num=(new_files[new_files.length-1]==undefined) ? 1 : new_files.length;
 	}
