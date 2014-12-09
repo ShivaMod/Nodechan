@@ -13,7 +13,7 @@
 			<span class="subject">{{post.subject}}</span><span ng-if="post.subject!='' && post.subject!=undefined"> -</span>
 			<span class="name">{{(post.name) ? post.name : "Anonymous"}}</span>
 			&nbsp;
-			<time datetime="{{post.date}}" data-local="true">{{ post.date | date : 'M/d/yy'}} <i class="icon ion-minus-round"></i> {{ post.date | date : 'h:mm a'}}</time>
+			<time datetime="{{post.date}}" data-local="true">{{ post.date | date : 'yy/M/d'}} <i class="icon ion-minus-round"></i> {{ post.date | date : 'h:mm a'}}</time>
 		</label>
 		<i class="icon ion-minus-round"></i>
 		<a class="post_no" ng-click="set_location_thread_and_post(thread.op.true_id, post.true_id)">
