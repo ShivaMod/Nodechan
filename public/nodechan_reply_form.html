@@ -1,5 +1,5 @@
 
-<div style="right: 0px; bottom: 0px; position: fixed; background: #272727;" ng-init="post_form={'files':[''], 'name':get_cookie_name()}">
+<div style="right: 10px; bottom: 0px; position: fixed; background: #272727;" ng-init="post_form={'files':[''], 'name':get_cookie_name()}">
 
 	<form name="post_form_tag" style="display: inline-block; margin-bottom: 20px;" ng-submit="submitData(post_form, sub_result)" ng-hide="post_form.nodehidden">
 		<!--
@@ -13,10 +13,10 @@
 		-->
 		<div style="margin:0; padding:0; width=98%">
 		</div>
-		<input type="text" name="subject" placeholder="{{(viewmode=='thread') ? 'Subject' : 'Thread topic'}}" style="width: 49%;" maxlength="100" autocomplete="off" ng-model="post_form.subject" ngRequired="viewmode!='thread'"><input type="text" name="name" placeholder="Name" maxlength="35" autocomplete="off" style="width: 49%;" ng-model="post_form.name" ng-init="post_form.name=cookie_form.name">
+		<input type="text" name="subject" placeholder="{{(viewmode=='thread') ? 'Subject' : 'Thread topic'}}" style="width: 50%;" maxlength="100" autocomplete="off" ng-model="post_form.subject" ngRequired="viewmode!='thread'"><input type="text" name="name" placeholder="Name" maxlength="35" autocomplete="off" style="width: 50%;" ng-model="post_form.name" ng-init="post_form.name=cookie_form.name">
 		<br>
 
-		<textarea name="body" id="body"  rows="5" cols="48" width="100%" ng-model="post_form.body" required></textarea>
+		<textarea name="body" id="body"  rows="5" cols="48" width="100%" ng-model="post_form.body" placeholder="Post body" required></textarea>
 		<br>
 
 		<!--

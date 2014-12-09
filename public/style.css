@@ -93,6 +93,7 @@ header div.subtitle {
 
 form {
 	margin: auto;
+	border: 1px solid #aaaaaa;
 }
 
 form input {
@@ -109,7 +110,7 @@ input,textarea{
 }
 
 input[type="text"],input[type="url"],input[type="password"],textarea {
-	border: 1px solid #aaaaaa;
+	border: 0px solid #aaaaaa;
 	text-indent: 0;
 	text-shadow: none;
 	text-transform: none;
