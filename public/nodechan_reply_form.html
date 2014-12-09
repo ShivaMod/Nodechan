@@ -16,7 +16,7 @@
 		<input type="text" name="subject" placeholder="{{(viewmode=='thread') ? 'Subject' : 'Thread topic'}}" style="width: 50%;" maxlength="100" autocomplete="off" ng-model="post_form.subject" ngRequired="viewmode!='thread'"><input type="text" name="name" placeholder="Name" maxlength="35" autocomplete="off" style="width: 50%;" ng-model="post_form.name" ng-init="post_form.name=cookie_form.name">
 		<br>
 
-		<textarea name="body" id="body"  rows="5" cols="48" width="100%" ng-model="post_form.body" placeholder="Post body" required></textarea>
+		<textarea name="body" id="body"  rows="7" cols="50" width="100%" maxlength="5000" ng-model="post_form.body" placeholder="Post body" required></textarea>
 		<br>
 
 		<!--
