@@ -92,15 +92,10 @@ header div.subtitle {
 }
 
 form {
-	margin-bottom: 0px;
-	margin-right: 0px;
-}
-
-form table {
 	margin: auto;
 }
 
-form table input {
+form input {
 	height: auto;
 	width: auto;
 	padding-right: 0px;
@@ -109,6 +104,8 @@ form table input {
 input,textarea{
 	background: #222222;
 	color: #aaaaaa;
+	margin: 0;
+	padding: 0;
 }
 
 input[type="text"],input[type="url"],input[type="password"],textarea {
@@ -145,37 +142,27 @@ th {
 	color: #bbbbbb;
 }
 
-form table tr td {
+form{
+	background: #235;
 	text-align: left;
+	padding: 4px;
 	margin: 0;
 	padding: 0;
 }
 
-form table.mod tr td {
+form.mod {
 	padding: 2px;
 }
 
-form table tr th {
-	text-align: left;
-	padding: 4px;
-}
 
-form table tr th {
-	background: #235;
-}
-
-form table tr td div.center {
+form div.center {
 	text-align: center;
 	float: left;
 	padding-left: 3px;
 }
 
-form table tr td div input {
+form div input {
 	display: block;
-	margin: 2px auto 0 auto;
-}
-
-form table tr td div label {
 	font-size: 10px;
 }
 

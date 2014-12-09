@@ -11,62 +11,49 @@
 		<input type="hidden" name="board" value="tech">
 		<input style="display:none" type="text" name="text" value="☡?V^]* E3♘Smo%rp\-W2/7k|nL}g.tY@b">
 		-->
+		<div style="margin:0; padding:0; width=98%">
+		</div>
+		<input type="text" name="subject" placeholder="{{(viewmode=='thread') ? 'Subject' : 'Thread topic'}}" style="width: 49%;" maxlength="100" autocomplete="off" ng-model="post_form.subject" ngRequired="viewmode!='thread'"><input type="text" name="name" placeholder="Name" maxlength="35" autocomplete="off" style="width: 49%;" ng-model="post_form.name" ng-init="post_form.name=cookie_form.name">
+		<br>
+
+		<textarea name="body" id="body"  rows="5" cols="48" width="100%" ng-model="post_form.body" required></textarea>
+		<br>
+
+		<!--
+		<input id="spoiler" name="spoiler" type="checkbox">
+		<label for="spoiler">Spoiler Image</label>
+		-->
+		<input type="url" id="file" name="file" placeholder="Media URL" style="width: 100%;" size="44" ng-model="post_form.files[0]" ngRequired="viewmode!='thread'">
+		<br>
+		<input type="url" id="file" name="file" placeholder="Media URL" style="width: 100%;" size="44" ng-model="post_form.files[1]">
+		<br>
+		<input type="url" id="file" name="file" placeholder="Media URL" style="width: 100%;" size="44" ng-model="post_form.files[2]">
+		<br>
+		<input type="url" id="file" name="file" placeholder="Media URL" style="width: 100%;" size="44" ng-model="post_form.files[3]">
+		<br>
+		<input type="url" id="file" name="file" placeholder="Media URL" style="width: 100%;" size="44" ng-model="post_form.files[4]">
+		<br>
+		<!--
+
+		<input type="url" name="input" id="upload_file" ng-model="post.file.1" required ng-if="viewmode!='thread'">
+		<input type="url" name="input" id="upload_file" ng-model="post.file.[0]" ng-if="viewmode=='thread'">
+
+		<input type="file" name="file" id="upload_file">
+		<a href="#" class="add_image">+</a>
+		-->
 
 			<!--
-			<tr>
-				<th>Email<textarea name="user" style="display:none" ng-model="post.">g[sD$S^bU Ece6hfvt⚍J}!z3aVP~x`I\{lKFL.HrT%@?i,&lt;☾-⛈</textarea></th>
-				<td>
-					<input type="text" name="email" size="25" maxlength="40" autocomplete="off">
-					<input style="display:none" type="text" name="mw1ry☐2o☹eczisnd0bh♭x74u8fpglt5☘9k" value="">
-				</td>
-			</tr>
+		<tr>
+			<th>Password
+				<input type="text" style="display: none">
+				<input type="password" style="display: none"></th><td><input type="password" name="password" value="" size="12" maxlength="18" autocomplete="off"> <span class="unimportant">(For file deletion.)</span>
+			</td>
+		</tr>
 			-->
-					<input type="text" name="subject" placeholder="Thread topic" maxlength="100" autocomplete="off" ng-model="post_form.subject" required ng-if="viewmode!='thread'">
-					<input type="text" name="subject" placeholder="Subject" maxlength="100" autocomplete="off" ng-model="post_form.subject" ng-if="viewmode=='thread'">
-					<!-- TODO:: This is dirty^ clean it -->
-					<!--
-					<input id="spoiler" name="spoiler" type="checkbox">
-					<label for="spoiler">Spoiler Image</label>
-					-->
-
-					<input type="text" name="name" placeholder="Name" maxlength="35" autocomplete="off" ng-model="post_form.name" ng-init="post_form.name=cookie_form.name">
-					<br>
-
-				<textarea name="body" id="body"  rows="5" cols="46"  ng-model="post_form.body" required></textarea>
-				<br>
-
-					<input type="url" id="file" name="file" placeholder="Media URL" size="46" ng-model="post_form.files[0]" ngRequired="viewmode!='thread'">
-					<br>
-					<input type="url" id="file" name="file" placeholder="Media URL" size="46" ng-model="post_form.files[1]">
-					<br>
-					<input type="url" id="file" name="file" placeholder="Media URL" size="46" ng-model="post_form.files[2]">
-					<br>
-					<input type="url" id="file" name="file" placeholder="Media URL" size="46" ng-model="post_form.files[3]">
-					<br>
-					<input type="url" id="file" name="file" placeholder="Media URL" size="46" ng-model="post_form.files[4]">
-					<br>
-					<!--
-
-					<input type="url" name="input" id="upload_file" ng-model="post.file.1" required ng-if="viewmode!='thread'">
-					<input type="url" name="input" id="upload_file" ng-model="post.file.[0]" ng-if="viewmode=='thread'">
-
-					<input type="file" name="file" id="upload_file">
-					<a href="#" class="add_image">+</a>
-					-->
-
-					<!--
-			<tr>
-				<th>Password
-					<input type="text" style="display: none">
-					<input type="password" style="display: none"></th><td><input type="password" name="password" value="" size="12" maxlength="18" autocomplete="off"> <span class="unimportant">(For file deletion.)</span>
-				</td>
-			</tr>
-					-->
 		<!--
 		<input type="hidden" name="hash" value="7ce6ace4dad906413c989282f3eb99cc64e4bb2e">
 		-->
-		<button type="submit" style="margin-left: 0px; bottom: 0px; position: fixed;" ng-disabled="(post.$invalid || post_form.sending)" ng-if="viewmode!='thread'" class="text-center" ng-hide="post_form.nodehidden">Create New Thread</button>
-		<button type="submit" style="margin-left: 0px; bottom: 0px; position: fixed;" ng-disabled="(post.$invalid || post_form.sending)" ng-if="viewmode=='thread'" class="text-center" ng-hide="post_form.nodehidden">Create New Reply</button>
+		<button type="submit" style="margin-left: 0px; bottom: 0px; position: fixed;" ng-disabled="(post.$invalid || post_form.sending)" class="text-center" ng-hide="post_form.nodehidden">Create New {{(viewmode=='thread') ? 'Reply' : 'Thread'}}</button>
 	</form>
 </div>
 	<i ng-class="'hide-link clickable icon '+(post_form.nodehidden ? 'ion-plus-circled' : 'ion-minus-circled')" style="right: 20px; bottom: 0px; position: fixed;" ng-click="post_form.nodehidden = !post_form.nodehidden"></i>
