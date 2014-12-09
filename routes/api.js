@@ -385,8 +385,11 @@ exports.post_reply = function(req, res, next) {
 
 	//return;
 
-	var new_files = (req.query.files == [""]) ? [] : req.query.files;
-	var new_files_num=(new_files[new_files.length-1]==undefined) ? 1 : new_files.length;
+	var new_files = (req.query.files == []) ? [] : req.query.files;
+	if (new_files==undefined)new_files=[]
+	else {
+		var new_files_num=(new_files[new_files.length-1]==undefined) ? 1 : new_files.length;
+	}
 	//TODO: fix multifile upload
 	var instance_post = new Model_post({
 		thread_id: req.query.thread_id,			// Board posted on
