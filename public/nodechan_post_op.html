@@ -29,7 +29,6 @@
 	<div class="files" ng-if="thread.op.files.length >= 0">
 		<nodechan-file ng-repeat="file in thread.op.files" ng-init="op_post=true"></nodechan-file>
 	</div>
-
 	<div class="body" ng-bind-html="parse_post_body(thread.op.true_id, thread.op.body)"></div>
 	<div class="post_modified"></div>
 	<br>
