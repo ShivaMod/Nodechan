@@ -12,9 +12,8 @@
 	&nbsp;
 	<time datetime="{{thread.op.date}}" data-local="true">{{ thread.op.date | date : 'yy/M/d'}} <i class="icon ion-minus-round"></i> {{ thread.op.date | date : 'h:mm a'}}</time>
 	<i class="icon ion-minus-round"></i>
-	<a class="post_no" ng-click="set_location_thread(thread.op.true_id)"> Thread No. #{{thread.op.true_id}}</a>
+	<a class="post_no" ng-click="set_location_thread(thread.op.true_id)"> Thread #{{thread.op.true_id}}</a>
 	<i class="icon ion-quote"></i>
-	<i class="icon ion-link"></i>
 	<!-- add to the above tag:
 	<a class="post_no" id="post_no_{{thread.op.true_id}}" href="/#/?t={{thread.op.true_id}}">No.</a>
 
