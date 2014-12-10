@@ -27,7 +27,9 @@
 
 		<nodechan-header></nodechan-header>
 
-		<i ng-style="{'opacity':(done_loading ? '0' : '1')}" class='loadable spin icon ion-refreshing' style="font-size: 50pt; position: fixed; top: 50%; left: 50%;"></i>
+		<div style="position: fixed; top: 50%; left: 50%;">
+		<i ng-style="{'opacity':(done_loading ? '0' : '1')}" class='loadable spin icon ion-refreshing' style="font-size: 50pt; position: relative; top: -30px; left: -30px;"></i>
+		</div>
 
 		<ng-view onload></ng-view>
 
