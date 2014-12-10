@@ -366,6 +366,7 @@
 	chantroll.load_board = function($rootScope, $http){
 		console.log("something is HAPPENING with the board, fetching");
 		console.log($rootScope.get_sub());
+		$rootScope.done_loading=false;
 
 		var config = {
 			params: {
@@ -401,6 +402,8 @@
 		console.log("a FULL THREAD is loading!");
 		console.log("but first, read params!");
 		console.log($route.current.params.thread_id);
+		$rootScope.done_loading=false;
+
 		return $http.get('/json/thread.'+$route.current.params.thread_id)
 			.success(function(data){
 				console.log("full thread received");

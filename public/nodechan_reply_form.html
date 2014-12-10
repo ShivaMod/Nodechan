@@ -1,5 +1,5 @@
 
-<div style="right: 10px; bottom: 0px; position: fixed; background: #272727;" ng-init="post_form={'files':[''], 'name':get_cookie_name()}">
+<div style="right: 10px; bottom: 0px; position: fixed; background: #272727;" ng-init="post_form={'files':[''], 'name':get_cookie_name()}" class="loadable" ng-style="{'opacity':(done_loading ? '1' : '0')}">
 
 	<form name="post_form_tag" style="display: inline-block; margin-bottom: 20px;" ng-submit="submitData(post_form, sub_result)" ng-hide="post_form.nodehidden">
 		<!--
@@ -55,5 +55,5 @@
 		-->
 		<button type="submit" style="margin-left: 0px; bottom: 0px; position: fixed;" ng-disabled="(post.$invalid || post_form.sending)" class="text-center" ng-hide="post_form.nodehidden">Create New {{(viewmode=='thread') ? 'Reply' : 'Thread'}}</button>
 	</form>
-</div>
 	<i ng-class="'hide-link clickable icon '+(post_form.nodehidden ? 'ion-plus-circled' : 'ion-minus-circled')" style="right: 20px; bottom: 0px; position: fixed;" ng-click="post_form.nodehidden = !post_form.nodehidden"></i>
+</div>
