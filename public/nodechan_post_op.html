@@ -7,7 +7,8 @@
 	<label for="delete_{{thread.op.true_id}}">
 	</label>
 	-->
-	<span class="subject">{{thread.op.subject}}</span> -
+	<span class="subject">{{thread.op.subject}}</span>
+	<span ng-if="thread.op.subject!=''"> -</span>
 	<span class="name">{{(thread.op.name) ? thread.op.name : "Anonymous"}}</span>
 	&nbsp;
 	<time datetime="{{thread.op.date}}" data-local="true">{{ thread.op.date | date : 'yy/M/d'}} <i class="icon ion-minus-round"></i> {{ thread.op.date | date : 'h:mm a'}}</time>

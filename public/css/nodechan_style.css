@@ -231,15 +231,13 @@ img.banner,img.board_image {
 }
 
 .post-image {
-	display: block;
 	width:150px;
-	margin: 0px 10px 5px 5px;
+	margin: 0px 10px 10px 0px;
 	border: none;
 }
 
 .full-image {
 	float: left;
-	padding: 5px;
 	margin: 0 0 0 0;
 	max-height: 95%;
 	max-width: 98%;
@@ -247,7 +245,7 @@ img.banner,img.board_image {
 
 div.post .post-image {
 	padding: 0px;
-	margin: 0 10px 0 0;
+	margin: 0 10 10 0;
 }
 
 div.post img.icon {

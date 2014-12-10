@@ -138,7 +138,7 @@
 		}
 
 		$rootScope.set_location_thread_and_post = function(requested_thread, requested_post){
-			return $location.host()+requested_thread+'#post_no_'+requested_post;
+			return '/#/'+requested_thread+'#post_no_'+requested_post;
 		}
 
 		$rootScope.set_viewmode = function(new_view){
