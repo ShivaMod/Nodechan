@@ -41,6 +41,12 @@ boardlist
 	<div style="float: right;">
 
 		<i ng-init="expand_all=false" ng-click="expand_all=!expand_all" class="clickable icon ion-arrow-resize" id="expand-all-images" ng-hide="viewmode=='catalog'"></i>
+
+		<i class="icon ion-star" style="color:grey"></i>
+
+		<a ng-href="{{(viewmode=='catalog') ? '/#/' : '/#/catalog'}}">
+		<i ng-class="'clickable icon ' + ((viewmode=='catalog') ? 'ion-navicon' : 'ion-grid')"></i>
+		</a>
 		
 		<a ng-click="gotoHash('footer_position')">
 			<i id="ctrl-jump-bottom" class="clickable icon ion-arrow-down-a"></i></a>

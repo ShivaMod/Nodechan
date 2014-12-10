@@ -16,7 +16,7 @@
 			<time datetime="{{post.date}}" data-local="true">{{ post.date | date : 'yy/M/d'}} <i class="icon ion-minus-round"></i> {{ post.date | date : 'h:mm a'}}</time>
 		</label>
 		<i class="icon ion-minus-round"></i>
-		<a class="post_no" ng-href="{{set_location_thread_and_post(thread.op.true_id, post.true_id)}}">
+		<a class="post_no clickable" ng-href="{{set_location_thread_and_post(thread.op.true_id, post.true_id)}}">
 		<!--
 		<a class="post_no" id="post_no_{{post.true_id}}" ng-href="'/#'+{{post.true_id}}+'/?t='+{{thread.true_id}}">
 

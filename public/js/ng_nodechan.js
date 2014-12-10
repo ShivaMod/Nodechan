@@ -26,6 +26,7 @@
 		$scope.viewmode='';
 
 		$rootScope.done_loading=false;
+		$rootScope.nothreadshere=false;
 		$rootScope.threads=[];
 
 		$rootScope.cookie_hidden={'threads':{}, 'posts':{}};
@@ -380,10 +381,20 @@
 
 				$rootScope.threads=root_data;
 				$rootScope.viewmode='board';
+				if (root_data.length==0){
+					console.log("NO THREADS!");
+					$rootScope.nothreadshere=true;
+					$rootScope.done_loading=true;
+				}
 
 				return "success";
 			}
-		);
+		)
+		.error(function(data, status, headers, config) {
+			console.log("Behold, an ERROR has occurred in this get request!");
+			// called asynchronously if an error occurs
+			// or server returns response with an error status.
+		});
 	};
 
 	chantroll.load_thread = function($rootScope, $route, $http, $location){
