@@ -25,6 +25,7 @@
 		$scope.viewmode_last='';
 		$scope.viewmode='';
 
+		$rootScope.done_loading=false;
 		$rootScope.threads=[];
 
 		$rootScope.cookie_hidden={'threads':{}, 'posts':{}};
@@ -532,7 +533,7 @@
 				console.log($scope.thread);
 				if($scope.thread.posts.length==0){
 					console.log("STILL HABBENING");
-					$rootScope.done_loading=1;
+					$rootScope.done_loading=true;
 				}
 			}]
 		};

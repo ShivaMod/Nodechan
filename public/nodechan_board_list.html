@@ -1,15 +1,15 @@
 
 <!-- Viewmode if we're browsing the whole board regularly -->
-<div ng-style="{'opacity':(done_loading ? '1' : '0')}" class="loadable">
+<div style="opacity:0" ng-style="{'opacity':(done_loading ? '1' : '0')}" class="loadable">
 
-	<div on-finish-render class="thread" data-board="{{board_id}}" id="thread_{{thread.op.true_id}}" ng-repeat-start="thread in threads">
+	<div class="thread" data-board="{{board_id}}" id="thread_{{thread.op.true_id}}" ng-repeat-start="thread in threads">
 		<!-- TODO::^Riskyyyyyy 
 		ng-init="load_thread_preview(thread.op.true_id)"
 		-->
 		
 		<post-op></post-op>
 		
-		<post-reply ng-if="thread.posts != []" ng-repeat="post in thread.posts" ng-hide="thread.nodehidden"></post-reply>
+		<post-reply on-finish-render ng-if="thread.posts != []" ng-repeat="post in thread.posts" ng-hide="thread.nodehidden"></post-reply>
 	</div>
 	<hr ng-repeat-end>
 	<!--
