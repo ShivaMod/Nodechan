@@ -1,6 +1,6 @@
 
 <!-- Viewmode if we're browsing the board catalog -->
-<div ng-style="{'opacity':(done_loading ? '1' : '0')}" class="loadable">
+<div style="opacity:0" ng-style="{'opacity':(done_loading ? '1' : '0')}" class="loadable">
 	<div on-finish-render class="mix theme-catalog" data-reply="{{thread.op.replies}}" data-bump="1416788920" data-time="1414297858" ng-repeat="thread in threads">
 		<div class="thread grid-li grid-size-small" ng-click="set_location('/'+thread.op.true_id)">
 			<a ng-init="file_meta=parse_Link(thread.op.files[0])">

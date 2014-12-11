@@ -243,7 +243,12 @@ exports.thread = function(req, res, next) {
 	console.log("request is for thread:", req.params.thread_id);
 	var curthread_id=req.params.thread_id;
 
-	Model_thread_op.findOne({true_id:curthread_id}).exec(function (err, db_thread) {
+	//console.log("request is:");
+	//console.log(req.params);
+	//console.log(req.params);
+	var find_obj={true_id:curthread_id};
+
+	Model_thread_op.findOne(find_obj).exec(function (err, db_thread) {
 		if (err) {
 			console.error(err);
 			done(req, res, err);
@@ -252,7 +257,13 @@ exports.thread = function(req, res, next) {
 			console.log(db_thread);
 			var new_board=[]
 			
-			var query = Model_post.find({ thread_id: curthread_id }).sort({date: 'ascending'}).exec(function(err_inner, db_posts){
+			var find_reply_obj = { thread_id: curthread_id };
+
+			if (req.query.since_date) find_reply_obj.date={$gte: new Date(Date.parse(req.query.since_date))};
+			console.log("Find query is:");
+			console.log(find_reply_obj);
+
+			var query = Model_post.find(find_reply_obj).sort({date: 'ascending'}).exec(function(err_inner, db_posts){
 				if (err) {
 					console.error(err);
 					done(req, res, err_inner);

@@ -40,7 +40,13 @@ boardlist
 
 	<div style="float: right;">
 
+		<span ng-if="viewmode=='thread'" ng-controller="ThreadUpdater" ng-init="start_update_timer()" style="inherit">
+			[<a class="clickable" id="update_thread" ng-click="resetTimer()">Update</a>] <!--(<input id="auto_update_status" checked="" type="checkbox"> Auto) --><span id="update_secs">{{blood_1}}</span>
+		</span>
+
 		<i ng-init="expand_all=false" ng-click="expand_all=!expand_all" class="clickable icon ion-arrow-resize" id="expand-all-images" ng-hide="viewmode=='catalog'"></i>
+
+
 
 		<i class="icon ion-star" style="color:grey"></i>
 
