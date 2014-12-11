@@ -670,37 +670,6 @@
 						controllerAs:'nodechanFileController'
 				};
 		})
-		.directive('valmedia', function() {
-				return {
-						require: 'ngModel',
-						link: function(scope, elm, attrs, ctrl) {
-								ctrl.$validators.valmedia = function(modelValue, viewValue) {
-										var IMAGE_REGEXP = /^https?:\/\/(?:[a-z0-9\-]+\.)+[a-z]{2,6}(?:\/[^\/#?]+)+\.(?:jpe?g|gif|png|bmp)‌​$/i;
-										var YOUTUBE_REGEXP = /^.*((youtu.be\/)|(v\/)|(\/u\/\w\/)|(embed\/)|(watch\?))\??v?=?([^#\&\?]*).*/i;
-										if (ctrl.$isEmpty(modelValue)) {
-												console.log("Valid for EMPTY");
-												// consider empty models to be valid
-												return true;
-										}
-
-										if (IMAGE_REGEXP.test(viewValue)) {
-												console.log("Valid for IMAGE LINK");
-												// it is a valid image url
-												return true;
-										}
-
-										if (YOUTUBE_REGEXP.test(viewValue)) {
-												console.log("Valid for YOUTUBE LINK");
-												// it is valid youtube link
-												return true;
-										}
-
-										// it is invalid
-										return false;
-								};
-						}
-				};
-		})
 		.directive("replyForm", function() {
 				return {
 						restrict: 'E',
