@@ -29,7 +29,7 @@
 	<div class="files" ng-if="thread.op.files.length >= 0">
 		<nodechan-file ng-repeat="file in thread.op.files" ng-init="op_post=true"></nodechan-file>
 	</div>
-	<div class="body" ng-bind-html="parse_post_body(thread.op.true_id, thread.op.body)"></div>
+	<div class="body" ng-bind-html="parse_post_body(thread.op.true_id, thread.op.body) | chan_trust_html"></div>
 	<div class="post_modified"></div>
 	<br>
 	<a class="clickable" ng-click="set_location_thread(thread.op.true_id)" ng-if="viewmode=='board'"><span ng-if="thread.op.total_replies > preview_reply_num">{{thread.op.total_replies - preview_reply_num}} hidden replies - </span>View Thread <i class="icon ion-chatboxes"></i></a>

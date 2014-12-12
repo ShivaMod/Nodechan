@@ -66,6 +66,7 @@
 								.replace(/(>>+)((?!op).*)(\n?)/gi, "<span class='quote'>&zwnj;>&zwnj;>$2</span><br>")
 								.replace(/(\n\n+)/g, '<br><br>')
 								.replace(/\n/g, '<br>')
+								.replace(/\[poll\](\s*?)http:\/\/www.strawpoll.me\/(.*?)(\s*?)\[\/poll\]/gmi, '<iframe src="http://strawpoll.me/embed_1/$2" style="width: 600px; height: 390px; border: 0;">Loading strawpoll...$1</iframe>')
 								.replace(/\[b\](.*?)\[\/b\]/gmi, '<strong>$1</strong>')
 								.replace(/\[i\](.*?)\[\/i\]/gmi, '<em>$1</em>');
 				}
@@ -647,7 +648,7 @@
 						}]
 				};
 		})
-		app.filter("chan_trust_html", ['$sce', function($sce) {
+		.filter("chan_trust_html", ['$sce', function($sce) {
 				return function(htmlCode){
 						return $sce.trustAsHtml(htmlCode);
 				}
