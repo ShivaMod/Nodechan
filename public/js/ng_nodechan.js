@@ -303,12 +303,22 @@
 								//to: http://player.vimeo.com/video/63534746
 								console.log("parsed link looks like:");
 								console.log(temp_url);
+						} else if (_.str.contains(mytext, '.bandcamp.com')) {
+
+								file_meta.link_type='bandcamp';
+								file_meta.embed=true;
+								console.log(mytext);
+								temp_url = mytext.replace(/(?:http:\/\/|https:\/\/)?(?:www\.)?(.+)?:\.bandcamp\.com\/(.+)/g, '	https://$1.bandcamp.com/$2#trackInfo');
+								//temp_url = mytext.replace(/(?:http:\/\/|https:\/\/)?(?:www\.)?(.+)(?:\.bandcamp\.com)\/(?:album)\/(.+)/g, '<iframe style="border: 0; width: 350px; height: 350px;" src="https://bandcamp.com/EmbeddedPlayer/album=2256255837/size=large/bgcol=ffffff/linkcol=0687f5/minimal=true/transparent=true/" seamless><a href="http://$1.bandcamp.com/album/$2">Here\'s a COOL ALBUM</a></iframe>$1');
+								file_meta.link = $sce.trustAsResourceUrl(temp_url);
+								//rom: https://vimeo.com/63534746 
+								//to: http://player.vimeo.com/video/63534746
 						} else if (_.str.contains(mytext, 'soundcloud.com')) {
 
 								file_meta.link_type='soundcloud';
 								file_meta.embed=true;
 								console.log(mytext);
-								temp_url = mytext.replace(/(?:http:\/\/|https:\/\/)?(?:www\.)?(?:vimeo\.com)\/(?:watch\?v=)?(.+)/g, 'https://www.youtube.com/embed/$1');
+								temp_url = mytext.replace(/(?:http:\/\/|https:\/\/)?(?:www\.)?(?:soundcloud\.com)\/(.+)/g, 'https://soundcloud.com/$1');
 								file_meta.link = $sce.trustAsResourceUrl(temp_url);
 								//rom: https://vimeo.com/63534746 
 								//to: http://player.vimeo.com/video/63534746
