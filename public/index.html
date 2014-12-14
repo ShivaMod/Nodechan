@@ -23,12 +23,26 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	-->
 
+		<nodechan-options></nodechan-options>
+
 		<nodechan-crown></nodechan-crown>
 
 		<nodechan-header></nodechan-header>
 
 		<div style="position: fixed; top: 50%; left: 50%;">
-			<i ng-style="{'opacity':(done_loading ? '0' : '1')}" class='loadable spin icon ion-refreshing' style="font-size: 50pt; position: relative; top: -30px; left: -30px;"></i>
+
+			<svg ng-style="{'opacity':(done_loading ? '0' : '1')}" class='loadable' width="70" height="20">
+			  <circle cx="10" cy="10" r="0" style="fill: #FFFFFF;">
+			    <animate attributeName="r" from="0" to="10" values="0;0;5;0;0" dur="1000ms" repeatCount="indefinite"/>
+			  </circle>
+			  <circle cx="35" cy="10" r="0" style="fill: #FFFFFF;">
+			    <animate attributeName="r" from="0" to="10" values="0;0;5;0;0" begin="200ms" dur="1000ms" repeatCount="indefinite"/>
+			  </circle>
+			  <circle cx="60" cy="10" r="0" style="fill: #FFFFFF;">
+			    <animate attributeName="r" from="0" to="10" values="0;0;5;0;0" begin="400ms" dur="1000ms" repeatCount="indefinite"/>
+			  </circle>
+			</svg>
+
 			<p ng-hide="!nothreadshere" style="opacity:0; position:relative; left:-130px;" ng-style="{'opacity':(done_loading ? '1' : '0')}" class="loadable">Sorry, there's no threads on this board!</p>
 		</div>
 

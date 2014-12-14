@@ -1,5 +1,5 @@
 
-<div class="post reply" ng-init="post.nodehidden = false" id="post_no_{{post.true_id}}">
+<div ng-if="post!=undefined" class="post reply" ng-init="post.nodehidden = false" id="post_no_{{post.true_id}}">
 	<!-- op post should be different, as per convention, with class "post op" -->
 	<p class="intro post_anchor" id="{{post.true_id}}">
 		<a ></a>

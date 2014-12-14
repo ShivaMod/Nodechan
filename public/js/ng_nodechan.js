@@ -59,6 +59,7 @@
 				$rootScope.parse_post_body = function(thread_id, post_body){
 				//var temp_url = mytext.replace(/(?:http:\/\/|https:\/\/)?(?:www\.)?(?:youtube\.com|youtu\.be)\/(?:watch\?v=)?(.+)/g, 'https://www.youtube.com/embed/$1');
 						//return '<p class="body">'+post_body.replace(/\n/g, '<br>')+'</p>';
+						if (post_body==undefined) return;
 						return post_body
 								//.replace(/(?:\>\>op)/gi, '<a href="#op_'+thread_id+'">>>op</a> ')
 								.replace(/<(.*?)iframe(.*?)>/ig, 'I\'m a skiddy and I tried to insert an iframe but phailed')
@@ -468,6 +469,7 @@
 								console.log(data);
 
 								$rootScope.threads=[data];
+								$rootScope.nothreadshere=false;
 								//^This is done for a good reason
 								//this.op=data.op;
 								//this.posts=data.posts;
