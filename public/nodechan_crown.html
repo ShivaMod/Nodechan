@@ -59,7 +59,9 @@ boardlist
 
 		<i ng-click="gotoHash('header_position')" style="text-align: center; margin-left:auto; margin-right:auto;" id="ctrl-jump-top" class="clickable icon ion-arrow-up-a"></i>
 
-		[<a title="Options" style="color:grey">Options</a>]
+		<div ng-show="show_options">
+			[<a title="Options" style="color:grey" ng-click="toggle_options()">Options</a>]
+		</div>
 		
 	</div>
 	<span class="favorite-boards"></span>
