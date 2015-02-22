@@ -11,7 +11,7 @@
 	<span ng-if="thread.op.subject!=''"> -</span>
 	<span class="name">{{(thread.op.name) ? thread.op.name : "Anonymous"}}</span>
 	&nbsp;
-	<time datetime="{{thread.op.date}}" data-local="true">{{ thread.op.date | date : 'yy/M/d'}} <i class="icon ion-minus-round"></i> {{ thread.op.date | date : 'h:mm a'}}</time>
+	<time datetime="{{thread.op.date}}" data-local="true">{{ thread.op.date | date : 'yyyy/M/d'}} <i class="icon ion-minus-round"></i> {{ thread.op.date | date : 'h:mm a'}}</time>
 	<i class="icon ion-minus-round"></i>
 	<a class="post_no clickable" ng-click="set_location_thread(thread.op.true_id)"> Thread #{{thread.op.true_id}}</a>
 	<i class="icon ion-quote"></i>
