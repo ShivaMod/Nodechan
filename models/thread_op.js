@@ -5,17 +5,17 @@ var schema_thread_op = new mongoose.Schema({
 	true_id: Number,					// Post ID
 	board: String,						// Board posted on
 	date: Date,						// Post Date
-	
-	last_reply: Date,					// Last reply Date
-	total_replies: { type: Number, default: 0 },		// Total posts in thread
-	total_files: { type: Number, default: 0 },		// Total media linked in thread
+
+	subject: String,					// Poster IP
+	body: String,						// Post body
 
 	author: String,						// Poster IP
 	name: String,						// Poster Name
 	files: Array,						// Post Media
-
-	subject: String,					// Poster IP
-	body: String						// Post body
+	
+	last_reply: Date,					// Last reply Date
+	total_replies: { type: Number, default: 0 },		// Total posts in thread
+	total_files: { type: Number, default: 0 }		// Total media linked in thread
 });
 
 module.exports = schema_thread_op;

@@ -6,12 +6,12 @@ var schema_post = new mongoose.Schema({
 	thread_id: Number,					// Thread ID
 	date: Date,						// Post Date
 
+	subject: String,					// Poster IP
+	body: String,						// Post body
+
 	author: String,						// Poster IP
 	name: String,						// Poster Name
-	files: Array,						// Post Media
-
-	subject: String,					// Poster IP
-	body: String						// Post body
+	files: Array						// Post Media
 });
 
 module.exports = schema_post;
