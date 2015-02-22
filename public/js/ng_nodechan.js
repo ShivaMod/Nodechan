@@ -473,6 +473,7 @@
 
 		chantroll.load_thread = function($rootScope, $route, $http, $location){
 				console.log("a FULL THREAD is loading!");
+				$rootScope.update_url_derived_data();
 				console.log("but first, read params!");
 				console.log($route.current.params.thread_id);
 				$rootScope.done_loading=false;
@@ -513,7 +514,7 @@
 
 				//
 				$routeProvider
-				.when('/catalog', {
+				.when('/:board_id/catalog', {
 						templateUrl: 'nodechan_board_catalog.html',
 						controller: 'BoardCatalogController',
 						controllerAs: 'board',

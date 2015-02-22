@@ -7,9 +7,9 @@
 <header id="header_position">
 	<br>
 	<h1>
-		<a ng-href="{{(viewmode=='catalog') ? '/#/' : '/#/catalog'}}">
+		<a ng-href="{{(viewmode=='catalog') ? '/#/' : '/#/'+curboard_id+'/catalog'}}">
 		<i ng-class="'clickable icon ' + ((viewmode=='catalog') ? 'ion-navicon' : 'ion-grid')"></i></a>
-		/ <a ng-href="/#/{{get_board()}}" class="clickable">{{get_board()}}</a> /
+		/ <a ng-href="/#/{{curboard_id}}" class="clickable">{{curboard_id}}</a> /
 		<i class=" icon ion-star" style="color:grey"></i>
 		<a></a>
 	</h1>
