@@ -748,7 +748,7 @@
 						}]
 				};
 		})
-		.directive("modFooter", function() {
+		.directive("nodechanFooter", function() {
 				return {
 						restrict: 'E',
 						templateUrl: "nodechan_footer.html",
