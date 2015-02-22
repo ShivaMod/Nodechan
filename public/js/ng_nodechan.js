@@ -27,6 +27,7 @@
 
 				$rootScope.last_update_date = new Date();
 				$rootScope.done_loading=false;
+				$rootScope.show_options=false;
 				$rootScope.nothreadshere=false;
 				$rootScope.threads=[];
 
@@ -39,6 +40,12 @@
 						console.log('finished rendering!');
 						$rootScope.done_loading=true;
 				});
+
+				$rootScope.toggle_options=function(){
+					$rootScope.show_options=!$rootScope.show_options;
+					console.log($rootScope.show_options);
+					return $rootScope.show_options;
+				}
 
 				$rootScope.get_dom=function(){
 						return $location.host().replace(/(http:\/\/)?(([^.]+)\.)?(vchan|vectorchan)\.com/, '$4');
@@ -576,6 +583,7 @@
 					//$interval.cancel(stop);
 
 					console.log("timer has counted down");
+					$rootScope.last_update_date = new Date();
 
 					$rootScope.refresh_thread();
 					$scope.blood_1 = 30;
