@@ -20,10 +20,12 @@
 	This break fixes things for a single posted image
 	-->
 
-	<div ng-model="thisfile.class" class="clickable" style="float: left; " ng-click="(file_meta.embed_hide ? reveal_embed() : (expandme=!expandme))" ng-init="big_embeds=true">
+	<div ng-model="thisfile.class" class="clickable" style="float: left; " ng-click="(file_meta.embed_hide ? reveal_embed() : (expandme=!expandme))" ng-init="big_embeds=true" ng-class="thisfile.class">
 		<span ng-hide="!debug">{{thisfile.class = (expand_all || expandme ? 'full-image' : (op_post ? 'op-image' : 'post-image'))}}</span>
 
-		<img ng-if='!file_meta.embed' ng-src="{{file}}" ng-class="thisfile.class"></img>
+		<div ng-if='!file_meta.embed'>
+			<img ng-src="{{file}}" ng-class="thisfile.class"></img>
+		</div>
 
 		<div ng-if="file_meta.link_type=='youtube'">
 			<div ng-if="file_meta.embed && file_meta.embed_hide"><img ng-class="board_id+' thread-image '+(op_post ? 'op-image' : 'post-image')" ng-src="{{parse_youtube_preview(file)}}"></img>
