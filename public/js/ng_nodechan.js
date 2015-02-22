@@ -12,13 +12,6 @@
 		var app = angular.module('ng_nodechan', ['ngRoute', 'ngCookies', 'ngSanitize', 'underscore', 'LocalStorageModule']);
 		var chantroll = app.controller('ChanController', ["$location", "$cookies", "$cookieStore", "localStorageService", '$sce', "$http", "$rootScope", "$scope", "$route", "$routeParams", function($location, $cookies, $cookieStore, localStorageService, $sce, $http, $rootScope, $scope, $route, $routeParams) {
 
-				$scope.live_host="nodechan.herokuapp.com";
-				$scope.page_location=$location.absUrl();
-				$scope.page_host = $location.host();
-				$scope.page_jquery = $location.search();
-				$scope.page_hash = $location.hash();
-				$scope.archived=($scope.live_host != $scope.page_host);
-
 				$scope.board_name="Someday we'll sail away";
 				$rootScope.preview_reply_num = 3;
 				$scope.debug=false;
@@ -45,6 +38,19 @@
 					$rootScope.show_options=!$rootScope.show_options;
 					console.log($rootScope.show_options);
 					return $rootScope.show_options;
+				}
+
+				$rootScope.update_url_derived_data=function(){
+					$scope.page_location=$location.absUrl();
+					$rootScope.curboard_id = $rootScope.get_board();
+					//^Make all get_board() calls obsolete by referencing this instead
+					$scope.page_host = $location.host();
+					$scope.page_jquery = $location.search();
+					$scope.page_hash = $location.hash();
+				}
+
+				$rootScope.get_board=function(){
+						return $scope.page_location.replace(/(.*#\/)([a-z]*)(\/?.*)/, '$2');
 				}
 
 				$rootScope.get_dom=function(){
@@ -104,12 +110,12 @@
 
 				$rootScope.refresh_boardlist = function(){
 						//$location.url('/');
-						console.log("something is HAPPENING with the board");
-						console.log($rootScope.get_dom());
+						console.log("REFRESHING the board");
+						console.log($rootScope.get_board());
 
 						var config = {
 								params: {
-										board_id: get_dom(),
+										board_id: get_board(),
 										since_date: undefined
 								}
 						};
@@ -143,7 +149,7 @@
 
 					var config = {
 							params: {
-									board_id: $rootScope.get_dom(),
+									board_id: $rootScope.get_board(),
 									since_date: $rootScope.last_update_date
 							}
 					};
@@ -182,7 +188,7 @@
 				}
 
 				$rootScope.set_location_thread = function(requested_thread){
-						$rootScope.set_location('/'+requested_thread);
+						$rootScope.set_location('/'+$rootScope.curboard_id+'/'+requested_thread);
 						//$location.hash('op_'+requested_thread);
 						//something's wrong with jumping to the correct id
 				}
@@ -430,12 +436,13 @@
 
 		chantroll.load_board = function($rootScope, $http){
 				console.log("something is HAPPENING with the board, fetching");
-				console.log($rootScope.get_sub());
+				$rootScope.update_url_derived_data();
+				console.log($rootScope.get_board());
 				$rootScope.done_loading=false;
 
 				var config = {
 						params: {
-								board_id: $rootScope.get_sub(),
+								board_id: $rootScope.get_board(),
 								since_date: undefined
 						}
 				};
@@ -513,7 +520,7 @@
 								board_list: chantroll.load_board
 						}
 				})
-				.when('/:thread_id*', {
+				.when('/:board_id/:thread_id*', {
 						templateUrl: 'nodechan_thread.html',
 						controller: 'FullThreadController',
 						controllerAs: 'thread',
@@ -521,7 +528,7 @@
 								full_thread: chantroll.load_thread
 						}
 				})
-				.when('/', {
+				.when('/:board_id', {
 						templateUrl: 'nodechan_board_list.html',
 						controller: 'BoardListController',
 						controllerAs: 'board',
