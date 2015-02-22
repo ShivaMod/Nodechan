@@ -592,9 +592,9 @@
 					//$interval.cancel(stop);
 
 					console.log("timer has counted down");
-					$rootScope.last_update_date = new Date();
 
 					$rootScope.refresh_thread();
+					$rootScope.last_update_date = new Date();
 					$scope.blood_1 = 30;
 					//stop = undefined;
 				}
