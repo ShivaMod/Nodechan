@@ -396,7 +396,7 @@
 								var config = {
 										params: {
 												name: post_form.name,
-												board_id: $rootScope.get_sub(),
+												board_id: $rootScope.get_board(),
 												subject: post_form.subject,
 												files: post_files_trimmed,
 												body: post_form.body,

@@ -260,8 +260,8 @@ exports.thread = function(req, res, next) {
 			var find_reply_obj = { thread_id: curthread_id };
 
 			if (req.query.since_date) find_reply_obj.date={$gte: new Date(Date.parse(req.query.since_date))};
-			console.log("Find query is:");
-			console.log(find_reply_obj);
+			//console.log("Find query is:");
+			//console.log(find_reply_obj);
 
 			var query = Model_post.find(find_reply_obj).sort({date: 'ascending'}).exec(function(err_inner, db_posts){
 				if (err) {
@@ -303,7 +303,7 @@ exports.preview = function(req, res, next) {
 		if (db_posts == undefined) db_posts=[];
 		//else if (db_posts[0]== undefined) db_posts=[];
 
-		console.log(db_posts);
+		//console.log(db_posts);
 		done(req, res, db_posts);
 	});
 	query.onReject(function (reason) {
