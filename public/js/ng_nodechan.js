@@ -439,6 +439,7 @@
 				$rootScope.update_url_derived_data();
 				console.log($rootScope.get_board());
 				$rootScope.done_loading=false;
+				$rootScope.nothreadshere=false;
 
 				var config = {
 						params: {

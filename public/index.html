@@ -43,7 +43,9 @@
 			  </circle>
 			</svg>
 
-			<p ng-hide="!nothreadshere" style="opacity:0; position:relative; left:-130px;" ng-style="{'opacity':(done_loading ? '1' : '0')}" class="loadable">Sorry, there's no threads on this board!</p>
+			<!--
+			<p ng-if="nothreadshere" style="opacity:0; position:relative; left:-130px;" ng-style="{'opacity':(done_loading ? '1' : '0')}" class="loadable">Sorry, there's no threads on this board!</p>
+			-->
 		</div>
 
 		<ng-view onload></ng-view>
