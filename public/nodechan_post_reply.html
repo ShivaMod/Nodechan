@@ -36,9 +36,10 @@
 		-->
 	</p>
 	<!--
+	<span>{{post.files}}</span>
 	-->
 	<div ng-hide="post.nodehidden" class="files" ng-if="post.files.length > 0" style="display: block;">
-		<nodechan-file ng-repeat="file in post.files" style="display:inline"></nodechan-file>
+		<nodechan-file ng-repeat="file in post.files track by $index" style="display:inline"></nodechan-file>
 	</div>
 	<p ng-bind-html="parse_post_body(thread.op.true_id, post.body) | chan_trust_html" ng-style="(post.files.length > 1) ? {'position':'relative', 'clear':'both'} : {}"></p>
 	<div class="post_modified"></div>
