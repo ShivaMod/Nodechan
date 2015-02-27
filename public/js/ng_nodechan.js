@@ -438,6 +438,7 @@
 				console.log("something is HAPPENING with the board, fetching");
 				$rootScope.update_url_derived_data();
 				console.log($rootScope.get_board());
+				$rootScope.static_page=false;
 				$rootScope.done_loading=false;
 				$rootScope.nothreadshere=false;
 
@@ -476,6 +477,7 @@
 				$rootScope.update_url_derived_data();
 				console.log("but first, read params!");
 				console.log($route.current.params.thread_id);
+				$rootScope.static_page=false;
 				$rootScope.done_loading=false;
 				$rootScope.last_update_date = new Date();
 
@@ -485,8 +487,8 @@
 								console.log(data);
 
 								$rootScope.threads=[data];
-								$rootScope.nothreadshere=false;
 								//^This is done for a good reason
+								$rootScope.nothreadshere=false;
 								//this.op=data.op;
 								//this.posts=data.posts;
 								return "success";
@@ -497,6 +499,28 @@
 						// called asynchronously if an error occurs
 						// or server returns response with an error status.
 				});
+		};
+
+		chantroll.load_frontpage = function($rootScope, $route, $http, $location){
+				console.log("Switching to frontpage...");
+				$rootScope.update_url_derived_data();
+				console.log("but first, read params!");
+				console.log($route.current.params.thread_id);
+				$rootScope.static_page=true;
+				$rootScope.done_loading=true;
+				$rootScope.nothreadshere=false;
+				$rootScope.last_update_date = new Date();
+		};
+
+		chantroll.load_faq = function($rootScope, $route, $http, $location){
+				console.log("Switching to faq page...");
+				$rootScope.update_url_derived_data();
+				console.log("but first, read params!");
+				console.log($route.current.params.thread_id);
+				$rootScope.static_page=true;
+				$rootScope.done_loading=true;
+				$rootScope.nothreadshere=false;
+				$rootScope.last_update_date = new Date();
 		};
 
 		app.config(function (localStorageServiceProvider) {
@@ -514,6 +538,22 @@
 
 				//
 				$routeProvider
+				.when('/', {
+						templateUrl: 'nodechan_frontpage.html',
+						controller: 'FrontpageController',
+						controllerAs: 'frontpage',
+						resolve: {
+								board_list: chantroll.load_frontpage
+						}
+				})
+				.when('/faq.html', {
+						templateUrl: 'nodechan_faq.html',
+						controller: 'FaqpageController',
+						controllerAs: 'faqpage',
+						resolve: {
+								board_list: chantroll.load_faq
+						}
+				})
 				.when('/:board_id/catalog', {
 						templateUrl: 'nodechan_board_catalog.html',
 						controller: 'BoardCatalogController',

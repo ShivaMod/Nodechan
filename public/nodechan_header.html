@@ -4,8 +4,7 @@
 -->
 
 <!--  Chan Header  -->
-<header id="header_position">
-	<br>
+<header id="header_position" ng-if="!static_page">
 	<h1>
 		<a ng-href="{{(viewmode=='catalog') ? '/#/'+curboard_id : '/#/'+curboard_id+'/catalog'}}">
 		<i ng-class="'clickable icon ' + ((viewmode=='catalog') ? 'ion-navicon' : 'ion-grid')"></i></a>
@@ -13,8 +12,7 @@
 		<i class=" icon ion-star" style="color:grey"></i>
 		<a></a>
 	</h1>
+	<hr>
+		<div class="blotter">When creating a post, you can paste youtube and direct image links in the 'Media URL' field.</div>
+	<hr>
 </header>
-
-<hr>
-	<div class="blotter">When creating a post, you can enter youtube and vimeo links in the 'Media URL' field.</div>
-<hr>

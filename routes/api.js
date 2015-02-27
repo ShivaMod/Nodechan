@@ -176,6 +176,9 @@ exports.boardlist = function(req, res, next) {
 	//console.log(req.params);
 	var find_obj={board:req.query.board_id};
 
+	console.log("Boardlist request, for board:");
+	console.log(req.query.board_id);
+
 	if (req.query.since_date) find_obj.since_date=req.query.since_date;
 
 	console.log(req.query);
