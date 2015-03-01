@@ -73,7 +73,8 @@
 				//var temp_url = mytext.replace(/(?:http:\/\/|https:\/\/)?(?:www\.)?(?:youtube\.com|youtu\.be)\/(?:watch\?v=)?(.+)/g, 'https://www.youtube.com/embed/$1');
 						//return '<p class="body">'+post_body.replace(/\n/g, '<br>')+'</p>';
 						if (post_body==undefined) return;
-						return post_body
+
+						post_body = post_body
 								//.replace(/(?:\>\>op)/gi, '<a href="#op_'+thread_id+'">>>op</a> ')
 								.replace(/<(.*?)iframe(.*?)>/ig, 'I\'m a skiddy and I tried to insert an iframe but phailed')
 								.replace(/(>>+)([0-9]+)(\s*)/g, '<a class="clickable" href="/#/'+thread_id+'#$2">&zwnj;>&zwnj;>$2</a> $3')
@@ -84,6 +85,8 @@
 								.replace(/\[poll\](\s*?)http:\/\/www.strawpoll.me\/(.*?)(\s*?)\[\/poll\]/gmi, '<iframe src="http://strawpoll.me/embed_1/$2" style="width: 600px; height: 390px; border: 0;">Loading strawpoll...$1</iframe>')
 								.replace(/\[b\](.*?)\[\/b\]/gmi, '<strong>$1</strong>')
 								.replace(/\[i\](.*?)\[\/i\]/gmi, '<em>$1</em>');
+						post_body = Autolinker.link(post_body);
+						return post_body;
 				}
 
 				window.onbeforeunload = function (event) {
