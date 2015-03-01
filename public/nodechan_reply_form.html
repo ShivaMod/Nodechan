@@ -24,16 +24,9 @@
 		<input id="spoiler" name="spoiler" type="checkbox">
 		<label for="spoiler">Spoiler Image</label>
 		-->
-		<input type="url" id="file" name="file" placeholder="Media URL" style="width: 100%;" size="44" ng-model="post_form.files[0]" ngRequired="viewmode!='thread'"/>
-		<br>
-		<input type="url" id="file" name="file" placeholder="Media URL" style="width: 100%;" size="44" ng-model="post_form.files[1]" />
-		<br>
-		<input type="url" id="file" name="file" placeholder="Media URL" style="width: 100%;" size="44" ng-model="post_form.files[2]" />
-		<br>
-		<input type="url" id="file" name="file" placeholder="Media URL" style="width: 100%;" size="44" ng-model="post_form.files[3]" />
-		<br>
-		<input type="url" id="file" name="file" placeholder="Media URL" style="width: 100%;" size="44" ng-model="post_form.files[4]" />
-		<br>
+		<div ng-repeat="media in post_form.files track by $index">
+			<input type="url" id="file" name="file" placeholder="Media URL" style="width: 100%;" size="44" ng-model="post_form.files[$index]"/>
+		</div>
 		<!--
 
 		<input type="url" name="input" id="upload_file" ng-model="post.file.1" required ng-if="viewmode!='thread'">
@@ -54,7 +47,11 @@
 		<!--
 		<input type="hidden" name="hash" value="7ce6ace4dad906413c989282f3eb99cc64e4bb2e">
 		-->
-		<button type="submit" style="margin-left: 0px; bottom: 0px; position: fixed;" ng-disabled="(post.$invalid || post_form.sending)" class="text-center" ng-hide="post_form.nodehidden">Create New {{(viewmode=='thread') ? 'Reply' : 'Thread'}}</button>
+		<div style="bottom: 0px; position: fixed;" class="text-center">
+			<button type="submit" ng-disabled="(post_form.$invalid || post_form.sending)" ng-hide="post_form.nodehidden">Create New {{(viewmode=='thread') ? 'Reply' : 'Thread'}}</button>
+			<button type="button" ng-disabled="(post_form.files.length >= 5 || post_form.sending)" ng-hide="post_form.nodehidden" ng-click="post_form.files.push('')">Add Media Link</button>
+			<button type="button" ng-if="post_form.files.length != 1" ng-disabled="post_form.sending" ng-hide="post_form.nodehidden" ng-click="post_form.files.pop()">Remove Last Media Link</button>
+		</div>
 	</form>
 	<i ng-class="'hide-link clickable icon '+(post_form.nodehidden ? 'ion-plus-circled' : 'ion-minus-circled')" style="right: 20px; bottom: 0px; position: fixed;" ng-click="post_form.nodehidden = !post_form.nodehidden"></i>
 </div>
