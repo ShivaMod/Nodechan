@@ -47,10 +47,10 @@
 		<!--
 		<input type="hidden" name="hash" value="7ce6ace4dad906413c989282f3eb99cc64e4bb2e">
 		-->
-		<div style="bottom: 0px; position: fixed;" class="text-center">
+		<div style="bottom: 0px; position: fixed;" class="text-center" ng-init="surplus_media_links=['','','','']">
 			<button type="submit" ng-disabled="(post_form.$invalid || post_form.sending)" ng-hide="post_form.nodehidden">Create New {{(viewmode=='thread') ? 'Reply' : 'Thread'}}</button>
-			<button type="button" ng-disabled="(post_form.files.length >= 5 || post_form.sending)" ng-hide="post_form.nodehidden" ng-click="post_form.files.push('')">Add Media Link</button>
-			<button type="button" ng-if="post_form.files.length != 1" ng-disabled="post_form.sending" ng-hide="post_form.nodehidden" ng-click="post_form.files.pop()">Remove Last Media Link</button>
+			<button type="button" ng-disabled="(post_form.files.length >= 5 || post_form.sending)" ng-hide="post_form.nodehidden" ng-click="post_form.files.push(surplus_media_links.pop())">Add Media Link</button>
+			<button type="button" ng-if="post_form.files.length != 1" ng-disabled="post_form.sending" ng-hide="post_form.nodehidden" ng-click="surplus_media_links.push(post_form.files.pop())">Remove Last Media Link</button>
 		</div>
 	</form>
 	<i ng-class="'hide-link clickable icon '+(post_form.nodehidden ? 'ion-plus-circled' : 'ion-minus-circled')" style="right: 20px; bottom: 0px; position: fixed;" ng-click="post_form.nodehidden = !post_form.nodehidden"></i>
