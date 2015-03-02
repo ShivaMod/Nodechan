@@ -1,5 +1,5 @@
 
-<div style="right: 10px; bottom: 0px; position: fixed; background: #272727;" ng-init="post_form={'files':[''], 'name':get_cookie_name()}" class="loadable" ng-style="{'opacity':(done_loading ? '1' : '0')}" ng-if="!static_page">
+<div style="right:0px; bottom: 0px; position: fixed; background: #272727;" ng-init="post_form={'files':[''], 'name':get_cookie_name()}" ng-if="!static_page">
 
 	<form name="post_form_tag" style="display: inline-block; margin-bottom: 20px;" ng-submit="submitData(post_form, sub_result)" ng-hide="post_form.nodehidden">
 		<h2 style="text-align: center">New {{(viewmode=='thread') ? 'Reply' : 'Thread'}}</h2>
