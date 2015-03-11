@@ -9,7 +9,7 @@
 				return window._;
 		});
 
-		var app = angular.module('ng_nodechan', ['ngRoute', 'ngCookies', 'ngSanitize', 'underscore', 'LocalStorageModule']);
+		var app = angular.module('ng_nodechan', ['angular-loading-bar', 'ngRoute', 'ngCookies', 'ngSanitize', 'underscore', 'LocalStorageModule']);
 		var chantroll = app.controller('ChanController', ["$location", "$cookies", "$cookieStore", "localStorageService", '$sce', "$http", "$rootScope", "$scope", "$route", "$routeParams", function($location, $cookies, $cookieStore, localStorageService, $sce, $http, $rootScope, $scope, $route, $routeParams) {
 
 				$scope.board_name="Someday we'll sail away";
