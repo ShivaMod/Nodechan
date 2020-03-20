@@ -20,7 +20,7 @@
     "underscore": "^1.7.0"
   },
   "engines": {
-    "node": "0.10.x"
+    "node": "12.x"
   },
   "repository": {
     "type": "git",
